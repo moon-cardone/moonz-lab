@@ -125,6 +125,7 @@ def load_logs():
                     "title": title,
                     "tags": split_tags(meta.get("tags") or meta.get("태그")),
                     "state": check_state(meta, path, LOG_STATES),
+                    "project": meta.get("project") or meta.get("프로젝트") or "",
                     "body": md_body(body),
                     "file": path.name,
                 }
@@ -148,6 +149,7 @@ def load_projects():
             cards.append(
                 {
                     "name": name,
+                    "slug": meta.get("slug") or slugify(name),
                     "summary": summary,
                     "state": check_state(meta, path, PROJ_STATES),
                     "tools": split_tags(meta.get("tools") or meta.get("도구")),
@@ -158,6 +160,16 @@ def load_projects():
         except ContentError as e:
             errors.append(str(e))
     cards.sort(key=lambda c: (int(c["order"]) if c["order"].isdigit() else 999, c["file"]))
+    # 슬러그가 겹치면 페이지 파일이 서로 덮어써진다. 조용히 넘어가면 안 된다.
+    seen = {}
+    for c in cards:
+        if c["slug"] in seen:
+            errors.append(
+                f"{c['file']}: 주소가 '{seen[c['slug']]}' 와 겹칩니다 "
+                f"(둘 다 /project/{c['slug']}.html). 한쪽에 slug: 를 적어 구분해주세요"
+            )
+        else:
+            seen[c["slug"]] = c["file"]
     return cards, errors
 
 
@@ -186,6 +198,26 @@ def fmt_date(d):
     return f"{d.year}.{d.month:02d}.{d.day:02d}"
 
 
+def slugify(name):
+    """프로젝트 이름 → 파일명. 한글은 그대로 두고 공백·특수문자만 정리."""
+    s = name.strip().lower().replace(" ", "-")
+    s = re.sub(r"[^0-9a-z가-힣ㄱ-ㅎㅏ-ㅣ._-]", "", s)
+    return s.strip("-.") or "project"
+
+
+def logs_for(project, logs):
+    """이 프로젝트의 일지. 태그나 project 항목이 이름·슬러그와 맞으면 가져온다."""
+    keys = {project["name"].lower(), project["slug"]}
+    picked = []
+    for e in logs:
+        marks = {t.lower() for t in e["tags"]} | {slugify(t) for t in e["tags"]}
+        if e["project"]:
+            marks |= {e["project"].lower(), slugify(e["project"])}
+        if marks & keys:
+            picked.append(e)
+    return picked
+
+
 CSS = """
 *,*::before,*::after{box-sizing:border-box}
 body{margin:0;background:#fbfbfa;color:#1d1c1a;
@@ -196,14 +228,26 @@ body{margin:0;background:#fbfbfa;color:#1d1c1a;
 a{color:inherit;text-underline-offset:.2em;text-decoration-color:#c9c6c0}
 code{background:#f0efec;padding:.1em .35em;border-radius:3px;font-size:.9em}
 header{margin-bottom:5rem}
-h1{margin:0;font-size:1.5rem;font-weight:650;letter-spacing:-.02em}
+h1{margin:0;font-size:1.5rem;font-weight:650;letter-spacing:-.02em;
+  display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+header .tools{margin-top:1rem}
+footer a{text-decoration:none;color:inherit}
 .tagline{margin:.6rem 0 0;color:#6b6862;font-size:1rem}
 section{margin-bottom:4.5rem}
 h2{margin:0 0 1.75rem;font-size:.8rem;font-weight:600;letter-spacing:.13em;
   color:#8a867e;text-transform:uppercase}
 .cards{display:grid;gap:.75rem;grid-template-columns:1fr}
 @media(min-width:34rem){.cards{grid-template-columns:1fr 1fr}}
-.card{border:1px solid #e6e3dd;border-radius:10px;padding:1.15rem 1.25rem;background:#fff}
+.card{border:1px solid #e6e3dd;border-radius:10px;padding:1.15rem 1.25rem;background:#fff;
+  display:block;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s}
+a.card:hover{border-color:#bdb9b1;transform:translateY(-1px)}
+a.card:focus-visible{outline:2px solid #8a867e;outline-offset:2px}
+.count{display:inline-block;margin-top:.85rem;font-size:.75rem;color:#8a867e}
+.count::after{content:" →";color:#b5b1aa}
+.back{margin:0 0 1.5rem;font-size:.85rem}
+.back a{color:#8a867e;text-decoration:none}
+.back a:hover{color:#403d38;text-decoration:underline}
+.muted{color:#8a867e}
 .card h3{margin:0;font-size:1rem;font-weight:620;display:flex;align-items:center;
   gap:.5rem;flex-wrap:wrap}
 .card p{margin:.5rem 0 0;color:#5f5c56;font-size:.925rem;line-height:1.65}
@@ -241,79 +285,123 @@ footer{margin-top:5rem;padding-top:1.5rem;border-top:1px solid #e6e3dd;
 """
 
 
-def render(logs, projects, about):
-    def card_html(c):
-        badge = (
-            f'<span class="badge {state_class(c["state"])}">{html.escape(c["state"])}</span>'
-            if c["state"]
-            else ""
-        )
-        tools = (
-            '<ul class="tools">'
-            + "".join(f"<li>{html.escape(t)}</li>" for t in c["tools"])
-            + "</ul>"
-            if c["tools"]
-            else ""
-        )
-        summary = f"<p>{md_inline(c['summary'])}</p>" if c["summary"] else ""
-        return (
-            f'<article class="card"><h3>{html.escape(c["name"])}{badge}</h3>'
-            f"{summary}{tools}</article>"
-        )
+def card_html(c, base=""):
+    badge = (
+        f'<span class="badge {state_class(c["state"])}">{html.escape(c["state"])}</span>'
+        if c["state"]
+        else ""
+    )
+    tools = (
+        '<ul class="tools">'
+        + "".join(f"<li>{html.escape(t)}</li>" for t in c["tools"])
+        + "</ul>"
+        if c["tools"]
+        else ""
+    )
+    summary = f"<p>{md_inline(c['summary'])}</p>" if c["summary"] else ""
+    count = (
+        f'<span class="count">일지 {c["log_count"]}</span>' if c.get("log_count") else ""
+    )
+    return (
+        f'<a class="card" href="{base}project/{c["slug"]}.html">'
+        f'<h3>{html.escape(c["name"])}{badge}</h3>{summary}{tools}{count}</a>'
+    )
 
-    def log_html(e):
-        badge = (
-            f'<span class="badge {state_class(e["state"])}">{html.escape(e["state"])}</span>'
-            if e["state"]
-            else ""
-        )
-        tags = (
-            '<ul class="tags">'
-            + "".join(f"<li>{html.escape(t)}</li>" for t in e["tags"])
-            + "</ul>"
-            if e["tags"]
-            else ""
-        )
-        body = f'<div class="log-body">{e["body"]}</div>' if e["body"] else ""
-        return (
-            f'<article class="log"><div class="log-head">'
-            f'<time datetime="{e["date"].isoformat()}">{fmt_date(e["date"])}</time>'
-            f'<h3>{html.escape(e["title"])}</h3>{badge}</div>{body}{tags}</article>'
-        )
 
-    cards = "".join(card_html(c) for c in projects)
-    cards += '<article class="card empty"><span>빈 칸</span></article>'
-    entries = "".join(log_html(e) for e in logs) or "<p>아직 없습니다.</p>"
+def log_html(e, show_tags=True):
+    badge = (
+        f'<span class="badge {state_class(e["state"])}">{html.escape(e["state"])}</span>'
+        if e["state"]
+        else ""
+    )
+    tags = (
+        '<ul class="tags">'
+        + "".join(f"<li>{html.escape(t)}</li>" for t in e["tags"])
+        + "</ul>"
+        if e["tags"] and show_tags
+        else ""
+    )
+    body = f'<div class="log-body">{e["body"]}</div>' if e["body"] else ""
+    return (
+        f'<article class="log"><div class="log-head">'
+        f'<time datetime="{e["date"].isoformat()}">{fmt_date(e["date"])}</time>'
+        f'<h3>{html.escape(e["title"])}</h3>{badge}</div>{body}{tags}</article>'
+    )
 
+
+def page(title, body, desc=TAGLINE, base=""):
+    """모든 페이지가 쓰는 공통 껍데기."""
     return f"""<!doctype html>
 <html lang="ko">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{html.escape(SITE_NAME)}</title>
-<meta name="description" content="{html.escape(TAGLINE)}">
-<meta property="og:title" content="{html.escape(SITE_NAME)}">
-<meta property="og:description" content="{html.escape(TAGLINE)}">
+<title>{html.escape(title)}</title>
+<meta name="description" content="{html.escape(desc)}">
+<meta property="og:title" content="{html.escape(title)}">
+<meta property="og:description" content="{html.escape(desc)}">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:,">
 <style>{CSS}</style>
 </head>
 <body>
 <div class="wrap">
-<header>
+{body}
+<footer><a href="{base}index.html">{html.escape(SITE_NAME)}</a></footer>
+</div>
+</body>
+</html>
+"""
+
+
+def render(logs, projects, about):
+    cards = "".join(card_html(c) for c in projects)
+    cards += '<article class="card empty"><span>빈 칸</span></article>'
+    entries = "".join(log_html(e) for e in logs) or "<p>아직 없습니다.</p>"
+    body = f"""<header>
 <h1>{html.escape(SITE_NAME)}</h1>
 <p class="tagline">{html.escape(TAGLINE)}</p>
 </header>
 <main>
 <section><h2>만든 것</h2><div class="cards">{cards}</div></section>
-<section><h2>작업 일지</h2>{entries}</section>
+<section id="log"><h2>작업 일지</h2>{entries}</section>
 <section><h2>소개</h2><div class="about">{about}</div></section>
-</main>
-<footer>{html.escape(SITE_NAME)}</footer>
-</div>
-</body>
-</html>
-"""
+</main>"""
+    return page(SITE_NAME, body)
+
+
+def render_project(project, entries):
+    """프로젝트 한 개의 일지 모음 페이지."""
+    badge = (
+        f'<span class="badge {state_class(project["state"])}">'
+        f'{html.escape(project["state"])}</span>'
+        if project["state"]
+        else ""
+    )
+    tools = (
+        '<ul class="tools">'
+        + "".join(f"<li>{html.escape(t)}</li>" for t in project["tools"])
+        + "</ul>"
+        if project["tools"]
+        else ""
+    )
+    summary = f'<p class="tagline">{md_inline(project["summary"])}</p>' if project["summary"] else ""
+    logs_html = (
+        "".join(log_html(e, show_tags=False) for e in entries)
+        or '<p class="muted">아직 이 프로젝트로 쓴 일지가 없습니다.</p>'
+    )
+    body = f"""<header>
+<p class="back"><a href="../index.html#log">← 전체 일지</a></p>
+<h1>{html.escape(project["name"])}{badge}</h1>
+{summary}{tools}
+</header>
+<main><section><h2>작업 일지</h2>{logs_html}</section></main>"""
+    return page(
+        f'{project["name"]} — {SITE_NAME}',
+        body,
+        desc=project["summary"] or TAGLINE,
+        base="../",
+    )
 
 
 def main():
@@ -328,13 +416,39 @@ def main():
         print(f"\n({len(errors)}개 문제)", file=sys.stderr)
         return 1
 
+    # 카드에 일지 개수를 보여주려면 먼저 세어야 한다
+    matched = {c["slug"]: logs_for(c, logs) for c in projects}
+    for c in projects:
+        c["log_count"] = len(matched[c["slug"]])
+
     if "--check" in sys.argv:
         print(f"이상 없음 — 일지 {len(logs)}개, 프로젝트 {len(projects)}개")
+        for c in projects:
+            print(f"    {c['name']}: 일지 {c['log_count']}개  → project/{c['slug']}.html")
         return 0
 
-    out = ROOT / "index.html"
-    out.write_text(render(logs, projects, load_about()), encoding="utf-8")
-    print(f"index.html 생성 — 일지 {len(logs)}개, 프로젝트 {len(projects)}개 (+빈 칸)")
+    (ROOT / "index.html").write_text(
+        render(logs, projects, load_about()), encoding="utf-8"
+    )
+
+    proj_dir = ROOT / "project"
+    proj_dir.mkdir(exist_ok=True)
+    # 지운 프로젝트의 페이지가 남지 않게 먼저 비운다
+    keep = {f"{c['slug']}.html" for c in projects}
+    for old in proj_dir.glob("*.html"):
+        if old.name not in keep:
+            old.unlink()
+    for c in projects:
+        (proj_dir / f"{c['slug']}.html").write_text(
+            render_project(c, matched[c["slug"]]), encoding="utf-8"
+        )
+
+    print(
+        f"index.html + 프로젝트 페이지 {len(projects)}개 생성 — "
+        f"일지 {len(logs)}개, 프로젝트 {len(projects)}개 (+빈 칸)"
+    )
+    for c in projects:
+        print(f"    project/{c['slug']}.html  (일지 {c['log_count']}개)")
     return 0
 
 

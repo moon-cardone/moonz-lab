@@ -102,6 +102,75 @@ def test_empty_card_always_present():
     shutil.rmtree(tmp)
 
 
+def test_card_links_to_project_page():
+    tmp = with_content({
+        "projects/p.md": "---\nname: threads-poster\nsummary: 설명\n---\n",
+    })
+    projects, _ = build.load_projects()
+    out = build.render([], projects, "")
+    assert 'href="project/threads-poster.html"' in out, out[:400]
+    # 빈 칸 카드는 링크가 아니어야 한다
+    assert '<article class="card empty"' in out
+    shutil.rmtree(tmp)
+
+
+def test_logs_matched_by_tag():
+    """태그가 프로젝트 이름과 같으면 그 프로젝트 일지로 잡힌다."""
+    tmp = with_content({
+        "projects/p.md": "---\nname: pushdown\n---\n",
+        "log/a.md": "---\ndate: 2026-08-05\ntitle: 관련 있음\ntags: pushdown\n---\n본문",
+        "log/b.md": "---\ndate: 2026-08-04\ntitle: 관련 없음\ntags: 딴것\n---\n본문",
+        "log/c.md": "---\ndate: 2026-08-03\ntitle: project 항목으로\nproject: pushdown\n---\n본문",
+    })
+    logs, _ = build.load_logs()
+    projects, _ = build.load_projects()
+    picked = build.logs_for(projects[0], logs)
+    titles = [e["title"] for e in picked]
+    assert titles == ["관련 있음", "project 항목으로"], titles
+    shutil.rmtree(tmp)
+
+
+def test_project_page_has_back_link_and_entries():
+    tmp = with_content({
+        "projects/p.md": "---\nname: pushdown\nsummary: 설명\nstatus: 만드는 중\n---\n",
+        "log/a.md": "---\ndate: 2026-08-05\ntitle: 고친 것\ntags: pushdown\n---\n한 줄.",
+    })
+    logs, _ = build.load_logs()
+    projects, _ = build.load_projects()
+    html_out = build.render_project(projects[0], build.logs_for(projects[0], logs))
+    assert "전체 일지" in html_out, "돌아가는 링크가 있어야 함"
+    assert "../index.html" in html_out, "상위 경로로 돌아가야 함"
+    assert "고친 것" in html_out and "만드는 중" in html_out
+    shutil.rmtree(tmp)
+
+
+def test_project_page_with_no_logs():
+    """일지 0개인 프로젝트도 페이지가 깨지지 않아야 한다."""
+    tmp = with_content({"projects/p.md": "---\nname: 새것\n---\n"})
+    projects, _ = build.load_projects()
+    out = build.render_project(projects[0], [])
+    assert "아직 이 프로젝트로 쓴 일지가 없습니다" in out
+    shutil.rmtree(tmp)
+
+
+def test_duplicate_slug_reported():
+    """주소가 겹치면 페이지가 덮어써지므로 발행을 멈춰야 한다."""
+    tmp = with_content({
+        "projects/a.md": "---\nname: my app\n---\n",
+        "projects/b.md": "---\nname: My App\n---\n",
+    })
+    _, errors = build.load_projects()
+    assert len(errors) == 1 and "겹칩니다" in errors[0], errors
+    shutil.rmtree(tmp)
+
+
+def test_korean_name_slug():
+    """한글 이름도 주소가 만들어져야 한다."""
+    assert build.slugify("한 줄 육아일기") == "한-줄-육아일기"
+    assert build.slugify("threads-poster") == "threads-poster"
+    assert build.slugify("blog_auto") == "blog_auto"
+
+
 def test_section_order():
     out = build.render([], [], "<p>소개</p>")
     assert out.index("만든 것") < out.index("작업 일지") < out.index("소개"), "구역 순서"
