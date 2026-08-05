@@ -71,14 +71,32 @@ tags: pushdown        ← pushdown 프로젝트 페이지에 들어감
 project: 한 줄 육아일기  ← 이름에 띄어쓰기가 있을 때 이 항목이 편하다
 ```
 
-이름이 한글이면 주소도 한글이 되어 공유할 때 지저분해진다. `slug:` 를 직접 적어주면 된다:
+이름이 한글이면 주소도 한글이 되어 공유할 때 지저분해진다. **한글 이름에는 `slug:` 를 꼭 적는다:**
 
 ```markdown
-name: 한 줄 육아일기
-slug: one-line-diary   → project/one-line-diary.html
+name: 밤새 도는 손
+slug: threads-poster   → project/threads-poster.html
 ```
 
 두 프로젝트의 주소가 겹치면 발행이 멈춘다. 한쪽에 `slug:` 를 적어 구분한다.
+
+### 이름을 바꿀 때
+
+표시 이름만 바꾸고 `slug:` 는 그대로 두면 주소가 안 변해서 링크가 안 깨진다.
+
+예전 태그로 쓴 일지가 떨어져 나가지 않게 `aliases:` 에 옛 이름을 적어둔다:
+
+```markdown
+name: 밤새 도는 손
+slug: threads-poster
+aliases: threads-poster, 스레드 자동 포스팅
+```
+
+`_` 와 `-` 는 알아서 같은 걸로 본다 (`blog_auto` 태그 → `blog-auto` 프로젝트에 붙음).
+마크다운 파일명도 자동으로 별칭에 들어간다.
+
+**이름을 바꾼 뒤에는 `python build.py --check` 로 일지 개수가 0이 된 프로젝트가 없는지 본다.**
+0이면 태그가 끊긴 것이니 `aliases:` 를 채운다.
 
 ## 만들지 않기로 한 것
 

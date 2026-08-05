@@ -150,6 +150,7 @@ def load_projects():
                 {
                     "name": name,
                     "slug": meta.get("slug") or slugify(name),
+                    "aliases": split_tags(meta.get("aliases") or meta.get("옛이름")),
                     "summary": summary,
                     "state": check_state(meta, path, PROJ_STATES),
                     "tools": split_tags(meta.get("tools") or meta.get("도구")),
@@ -206,13 +207,29 @@ def slugify(name):
 
 
 def logs_for(project, logs):
-    """이 프로젝트의 일지. 태그나 project 항목이 이름·슬러그와 맞으면 가져온다."""
+    """이 프로젝트의 일지.
+
+    태그나 project 항목이 아래 중 아무거나와 맞으면 가져온다.
+    이름을 바꿔도 예전 태그로 쓴 일지가 떨어져 나가지 않게 하려는 것.
+      - 표시 이름 (밤새 도는 손)
+      - 주소 슬러그 (threads-poster)
+      - 별칭 aliases: 에 적은 것들
+      - 마크다운 파일명 (threads-poster.md → threads-poster)
+    """
     keys = {project["name"].lower(), project["slug"]}
+    keys |= {a.lower() for a in project["aliases"]}
+    keys |= {slugify(a) for a in project["aliases"]}
+    stem = Path(project["file"]).stem.lower()
+    keys |= {stem, stem.replace("-", "_"), stem.replace("_", "-")}
+    # blog-auto 와 blog_auto 처럼 구분자만 다른 경우도 같이 본다
+    keys |= {k.replace("_", "-") for k in list(keys)}
+
     picked = []
     for e in logs:
         marks = {t.lower() for t in e["tags"]} | {slugify(t) for t in e["tags"]}
         if e["project"]:
             marks |= {e["project"].lower(), slugify(e["project"])}
+        marks |= {m.replace("_", "-") for m in list(marks)}
         if marks & keys:
             picked.append(e)
     return picked

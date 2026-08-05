@@ -153,6 +153,36 @@ def test_project_page_with_no_logs():
     shutil.rmtree(tmp)
 
 
+def test_rename_keeps_old_logs():
+    """이름을 한글로 바꿔도 예전 영문 태그로 쓴 일지가 떨어져 나가면 안 된다."""
+    tmp = with_content({
+        "projects/threads-poster.md":
+            "---\nname: 밤새 도는 손\nslug: threads-poster\n"
+            "aliases: threads-poster, 스레드 자동 포스팅\n---\n",
+        "log/a.md": "---\ndate: 2026-08-04\ntitle: 옛 태그\ntags: threads-poster\n---\n본문",
+        "log/b.md": "---\ndate: 2026-08-03\ntitle: 새 이름\ntags: 밤새 도는 손\n---\n본문",
+        "log/c.md": "---\ndate: 2026-08-02\ntitle: 별칭\ntags: 스레드 자동 포스팅\n---\n본문",
+        "log/d.md": "---\ndate: 2026-08-01\ntitle: 남의 것\ntags: 딴프로젝트\n---\n본문",
+    })
+    logs, _ = build.load_logs()
+    projects, _ = build.load_projects()
+    titles = [e["title"] for e in build.logs_for(projects[0], logs)]
+    assert titles == ["옛 태그", "새 이름", "별칭"], titles
+    shutil.rmtree(tmp)
+
+
+def test_underscore_hyphen_interchangeable():
+    """blog_auto 로 쓴 태그가 blog-auto 프로젝트에도 붙어야 한다."""
+    tmp = with_content({
+        "projects/blog-auto.md": "---\nname: 새벽 연장\nslug: blog-auto\n---\n",
+        "log/a.md": "---\ndate: 2026-08-01\ntitle: 밑줄 태그\ntags: blog_auto\n---\n본문",
+    })
+    logs, _ = build.load_logs()
+    projects, _ = build.load_projects()
+    assert len(build.logs_for(projects[0], logs)) == 1
+    shutil.rmtree(tmp)
+
+
 def test_duplicate_slug_reported():
     """주소가 겹치면 페이지가 덮어써지므로 발행을 멈춰야 한다."""
     tmp = with_content({
