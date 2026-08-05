@@ -438,6 +438,20 @@ def main():
     for c in projects:
         c["log_count"] = len(matched[c["slug"]])
 
+    # 이 사이트는 프로젝트 업데이트를 올리는 곳이다.
+    # 어느 프로젝트에도 안 붙은 일지는 태그를 빠뜨린 것일 수 있으니 알려준다.
+    # 다만 일부러 그런 걸 수도 있으니 발행을 막지는 않는다.
+    attached = {id(e) for group in matched.values() for e in group}
+    orphans = [e for e in logs if id(e) not in attached]
+    if orphans:
+        print("\n  참고 — 어느 프로젝트에도 안 붙은 일지:", file=sys.stderr)
+        for e in orphans:
+            print(f"    {e['file']}  ({e['title']})", file=sys.stderr)
+        print(
+            "    tags 에 프로젝트 이름을 적으면 그 프로젝트 페이지에도 들어갑니다.\n",
+            file=sys.stderr,
+        )
+
     if "--check" in sys.argv:
         print(f"이상 없음 — 일지 {len(logs)}개, 프로젝트 {len(projects)}개")
         for c in projects:

@@ -183,6 +183,22 @@ def test_underscore_hyphen_interchangeable():
     shutil.rmtree(tmp)
 
 
+def test_orphan_log_does_not_block():
+    """프로젝트에 안 붙은 일지는 알려주기만 하고 발행을 막지 않는다."""
+    tmp = with_content({
+        "projects/p.md": "---\nname: pushdown\n---\n",
+        "log/a.md": "---\ndate: 2026-08-06\ntitle: 태그 없음\n---\n본문",
+    })
+    logs, errors = build.load_logs()
+    projects, proj_errors = build.load_projects()
+    assert not errors and not proj_errors, "오류가 아니라 참고 사항이어야 함"
+    assert build.logs_for(projects[0], logs) == [], "붙으면 안 됨"
+    # 그래도 전체 일지 목록에는 남아 있어야 한다
+    out = build.render(logs, projects, "")
+    assert "태그 없음" in out
+    shutil.rmtree(tmp)
+
+
 def test_duplicate_slug_reported():
     """주소가 겹치면 페이지가 덮어써지므로 발행을 멈춰야 한다."""
     tmp = with_content({

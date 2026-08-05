@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>카르돈 작업 기록 — 만든 것과 배운 것</title>
+<meta name="description" content="GAS·파이썬·클로드코드로 혼자 만든 자동화들의 기록. 만든 것과 배운 것을 그때그때 남깁니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F0F1EC;
+    --ink:#16191D;
+    --ink-soft:#5A6069;
+    --rule:#D4D7CD;
+    --rule-strong:#B6BAAE;
+    --mark:#F2E205;
+    --live:#2C6E63;
+    --sheet:#FBFCF9;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans KR',system-ui,sans-serif;
+    font-weight:400;
+    line-height:1.65;
+    font-size:16px;
+  }
+  .mono{font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace;}
+  .wrap{max-width:940px;margin:0 auto;padding:0 20px;}
+  a{color:inherit;}
+
+  /* ── 수식 입력줄 (시그니처) ── */
+  .bar{
+    border-bottom:1px solid var(--rule-strong);
+    background:var(--sheet);
+    position:sticky;top:0;z-index:5;
+  }
+  .bar-in{
+    display:flex;align-items:stretch;
+    max-width:940px;margin:0 auto;
+  }
+  .cellref{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;letter-spacing:.08em;
+    display:flex;align-items:center;
+    padding:0 14px;
+    border-right:1px solid var(--rule);
+    color:var(--ink-soft);
+    min-width:64px;
+  }
+  .fx{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    display:flex;align-items:center;gap:10px;
+    padding:12px 16px;
+    overflow-x:auto;white-space:nowrap;
+    color:var(--ink);
+  }
+  .fx b{color:var(--ink-soft);font-weight:500;}
+  .fx em{font-style:normal;background:var(--mark);padding:1px 4px;}
+
+  /* ── 머리말 ── */
+  header{padding:56px 0 40px;}
+  h1{
+    font-size:clamp(30px,6vw,46px);
+    font-weight:700;letter-spacing:-.03em;
+    line-height:1.15;margin:0 0 18px;
+  }
+  h1 span{
+    background:linear-gradient(transparent 62%,var(--mark) 62%);
+    padding-right:2px;
+  }
+  .lede{
+    font-size:16px;max-width:52ch;color:var(--ink-soft);
+    margin:0 0 22px;font-weight:300;
+  }
+  .meta{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;
+    color:var(--ink-soft);display:flex;flex-wrap:wrap;gap:6px 18px;
+  }
+
+  /* ── 구역 제목 ── */
+  .sec{padding:30px 0 46px;border-top:1px solid var(--rule-strong);}
+  .sec-head{
+    display:flex;align-items:baseline;justify-content:space-between;
+    gap:16px;margin-bottom:22px;flex-wrap:wrap;
+  }
+  .sec-head h2{
+    font-size:20px;font-weight:600;letter-spacing:-.01em;margin:0;
+  }
+  .sec-head p{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;
+    color:var(--ink-soft);margin:0;
+  }
+
+  /* ── 만든 것: 카드 ── */
+  .cards{
+    display:grid;gap:1px;background:var(--rule);
+    border:1px solid var(--rule);
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  }
+  .card{
+    background:var(--sheet);padding:20px 20px 18px;
+    display:flex;flex-direction:column;gap:9px;
+    text-decoration:none;
+    transition:background .15s ease;
+  }
+  .card:hover,.card:focus-visible{background:#fff;outline:none;}
+  .card:focus-visible{box-shadow:inset 0 0 0 2px var(--ink);}
+  .card-top{
+    display:flex;align-items:center;gap:8px;
+    font-family:'IBM Plex Mono',monospace;font-size:11px;
+    letter-spacing:.06em;color:var(--ink-soft);
+  }
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--rule-strong);flex:none;}
+  .dot.on{background:var(--live);}
+  .card h3{font-size:17px;font-weight:600;margin:0;letter-spacing:-.01em;line-height:1.4;}
+  .card p{font-size:14px;color:var(--ink-soft);margin:0;font-weight:300;line-height:1.6;}
+  .stack{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;
+    color:var(--ink-soft);margin-top:auto;padding-top:8px;
+  }
+
+  /* ── 배운 것: 시트 행 ── */
+  .sheet{border:1px solid var(--rule-strong);background:var(--sheet);}
+  .colhead{
+    display:grid;
+    grid-template-columns:52px 104px 1fr 92px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;letter-spacing:.06em;color:var(--ink-soft);
+    border-bottom:1px solid var(--rule-strong);
+    background:var(--paper);
+  }
+  .colhead div{padding:7px 12px;border-right:1px solid var(--rule);}
+  .colhead div:last-child{border-right:0;}
+  .row{
+    display:grid;
+    grid-template-columns:52px 104px 1fr 92px;
+    border-bottom:1px solid var(--rule);
+    text-decoration:none;position:relative;
+  }
+  .row:last-child{border-bottom:0;}
+  .row > *{padding:11px 12px;border-right:1px solid var(--rule);min-width:0;}
+  .row > *:last-child{border-right:0;}
+  .row:hover .t,.row:focus-visible .t{
+    background:linear-gradient(transparent 60%,var(--mark) 60%);
+  }
+  .row:focus-visible{outline:2px solid var(--ink);outline-offset:-2px;}
+  .n,.d{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);
+  }
+  .t{font-size:15px;line-height:1.5;}
+  .t small{
+    display:block;font-size:13px;color:var(--ink-soft);
+    font-weight:300;margin-top:2px;
+  }
+  .s{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;
+    color:var(--ink-soft);white-space:nowrap;
+  }
+  .s.raw{color:var(--ink);}
+
+  /* ── 태그 ── */
+  .tags{display:flex;flex-wrap:wrap;gap:8px;}
+  .tag{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;
+    border:1px solid var(--rule-strong);background:var(--sheet);
+    padding:5px 11px;text-decoration:none;
+    transition:background .15s ease;
+  }
+  .tag:hover{background:var(--mark);}
+  .tag i{font-style:normal;color:var(--ink-soft);margin-left:6px;}
+
+  footer{
+    border-top:1px solid var(--rule-strong);
+    padding:26px 0 60px;
+    font-family:'IBM Plex Mono',monospace;font-size:12px;
+    color:var(--ink-soft);
+    display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  }
+
+  @media (max-width:640px){
+    .colhead{grid-template-columns:40px 1fr 78px;}
+    .colhead .h-date{display:none;}
+    .row{grid-template-columns:40px 1fr 78px;}
+    .row .d{display:none;}
+    .row > *{padding:10px 10px;}
+    .t{font-size:14px;}
+    .cellref{min-width:52px;padding:0 10px;}
+    header{padding:40px 0 30px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-in">
+    <div class="cellref">A1</div>
+    <div class="fx mono"><b>fx</b> =기록(<em>"만든 것"</em>, <em>"배운 것"</em>, 다듬지_않음:TRUE)</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <header>
+    <h1>혼자 만든 것들과,<br>만들다 <span>막혔던 것들</span></h1>
+    <p class="lede">앱스스크립트와 파이썬으로 자동화를 만듭니다. 완성된 결과만이 아니라 중간에 막혔던 지점을 그대로 남겨둡니다. 6개월 뒤의 제가 검색해서 찾을 메모이기도 합니다.</p>
+    <div class="meta mono">
+      <span>기록 68개</span>
+      <span>최근 갱신 2026-08-02</span>
+      <span>RSS</span>
+    </div>
+  </header>
+
+  <section class="sec">
+    <div class="sec-head">
+      <h2>만든 것</h2>
+      <p class="mono">● 운영 중 &nbsp;/&nbsp; ○ 멈춤</p>
+    </div>
+    <div class="cards">
+
+      <a class="card" href="#">
+        <div class="card-top mono"><span class="dot on"></span>운영 중 · 2026.07</div>
+        <h3>영화 추리 퀴즈 (앱인토스)</h3>
+        <p>매일 힌트 3개로 영화를 맞히는 미니앱. 문제 출제와 정답 채점을 시트에서 관리합니다.</p>
+        <div class="stack mono">GAS · Sheets · 앱인토스</div>
+      </a>
+
+      <a class="card" href="#">
+        <div class="card-top mono"><span class="dot on"></span>운영 중 · 2026.06</div>
+        <h3>USDT 정산 워크플로우</h3>
+        <p>일별 납품 데이터를 정산액으로 환산하고, 전송 전 체크리스트를 텔레그램으로 알립니다.</p>
+        <div class="stack mono">GAS · 텔레그램봇</div>
+      </a>
+
+      <a class="card" href="#">
+        <div class="card-top mono"><span class="dot"></span>만드는 중 · 2026.07</div>
+        <h3>도트아트 뮤직비디오 파이프라인</h3>
+        <p>시트 셀을 픽셀 캔버스로 쓰고, PDF로 뽑아 영상으로 이어붙입니다. 지금은 프레임 정렬이 문제.</p>
+        <div class="stack mono">Sheets · Python · FFmpeg</div>
+      </a>
+
+      <a class="card" href="#">
+        <div class="card-top mono"><span class="dot on"></span>운영 중 · 2026.05</div>
+        <h3>육아 마일스톤 계산기</h3>
+        <p>아이 개월 수에 맞는 발달 정보를 보여주는 정적 사이트. 광고 수익 실험용으로 만들었습니다.</p>
+        <div class="stack mono">정적 사이트 · GitHub Pages</div>
+      </a>
+
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head">
+      <h2>배운 것</h2>
+      <p class="mono">다듬지 않고 그대로 올립니다</p>
+    </div>
+
+    <div class="sheet">
+      <div class="colhead mono">
+        <div>#</div>
+        <div class="h-date">날짜</div>
+        <div>내용</div>
+        <div>상태</div>
+      </div>
+
+      <a class="row" href="#">
+        <div class="n mono">068</div>
+        <div class="d mono">2026-08-02</div>
+        <div class="t">GAS 6분 실행 제한에 걸릴 때 트리거로 이어 돌리기
+          <small>처리할 행을 100개씩 끊고, 남은 위치를 속성에 저장한 뒤 1분 트리거를 다시 건다</small></div>
+        <div class="s raw mono">러프</div>
+      </a>
+
+      <a class="row" href="#">
+        <div class="n mono">067</div>
+        <div class="d mono">2026-07-31</div>
+        <div class="t">clasp push가 자꾸 불필요한 파일까지 올릴 때
+          <small>.claspignore를 프로젝트 폴더 최상단이 아니라 rootDir 기준으로 둬야 먹힌다</small></div>
+        <div class="s raw mono">러프</div>
+      </a>
+
+      <a class="row" href="#">
+        <div class="n mono">066</div>
+        <div class="d mono">2026-07-29</div>
+        <div class="t">클로드코드가 스펙에 없는 기능을 만들어버리는 걸 막은 문구
+          <small>CLAUDE.md에 "애매하면 추측하지 말고 질문한다" 한 줄을 넣었더니 확실히 줄었다</small></div>
+        <div class="s mono">다듬는 중</div>
+      </a>
+
+      <a class="row" href="#">
+        <div class="n mono">065</div>
+        <div class="d mono">2026-07-27</div>
+        <div class="t">FFmpeg으로 PDF 페이지를 영상 프레임으로 이어붙이기
+          <small>PDF를 바로 못 읽어서 먼저 이미지로 변환해야 한다. 프레임레이트는 입력 쪽에 지정</small></div>
+        <div class="s raw mono">러프</div>
+      </a>
+
+      <a class="row" href="#">
+        <div class="n mono">064</div>
+        <div class="d mono">2026-07-24</div>
+        <div class="t">GAS 웹앱을 폰에서 열었더니 글자가 깨알같이 나올 때
+          <small>뷰포트 태그 한 줄이 빠져 있었다. 이제 HTML 만들 때 제일 먼저 확인하는 항목</small></div>
+        <div class="s mono">정리됨</div>
+      </a>
+
+      <a class="row" href="#">
+        <div class="n mono">063</div>
+        <div class="d mono">2026-07-21</div>
+        <div class="t">거래소 간 USDT 보내기 전에 꼭 보는 체크리스트
+          <small>네트워크 종류가 서로 다르면 그대로 사라진다. 소액 테스트 전송을 먼저 하는 습관</small></div>
+        <div class="s mono">정리됨</div>
+      </a>
+
+      <a class="row" href="#">
+        <div class="n mono">062</div>
+        <div class="d mono">2026-07-18</div>
+        <div class="t">시트 여러 개를 한 번에 읽을 때 느려지는 이유
+          <small>셀을 하나씩 읽으면 느리다. 범위를 통째로 배열로 가져와서 계산하고 한 번에 다시 쓴다</small></div>
+        <div class="s mono">정리됨</div>
+      </a>
+
+      <a class="row" href="#">
+        <div class="n mono">061</div>
+        <div class="d mono">2026-07-15</div>
+        <div class="t">텔레그램 봇이 갑자기 조용해졌을 때 제일 먼저 볼 곳
+          <small>토큰 문제가 아니라 트리거가 실패해서 자동으로 꺼져 있었다. 실행 기록부터 확인</small></div>
+        <div class="s raw mono">러프</div>
+      </a>
+
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head">
+      <h2>태그로 찾기</h2>
+      <p class="mono">막힌 문제부터 찾아보세요</p>
+    </div>
+    <div class="tags">
+      <a class="tag mono" href="#">앱스스크립트<i>31</i></a>
+      <a class="tag mono" href="#">구글시트<i>24</i></a>
+      <a class="tag mono" href="#">클로드코드<i>17</i></a>
+      <a class="tag mono" href="#">파이썬<i>14</i></a>
+      <a class="tag mono" href="#">텔레그램봇<i>9</i></a>
+      <a class="tag mono" href="#">FFmpeg<i>6</i></a>
+      <a class="tag mono" href="#">앱인토스<i>5</i></a>
+      <a class="tag mono" href="#">정적사이트<i>4</i></a>
+    </div>
+  </section>
+
+  <footer>
+    <span>카르돈 · 혼자 만드는 사람</span>
+    <span>이 사이트도 기록 #012에서 만들었습니다</span>
+  </footer>
+
+</div>
+</body>
+</html>
