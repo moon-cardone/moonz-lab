@@ -1,7 +1,7 @@
 ---
-name: 하루 한 줄
+name: 한 줄 육아
 slug: one-line-diary
-aliases: one_line_diary, 한 줄 육아일기
+aliases: one_line_diary, 하루 한 줄, 한 줄 육아일기
 summary: 부부가 한 줄씩 남기면 상대 폰으로 바로 넘어가는 가족 전용 기록 앱.
 status: 운영 중
 tools: Flutter, Firebase, Android
