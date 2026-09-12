@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>문즈랩 · 문의관리 데모</title>
+<style>
+:root{--navy:#0f1420;--blue:#4f8cff;--ink:#202a3b;--muted:#556174;--line:#dce3ed;--soft:#f2f5fa;--white:#fff}
+*{box-sizing:border-box}body{margin:0;background:#f7f9fc;color:var(--ink);font-family:"Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif;line-height:1.6;font-size:15px}button,input,select{font:inherit}button,input,select{min-height:44px;border-radius:8px}button{cursor:pointer;border:1px solid var(--line);background:white;color:var(--navy);padding:9px 16px;font-weight:700}button:hover{background:#eaf1ff}button.primary{background:var(--blue);border-color:var(--blue);color:var(--navy)}button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible,a:focus-visible{outline:3px solid #175bd4;outline-offset:3px}input,select{border:1px solid #adb8c9;padding:8px 10px;color:var(--ink);background:white;max-width:100%}input{width:100%}header{background:var(--navy);color:white;padding:27px max(24px,calc((100vw - 1200px)/2)) 34px}.brand{font-size:14px;letter-spacing:.1em;color:#a9c7ff;font-weight:700}.hero{display:flex;justify-content:space-between;gap:24px;align-items:center}h1{font-size:clamp(28px,4vw,40px);line-height:1.25;letter-spacing:-.05em;margin:12px 0}header p{color:#c4cedd;margin:0;max-width:690px}.stamp{border:1px solid #52627c;padding:7px 12px;border-radius:99px;white-space:nowrap;color:#dce7fc;font-size:13px}.wrap{max-width:1248px;margin:auto;padding:24px}h2{font-size:19px;margin:0;letter-spacing:-.03em}.notice{border-left:4px solid var(--blue);background:#eaf1ff;padding:13px 17px;margin-bottom:22px;border-radius:0 8px 8px 0}.notice strong{color:#163d7c}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}.date-control{display:flex;align-items:center;gap:9px;white-space:nowrap}.date-control input{width:164px}.cards{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:16px 0 22px}.card{padding:16px 20px;border:1px solid var(--line);border-radius:12px;background:white}.card b{display:block;font-size:29px;line-height:1.3;margin-top:5px;color:var(--navy)}.card span{color:var(--muted);font-size:13px}.card.focus{background:#eaf1ff;border-color:#bfd3fb}.panel{background:white;border:1px solid var(--line);border-radius:14px;margin-bottom:20px;padding:22px}.intro{display:flex;gap:13px;align-items:center;margin-bottom:15px}.step{background:var(--navy);color:white;width:28px;height:28px;border-radius:50%;text-align:center;font-size:13px;padding-top:4px;flex-shrink:0}.intro p{color:var(--muted);font-size:13px;margin:2px 0 0}.fields{display:grid;grid-template-columns:1fr 1fr 1.5fr 1fr 1fr;gap:12px}.fields label{display:block;font-size:13px;font-weight:700}.fields input,.fields select{margin-top:5px;width:100%}.actions{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-top:16px}.muted{font-size:13px;color:var(--muted)}#message{min-height:24px;margin-top:12px;font-size:14px;color:#174b2e}#message.error{color:#aa2020}.filters{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.filters button{font-size:13px;min-height:38px;padding:6px 14px}.filters button[aria-pressed="true"]{background:var(--navy);color:white;border-color:var(--navy)}.table-wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;white-space:nowrap;text-align:left;font-size:13px}caption{text-align:left;color:var(--muted);font-size:12px;padding-bottom:10px}th{color:#526077;background:var(--soft);font-size:12px;font-weight:700}th,td{padding:12px 10px;border-bottom:1px solid #e8edf4}tbody tr:hover{background:#f7faff}td select{font-size:13px;min-height:36px;padding:5px 8px}.badge{display:inline-block;background:#e8f3ed;color:#175d36;border-radius:6px;padding:3px 8px;font-size:12px;font-weight:700}.badge.duplicate{background:#fff2d8;color:#805012}.duplicate-row{background:#fffdf8}.original{display:block;font-size:11px;color:var(--muted)}.empty{text-align:center;white-space:normal;padding:32px;color:var(--muted)}footer{padding:0 2px 28px;color:var(--muted);font-size:12px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}a{color:#174fa7}#reset{font-weight:400;font-size:13px;padding:7px 11px}
+@media(max-width:850px){.fields{grid-template-columns:repeat(2,1fr)}.cards{grid-template-columns:repeat(5,1fr);gap:8px}.card{padding:12px}.card b{font-size:25px}.hero .stamp{display:none}}
+@media(max-width:550px){header{padding:24px 18px}.wrap{padding:18px 12px}.panel{padding:16px 12px}.cards{grid-template-columns:repeat(2,1fr)}.card:last-child{grid-column:span 2;display:flex;justify-content:space-between;align-items:center}.card:last-child b{margin:0}.fields{grid-template-columns:1fr}.toolbar{align-items:flex-start}.date-control{width:100%;justify-content:space-between}.date-control input{width:auto}.actions button{flex:1}.actions .muted{flex-basis:100%}.notice{font-size:13px}.intro{gap:9px}h2{font-size:17px}}
+@media(prefers-reduced-motion:no-preference){button{transition:background .15s}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">MOONZ LAB / 문즈랩</div>
+  <div class="hero"><div><h1>문의는 한 곳에.<br>다음 할 일은 바로 보이게.</h1><p>중복을 표시하고, 담당자를 배정하고, 미처리 문의를 확인합니다.</p></div><span class="stamp">문의관리 체험 · 가상 데이터</span></div>
+</header>
+<main class="wrap">
+  <div class="notice"><strong>가상 데이터 기능 시연입니다.</strong> Google Sheets와 연결되지 않은 기능 시뮬레이션입니다. 모든 고객명·중복키는 가상이며 실제 연락처를 입력하지 마세요.<br><a href="proposal.pdf">서비스 제안견적 PDF</a> · <a href="demo.mp4">시연 영상 보기</a></div>
+  <div class="toolbar"><h2>선택한 날짜의 문의 현황</h2><label class="date-control" for="day">집계일 <input type="date" id="day" required></label></div>
+  <div class="cards" aria-label="일일 집계">
+    <div class="card"><span>전체 접수</span><b id="total">0</b></div>
+    <div class="card"><span>원본 문의</span><b id="unique">0</b></div>
+    <div class="card"><span>중복 접수</span><b id="duplicates">0</b></div>
+    <div class="card focus"><span>미처리 원본</span><b id="pending">0</b></div>
+    <div class="card"><span>완료 원본</span><b id="done">0</b></div>
+  </div>
+  <section class="panel" aria-labelledby="add-title">
+    <div class="intro"><span class="step" aria-hidden="true">1</span><div><h2 id="add-title">새 문의를 넣어 보세요</h2><p>같은 중복키는 원본과 연결됩니다. 새로운 키는 담당A → 담당B 순서로 배정됩니다.</p></div></div>
+    <form id="entry">
+      <div class="fields">
+        <label>문의ID<input id="inquiry-id" name="id" maxlength="40" pattern="[A-Za-z0-9][A-Za-z0-9_\-]{0,39}" required autocomplete="off"></label>
+        <label>접수일<input id="received" name="received" type="date" required></label>
+        <label>고객명 (가상)<input id="customer" name="customer" value="가상 새봄학원" maxlength="80" required autocomplete="off"></label>
+        <label>중복키 (가상)<input id="key" name="key" value="DEMO-007" pattern="DEMO-[A-Za-z0-9_\-]+" maxlength="64" required aria-describedby="key-help" autocomplete="off"></label>
+        <label>유입경로<select id="source" name="source"><option>홈페이지</option><option>소개</option><option>검색광고</option><option>상담폼</option></select></label>
+      </div>
+      <div class="actions"><button class="primary" type="submit">문의 추가 + 자동 처리</button><button type="button" id="duplicate">같은 고객의 중복 문의 추가</button><span id="key-help" class="muted">DEMO-001처럼 가상 식별자를 사용하세요.</span></div>
+    </form>
+    <div id="message" role="status" aria-live="polite"></div>
+  </section>
+  <section class="panel" aria-labelledby="list-title">
+    <div class="toolbar"><div class="intro" style="margin-bottom:0"><span class="step" aria-hidden="true">2</span><div><h2 id="list-title">담당자와 처리상태 확인</h2><p>원본을 삭제하지 않고 중복을 표시합니다. 상태를 바꾸면 집계도 바뀝니다.</p></div></div><button type="button" id="rerun">같은 데이터 다시 처리</button></div>
+    <div class="filters" role="group" aria-label="문의 필터"><button type="button" data-filter="all" aria-pressed="true">전체</button><button type="button" data-filter="pending" aria-pressed="false">미처리 원본</button><button type="button" data-filter="duplicate" aria-pressed="false">중복만</button></div>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="문의 목록. 작은 화면에서 좌우로 스크롤하세요."><table><caption id="table-caption">선택한 날짜의 문의</caption><thead><tr><th scope="col">문의ID</th><th scope="col">접수일</th><th scope="col">고객명</th><th scope="col">중복키</th><th scope="col">유입경로</th><th scope="col">중복 확인</th><th scope="col">담당자</th><th scope="col">처리상태</th></tr></thead><tbody id="body"></tbody></table></div>
+  </section>
+  <footer><span>입력 내용은 페이지 메모리에만 유지됩니다. 새로고침하면 초기 샘플로 돌아갑니다.<br>실제 도입 범위: 입력 양식 1종 · 관리 시트 1개 · 중복 표시 · 배정 · 상태 · 집계</span><button type="button" id="reset">초기 샘플로 되돌리기</button></footer>
+</main>
+<script src="core.js"></script>
+<script>
+'use strict';
+const $ = id => document.getElementById(id);
+const localDay = date => [date.getFullYear(), String(date.getMonth()+1).padStart(2,'0'), String(date.getDate()).padStart(2,'0')].join('-');
+const today = localDay(new Date());
+const now = () => today + ' ' + new Date().toTimeString().slice(0,8);
+let rows = [], filter = 'all';
+function say(text, error = false) { $('message').textContent = text; $('message').className = error ? 'error' : ''; }
+function nextId() { let n=1; while(rows.some(row => row[0] === 'INQ-'+String(n).padStart(3,'0'))) n++; return 'INQ-'+String(n).padStart(3,'0'); }
+function inputRow(id, day, name, key, source) { return [id, day, name, key, source, '', '', '', '', '']; }
+function reset() {
+  const previous = new Date(); previous.setDate(previous.getDate()-1);
+  rows = Inquiry.process([
+    inputRow('INQ-001',today,'가상 라임학원','DEMO-001','홈페이지'),
+    inputRow('INQ-002',today,'가상 온유공방','DEMO-002','소개'),
+    inputRow('INQ-003',today,'가상 라임학원','DEMO-001','상담폼'),
+    inputRow('INQ-004',today,'가상 노을스튜디오','DEMO-003','검색광고'),
+    inputRow('INQ-005',today,'가상 모아클래스','DEMO-004','홈페이지'),
+    inputRow('INQ-006',today,'가상 온유공방','DEMO-002','상담폼'),
+    inputRow('INQ-007',localDay(previous),'가상 초록공방','DEMO-005','소개')
+  ],now()).rows;
+  rows[0][8]='연락중'; rows[3][8]='완료'; rows[6][8]='완료';
+  $('day').value=today; $('received').value=today; $('inquiry-id').value=nextId(); $('key').value='DEMO-007';
+  filter='all'; say('샘플 7건이 준비되었습니다. 오늘은 6건 중 중복 2건, 미처리 원본 3건입니다.'); render();
+}
+function cell(tr,text) { const td=document.createElement('td'); td.textContent=text; tr.append(td); return td; }
+function render() {
+  const day=$('day').value, counts=Inquiry.summary(rows,day);
+  Object.entries(counts).forEach(([id,value]) => $(id).textContent=String(value));
+  document.querySelectorAll('[data-filter]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.filter===filter)));
+  const visible=rows.filter(row => row[1].slice(0,10)===day && (filter==='all' || (filter==='duplicate' ? row[5]==='중복' : row[5]==='원본' && row[8]!=='완료')));
+  $('table-caption').textContent=day+' · '+visible.length+'건 표시 / 미처리는 ‘완료’가 아닌 원본 문의입니다.';
+  $('body').replaceChildren();
+  visible.forEach(row => {
+    const tr=document.createElement('tr'); if(row[5]==='중복') tr.className='duplicate-row';
+    [row[0],row[1].slice(0,10),row[2],row[3],row[4]].forEach(value=>cell(tr,value));
+    const mark=cell(tr,''), badge=document.createElement('span'); badge.className='badge'+(row[5]==='중복'?' duplicate':''); badge.textContent=row[5]; mark.append(badge);
+    if(row[6]){const original=document.createElement('span');original.className='original';original.textContent='원본 '+row[6];mark.append(original);}
+    cell(tr,row[7] || '배정 제외');
+    const state=cell(tr,''), select=document.createElement('select'); select.setAttribute('aria-label',row[0]+' 처리상태');
+    Inquiry.statuses.forEach(status=>{const option=document.createElement('option');option.value=status;option.textContent=status;option.selected=status===row[8];select.append(option);});
+    select.addEventListener('change',()=>{row[8]=select.value;say(row[0]+'의 상태를 '+row[8]+'로 바꿨습니다.');render();const target=document.querySelector('select[aria-label="'+row[0]+' 처리상태"]');if(target)target.focus();else document.querySelector('[data-filter="'+filter+'"]').focus();});state.append(select);$('body').append(tr);
+  });
+  if(!visible.length){const tr=document.createElement('tr'),td=cell(tr,'조건에 맞는 문의가 없습니다. 날짜 또는 필터를 바꿔 보세요.');td.colSpan=8;td.className='empty';$('body').append(tr);}
+}
+function add(row) {
+  try { const result=Inquiry.process(rows.concat([row]),now()); rows=result.rows; $('day').value=row[1].slice(0,10); filter='all';$('inquiry-id').value=nextId();render();const added=rows[rows.length-1];say(added[0]+': '+(added[5]==='중복' ? '중복 표시 완료. 원본 '+added[6]+'은 그대로 보존했습니다.' : added[7]+'에 배정했습니다.')); }
+  catch(error){say(error.message,true);}
+}
+$('entry').addEventListener('submit',event=>{event.preventDefault();if(!$('entry').reportValidity())return;add(inputRow($('inquiry-id').value,$('received').value,$('customer').value,$('key').value,$('source').value));});
+$('duplicate').addEventListener('click',()=>add(inputRow(nextId(),$('day').value || today,'가상 라임학원','DEMO-001','상담폼')));
+$('rerun').addEventListener('click',()=>{try{const result=Inquiry.process(rows,now());rows=result.rows;render();say(result.changes.length+'건 추가 처리. 기존 담당자·상태·처리시각이 그대로 유지됩니다.');}catch(error){say(error.message,true);}});
+$('day').addEventListener('change',render);
+document.querySelectorAll('[data-filter]').forEach(button=>button.addEventListener('click',()=>{filter=button.dataset.filter;render();}));
+$('reset').addEventListener('click',reset);
+reset();
+</script>
+</body>
+</html>

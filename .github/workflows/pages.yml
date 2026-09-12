@@ -34,6 +34,8 @@ jobs:
           mkdir -p _site
           cp index.html _site/
           cp -r project _site/
+          mkdir -p _site/demo/inquiry
+          cp demo/inquiry/index.html demo/inquiry/core.js demo/inquiry/proposal.pdf demo/inquiry/demo.mp4 _site/demo/inquiry/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
