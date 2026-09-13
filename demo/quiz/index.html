@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>안내문을 읽고 퀴즈 풀기 · 문즈랩</title>
+<style>
+:root{color-scheme:light;--ink:#202a3b;--muted:#536174;--line:#dce3ed;--blue:#174fa7}
+*{box-sizing:border-box}body{margin:0;background:#f7f9fc;color:var(--ink);font:16px/1.7 "Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif}main{max-width:760px;margin:auto;padding:32px 20px 48px}a{color:var(--blue)}h1{font-size:clamp(28px,6vw,38px);line-height:1.3;letter-spacing:-.04em;margin:18px 0 12px}h2{font-size:21px;margin:0 0 10px}.eyebrow{font-size:13px;font-weight:700;color:var(--blue);margin:0}.intro{color:var(--muted);margin:0 0 24px}.panel,fieldset{border:1px solid var(--line);border-radius:14px;background:white;padding:22px;margin:0 0 20px;min-width:0}.reading p{margin:0}.tag{display:inline-block;background:#eaf1ff;color:#163d7c;border-radius:6px;padding:3px 9px;font-size:13px;margin-bottom:10px}legend{font-weight:700;padding:0 7px;line-height:1.5}label{display:flex;align-items:flex-start;gap:11px;border:1px solid var(--line);border-radius:9px;padding:11px 12px;margin:10px 0;min-height:48px;cursor:pointer}label:hover{background:#f2f6ff}input[type=radio]{width:19px;height:19px;margin:4px 0 0;flex-shrink:0;accent-color:var(--blue)}label:has(input:checked){border-color:var(--blue);background:#eaf1ff}input:focus-visible,button:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:3px solid #175bd4;outline-offset:4px}.actions{display:flex;gap:10px;flex-wrap:wrap}button{font:inherit;font-weight:700;min-height:48px;padding:10px 20px;border:1px solid var(--blue);border-radius:9px;background:var(--blue);color:white;cursor:pointer}button.secondary{background:white;color:var(--blue)}button:hover{filter:brightness(.94)}#status{font-weight:700;min-height:28px;margin:18px 0}#status.error{color:#a02424}.explanation{background:#f2f5fa;border-left:4px solid var(--blue);padding:10px 13px;margin:14px 0 0}.explanation strong{display:block}.note{font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:20px;margin-top:26px}.note p{margin:6px 0}[hidden]{display:none!important}
+@media(max-width:420px){main{padding:24px 14px 32px}.panel,fieldset{padding:17px 13px}.actions button{flex:1;padding:10px 12px}legend{font-size:16px}label{padding:11px 9px}}
+</style>
+</head>
+<body>
+<main>
+  <p class="eyebrow">MOONZ LAB · 복습 퀴즈 체험</p>
+  <h1>안내문 한 편이<br>퀴즈로 바뀌면</h1>
+  <p class="intro">아래 안내문을 읽고 세 문제를 풀어 보세요.<br>답을 제출하면 점수와 문제별 해설을 볼 수 있습니다.</p>
+  <section class="panel reading" aria-labelledby="reading-title">
+    <span class="tag">직접 쓴 가상 안내문</span>
+    <h2 id="reading-title">작은 도서관 이용안내</h2>
+    <p>이 가상의 도서관은 화요일부터 토요일까지 오전 10시에 문을 열고 오후 6시에 문을 닫습니다. 책은 한 사람당 최대 3권을 14일 동안 빌릴 수 있습니다. 빌린 책은 안내 데스크에 반납합니다. 음료는 휴게 공간에서만 마실 수 있습니다.</p>
+  </section>
+  <form id="quiz" novalidate>
+    <fieldset id="question-0">
+      <legend>1. 토요일 오후 5시에 이 도서관을 이용할 수 있나요?</legend>
+      <label for="q0-a"><input type="radio" id="q0-a" name="q0" value="a">아니요. 토요일에는 문을 닫습니다.</label>
+      <label for="q0-b"><input type="radio" id="q0-b" name="q0" value="b">네. 토요일에는 오후 6시까지 운영합니다.</label>
+      <label for="q0-c"><input type="radio" id="q0-c" name="q0" value="c">네. 토요일에는 밤 10시까지 운영합니다.</label>
+      <p class="explanation" id="explanation-0" hidden></p>
+    </fieldset>
+    <fieldset id="question-1">
+      <legend>2. 한 사람이 빌릴 수 있는 책의 수와 기간은 얼마인가요?</legend>
+      <label for="q1-a"><input type="radio" id="q1-a" name="q1" value="a">최대 14권, 3일</label>
+      <label for="q1-b"><input type="radio" id="q1-b" name="q1" value="b">최대 3권, 7일</label>
+      <label for="q1-c"><input type="radio" id="q1-c" name="q1" value="c">최대 3권, 14일</label>
+      <p class="explanation" id="explanation-1" hidden></p>
+    </fieldset>
+    <fieldset id="question-2">
+      <legend>3. 빌린 책을 반납할 곳은 어디인가요?</legend>
+      <label for="q2-a"><input type="radio" id="q2-a" name="q2" value="a">안내 데스크</label>
+      <label for="q2-b"><input type="radio" id="q2-b" name="q2" value="b">휴게 공간의 탁자</label>
+      <label for="q2-c"><input type="radio" id="q2-c" name="q2" value="c">책을 꺼냈던 서가</label>
+      <p class="explanation" id="explanation-2" hidden></p>
+    </fieldset>
+    <div class="actions"><button type="submit">정답과 해설 보기</button><button class="secondary" type="reset">다시 풀기</button></div>
+    <p id="status" role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></p>
+  </form>
+  <footer class="note">
+    <p>실제 고객 자료나 유료 원고를 사용하지 않은 기능 시연입니다. 정식 제작은 고객이 사용을 승인한 원고를 바탕으로 진행합니다.</p>
+    <p>선택한 답은 현재 페이지에서만 처리하며 저장·전송하지 않습니다. 새로고침하면 선택과 결과가 사라집니다.</p>
+    <p><a href="../../services/">작업 범위·가격·문의 보기</a></p>
+  </footer>
+</main>
+<script id="score-core">
+'use strict';
+function scoreAnswers(answers) {
+  if (!Array.isArray(answers) || answers.length !== 3) throw new TypeError('답은 세 개여야 합니다.');
+  const key = ['b', 'c', 'a'];
+  const missing = [];
+  const correct = Array.from(answers).map((answer, index) => {
+    if (answer === null || answer === undefined || answer === '') missing.push(index);
+    else if (!['a', 'b', 'c'].includes(answer)) throw new TypeError('허용되지 않은 선택입니다.');
+    return answer === key[index];
+  });
+  return { complete: missing.length === 0, missing, score: missing.length ? null : correct.filter(Boolean).length, correct };
+}
+</script>
+<script>
+'use strict';
+const form = document.getElementById('quiz');
+const status = document.getElementById('status');
+const explanations = [
+  '정답: 토요일 오후 6시까지 운영합니다. 안내문의 운영일은 화요일부터 토요일까지이며, 오후 5시는 운영 시간 안에 있습니다.',
+  '정답: 최대 3권, 14일입니다. 안내문 두 번째 문장에 대출 권수와 기간이 함께 나와 있습니다.',
+  '정답: 안내 데스크입니다. 휴게 공간은 음료를 마시는 곳이며, 책 반납 장소는 안내 데스크라고 적혀 있습니다.'
+];
+function clearResult() {
+  status.textContent = '';
+  status.className = '';
+  form.querySelectorAll('.explanation').forEach(item => { item.hidden = true; item.replaceChildren(); });
+  form.querySelectorAll('[aria-invalid]').forEach(item => item.removeAttribute('aria-invalid'));
+}
+form.addEventListener('change', clearResult);
+form.addEventListener('submit', event => {
+  event.preventDefault();
+  clearResult();
+  const data = new FormData(form);
+  const result = scoreAnswers([data.get('q0'), data.get('q1'), data.get('q2')]);
+  if (!result.complete) {
+    status.className = 'error';
+    status.textContent = result.missing.map(index => index + 1).join(', ') + '번 문제의 답을 선택해 주세요.';
+    const first = document.getElementById('q' + result.missing[0] + '-a');
+    first.setAttribute('aria-invalid', 'true');
+    first.focus();
+    return;
+  }
+  result.correct.forEach((correct, index) => {
+    const box = document.getElementById('explanation-' + index);
+    const heading = document.createElement('strong');
+    heading.textContent = correct ? '맞았습니다.' : '다시 확인해 보세요.';
+    box.append(heading, document.createTextNode(explanations[index]));
+    box.hidden = false;
+  });
+  status.textContent = '3문제 중 ' + result.score + '문제를 맞혔습니다. 각 문제 아래에서 정답과 해설을 확인하세요.';
+  status.focus();
+});
+form.addEventListener('reset', () => { clearResult(); document.getElementById('q0-a').focus(); });
+</script>
+</body>
+</html>
