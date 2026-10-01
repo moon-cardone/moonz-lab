@@ -27,6 +27,8 @@ jobs:
           python-version: '3.12'
       # 로컬에서 이미 만든 index.html 을 그대로 쓰지 않고 다시 만든다.
       # 마크다운과 실제 배포본이 어긋나는 걸 막는다.
+      - run: python test_build.py
+      - run: python build.py --check
       - run: python build.py
       # 사이트에 필요한 것만 골라서 올린다.
       # 저장소 전체를 올리면 docs/·content/ 같은 작업 파일까지 공개된다.

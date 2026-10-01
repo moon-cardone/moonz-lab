@@ -217,6 +217,17 @@ def test_korean_name_slug():
     assert build.slugify("blog_auto") == "blog_auto"
 
 
+def test_project_art_and_navigation():
+    for slug in ["haru-crossword", "reading-diary", "instatoon", "sheet-art", "pushdown", "threads-poster"]:
+        art = build.project_art({"slug": slug})
+        assert 'aria-hidden="true"' in art, slug
+        assert "<script" not in art, slug
+    out = build.render([], [], "")
+    for target in ["main", "work", "log", "about"]:
+        assert f'id="{target}"' in out
+    assert 'class="skip"' in out
+
+
 def test_section_order():
     out = build.render([], [], "<p>소개</p>")
     assert out.index("만든 것") < out.index("작업 일지") < out.index("소개"), "구역 순서"

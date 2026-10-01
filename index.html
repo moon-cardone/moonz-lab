@@ -11,99 +11,182 @@
 <link rel="icon" href="data:,">
 <style>
 *,*::before,*::after{box-sizing:border-box}
-body{margin:0;background:#fbfbfa;color:#1d1c1a;
-  font:16px/1.75 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard",
-  "Malgun Gothic","맑은 고딕",system-ui,sans-serif;
+html{scroll-behavior:smooth;scroll-padding-top:2rem}
+body{margin:0;background:#f7f6ef;color:#183e35;
+  background-image:radial-gradient(ellipse 65% 35rem at 45% 0,#dceacb 0,transparent 100%);
+  font:16px/1.75 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
   -webkit-text-size-adjust:100%;word-break:keep-all;overflow-wrap:anywhere}
-.wrap{max-width:44rem;margin:0 auto;padding:4.5rem 1.25rem 6rem}
-a{color:inherit;text-underline-offset:.2em;text-decoration-color:#c9c6c0}
-code{background:#f0efec;padding:.1em .35em;border-radius:3px;font-size:.9em}
-header{margin-bottom:5rem}
-h1{margin:0;font-size:1.5rem;font-weight:650;letter-spacing:-.02em;
-  display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
-header .tools{margin-top:1rem}
-footer a{text-decoration:none;color:inherit}
-.tagline{margin:.6rem 0 0;color:#6b6862;font-size:1rem}
-section{margin-bottom:4.5rem}
-h2{margin:0 0 1.75rem;font-size:.8rem;font-weight:600;letter-spacing:.13em;
-  color:#8a867e;text-transform:uppercase}
-.cards{display:grid;gap:.75rem;grid-template-columns:1fr}
-@media(min-width:34rem){.cards{grid-template-columns:1fr 1fr}}
-.card{border:1px solid #e6e3dd;border-radius:10px;padding:1.15rem 1.25rem;background:#fff;
-  display:block;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s}
-a.card:hover{border-color:#bdb9b1;transform:translateY(-1px)}
-a.card:focus-visible{outline:2px solid #8a867e;outline-offset:2px}
-.count{display:inline-block;margin-top:.85rem;font-size:.75rem;color:#8a867e}
-.count::after{content:" →";color:#b5b1aa}
-.back{margin:0 0 1.5rem;font-size:.85rem}
-.back a{color:#8a867e;text-decoration:none}
-.back a:hover{color:#403d38;text-decoration:underline}
-.muted{color:#8a867e}
-.card h3{margin:0;font-size:1rem;font-weight:620;display:flex;align-items:center;
-  gap:.5rem;flex-wrap:wrap}
-.card p{margin:.5rem 0 0;color:#5f5c56;font-size:.925rem;line-height:1.65}
-.tools{margin:.85rem 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:.3rem}
-.tools li{font-size:.75rem;color:#7d7a73;background:#f4f2ee;
-  padding:.15rem .5rem;border-radius:4px}
-.badge{font-size:.7rem;font-weight:600;padding:.15rem .5rem;border-radius:20px;
-  letter-spacing:.02em;white-space:nowrap;flex-shrink:0}
-.badge.live{background:#e4f0e6;color:#2f6b3c}
-.badge.wip{background:#fdf0dd;color:#8a5a17}
-.badge.paused{background:#eeecea;color:#6f6b65}
-.badge.rough{background:#f0eef8;color:#565090}
-.badge.shaping{background:#fdf0dd;color:#8a5a17}
-.badge.done{background:#e4f0e6;color:#2f6b3c}
-.card.empty{border-style:dashed;background:transparent;display:flex;
-  align-items:center;justify-content:center;min-height:6.5rem}
-.card.empty span{color:#a5a19a;font-size:.875rem}
-.log{border-top:1px solid #e6e3dd;padding:1.6rem 0 0;margin:1.6rem 0 0}
-.log:first-of-type{border-top:0;padding-top:0;margin-top:0}
-.log-head{display:flex;align-items:baseline;gap:.6rem;flex-wrap:wrap}
-time{color:#8a867e;font-size:.8rem;font-variant-numeric:tabular-nums;flex-shrink:0}
-.log h3{margin:0;font-size:1.02rem;font-weight:620;letter-spacing:-.01em}
-.log-body{margin-top:.5rem;color:#403d38}
-.log-body p{margin:.5rem 0 0}
-.log-body p:first-child{margin-top:0}
-.log-body ul{margin:.5rem 0 0;padding-left:1.15rem}
-.log-body li{margin:.15rem 0}
-.tags{margin:.7rem 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:.3rem}
-.tags li{font-size:.75rem;color:#8a867e}
-.tags li::before{content:"#"}
-.about p{margin:0 0 .9rem;color:#403d38}
-.about p:last-child{margin-bottom:0}
-footer{margin-top:5rem;padding-top:1.5rem;border-top:1px solid #e6e3dd;
-  color:#a5a19a;font-size:.8rem}
+a{color:inherit;text-underline-offset:.24em}
+a:focus-visible{outline:3px solid #175d4e;outline-offset:5px}
+::selection{background:#d1b5ef;color:#173f35}
+.wrap{max-width:76rem;margin:auto;padding:0 2rem}
+.site-nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:2rem 0}
+.brand{font-size:1.3rem;font-weight:800;letter-spacing:-.06em;text-decoration:none}
+.nav-links{display:flex;gap:.25rem;padding:.35rem;background:#ffffff65;border-radius:99px}
+.nav-links a{font-size:.85rem;text-decoration:none;padding:.45rem 1rem;border-radius:99px}
+.nav-links a:hover{background:#fff9}
+.skip{position:absolute;left:1rem;top:-6rem;background:#fff;padding:.5rem 1rem;z-index:10}
+.skip:focus{top:1rem}
+.hero{text-align:center;position:relative;padding:4.5rem 0 6.5rem}
+.eyebrow{font-size:.72rem;letter-spacing:.18em;font-weight:650;margin:0 0 1.5rem}
+.hero h1{font-size:clamp(2.65rem,6.5vw,5.5rem);line-height:1.24;letter-spacing:-.075em;margin:0;font-weight:800;color:#07564a}
+.hero h1 span{display:block}
+.hero .tagline{max-width:34rem;margin:1.8rem auto 0;color:#44685c;font-size:1.05rem}
+.hero .spark{position:absolute;font-size:3.5rem;color:#fff;line-height:1;pointer-events:none}
+.hero .spark:first-child{left:7%;top:48%;transform:rotate(-15deg)}
+.hero .spark:nth-child(2){right:9%;top:15%;font-size:2.5rem;transform:rotate(15deg)}
+.hero-foot{display:flex;justify-content:center;gap:.75rem;align-items:center;margin-top:2.3rem;font-size:.8rem;color:#44685c}
+.hero-foot::before{content:"";width:6px;height:6px;background:#44795f;border-radius:50%}
+section{margin-bottom:6.5rem}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:1.6rem}
+h2{font-size:1.7rem;letter-spacing:-.055em;font-weight:750;margin:0}
+.section-head p{font-size:.82rem;color:#5a7166;margin:0;text-align:right}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.4rem}
+.card{--card-color:#b2ddd1;background:var(--card-color);border-radius:2rem;padding:2rem 2rem 1.5rem;
+  display:flex;flex-direction:column;text-decoration:none;color:#183e35;position:relative;overflow:hidden;
+  min-height:26rem;transition:transform .22s,box-shadow .22s}
+.card:nth-child(6n+2){--card-color:#d6c1eb}
+.card:nth-child(6n+3){--card-color:#f3d6b9}
+.card:nth-child(6n+4){--card-color:#c8daed}
+.card:nth-child(6n+5){--card-color:#e5dfa9}
+.card:nth-child(6n){--card-color:#e8c8cf}
+a.card:hover{transform:translateY(-5px);box-shadow:0 15px 30px -20px #254a4355}
+.card-meta{display:flex;justify-content:space-between;align-items:center;gap:.5rem;margin-bottom:.7rem}
+.card-label{font-size:.65rem;letter-spacing:.16em;font-weight:650}
+.card h3{margin:0;font-size:1.75rem;letter-spacing:-.055em;line-height:1.35;font-weight:750}
+.card p{margin:.65rem 0 0;max-width:27rem;font-size:.9rem;line-height:1.65;color:#36594e}
+.card-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-top:auto;padding-top:.8rem}
+.tools{display:flex;flex-wrap:wrap;gap:.3rem .65rem;list-style:none;padding:0;margin:0}
+.tools li{font-size:.67rem;line-height:1.6;color:#35584d}
+.count{font-size:.73rem;white-space:nowrap;flex-shrink:0}
+.count::after{content:" ↗";font-size:1rem}
+.badge{display:inline-block;font-size:.7rem;padding:.2rem .65rem;border-radius:99px;line-height:1.6;white-space:nowrap;font-weight:550}
+.badge.live,.badge.done{background:#ffffff85;color:#225440}
+.badge.wip,.badge.shaping{background:#fff2d2;color:#6d4e19}
+.badge.paused{background:#e6e8e2;color:#4e594e}
+.badge.rough{background:#e5dcf0;color:#57436b}
+.art{height:12rem;margin:1.7rem 0 .5rem;display:flex;justify-content:center;align-items:center;position:relative;flex-shrink:0}
+.art .sheet{width:76%;height:10.3rem;background:#fffffff0;border-radius:.85rem;padding:1.2rem;box-shadow:0 12px 22px -12px #244b4c40;transform:rotate(-4deg);position:relative}
+.sheet-top{display:flex;align-items:center;gap:.25rem;border-bottom:1px solid #dae3dc;padding-bottom:.7rem;margin-bottom:.8rem}
+.sheet-top i{width:5px;height:5px;border-radius:50%;background:#cedbd4}
+.sheet-top span{font-size:.6rem;margin-left:auto;letter-spacing:.1em;color:#496157}
+.flow{display:flex;align-items:center;justify-content:space-around;gap:.5rem;height:5rem}
+.flow b{display:grid;place-items:center;width:3.1rem;aspect-ratio:1;border-radius:.8rem;background:#e7eee5;font-size:1.5rem;font-weight:450}
+.flow b:nth-of-type(2){background:var(--card-color)}
+.flow span{color:#7b9389}
+.art-chip{position:absolute;right:2%;bottom:12%;padding:.45rem .8rem;border-radius:99px;background:#175d4e;color:#fff;font-size:.65rem;box-shadow:0 6px 15px #173f3520;transform:rotate(5deg)}
+.cross-board{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;width:9rem;height:9rem;transform:rotate(-6deg);padding:.6rem;background:#fffffff0;border-radius:1rem;box-shadow:0 12px 25px -10px #244b4c35}
+.cross-board span{display:grid;place-items:center;background:#e5eacb;border-radius:.25rem;font-size:1.3rem;font-weight:700;color:#365c43}
+.cross-board span:empty{background:#f6f4ed}
+.art-word::after{content:"✦";position:absolute;right:20%;top:5%;font-size:2rem;color:#fff}
+.notebook{width:9.5rem;height:10.5rem;border-radius:.25rem .9rem .9rem .25rem;background:#fcf8ec;border-left:10px solid #688670;transform:rotate(-9deg);box-shadow:8px 9px 0 #ffffff60,0 15px 25px -15px #38534560;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem}
+.notebook b{font-size:2.3rem;font-weight:450;color:#55846e}.notebook span{font-size:.65rem;letter-spacing:.2em}.notebook i{width:55%;height:3px;background:#d7decb}
+.comic{width:12rem;display:grid;grid-template-columns:repeat(2,1fr);gap:.55rem;transform:rotate(-5deg)}
+.comic span{display:grid;place-items:center;height:4.4rem;border-radius:.7rem;background:#fff9;font-size:2rem;color:#3c6858}.comic span:nth-child(2){background:#f4dfae}.comic span:nth-child(3){background:#bbdcd2}
+.screen-grid{height:5.8rem;background:repeating-linear-gradient(0deg,transparent,transparent 15px,#dde4db 15px,#dde4db 16px),repeating-linear-gradient(90deg,transparent,transparent 17px,#dde4db 17px,#dde4db 18px);display:grid;place-items:center}
+.screen-grid b{width:3rem;height:3rem;display:grid;place-items:center;border-radius:50%;background:#175d4e;color:#fff;font-size:1rem;padding-left:3px}
+.orbit{width:9rem;height:9rem;border:1px solid #ffffffb0;border-radius:50%;display:grid;place-items:center;position:relative}
+.orbit::before,.orbit::after{content:"";position:absolute;background:#fff9;width:2rem;height:2rem;border-radius:50%;left:-.5rem;top:1.3rem}
+.orbit::after{width:1rem;height:1rem;left:auto;right:.3rem;top:auto;bottom:1rem;background:#175d4e}
+.orbit b{font-size:5rem;line-height:1;font-weight:450;color:#175d4e}
+.card.empty{background:transparent;border:1.5px dashed #b6c7b6;align-items:center;justify-content:center;text-align:center;gap:.8rem;min-height:20rem}
+.empty-mark{font-size:4rem;font-weight:250;line-height:1;color:#8ca391}
+.card.empty span:last-of-type{font-size:1.2rem;font-weight:650}
+.card.empty p{color:#5a7166;font-size:.85rem;margin:0}
+.journal{max-width:52rem;margin:0 auto 6.5rem}
+.journal .section-head{padding-bottom:1.5rem;border-bottom:1px solid #cfdbce;margin-bottom:0}
+.log{padding:2rem 0;border-bottom:1px solid #dce3d7}
+.log-head{display:flex;align-items:center;gap:.65rem;flex-wrap:wrap}
+time{color:#566d60;font-size:.76rem;font-variant-numeric:tabular-nums;flex-basis:100%;letter-spacing:.04em}
+.log h3{font-size:1.15rem;line-height:1.5;letter-spacing:-.025em;margin:0;font-weight:650}
+.log-body{margin-top:.9rem;color:#40574b;font-size:.94rem;line-height:1.9}
+.log-body p{margin:.7rem 0 0}.log-body p:first-child{margin-top:0}
+.log-body ul{padding-left:1.2rem}.log-body li{margin:.3rem 0}
+.tags{display:flex;gap:.5rem;flex-wrap:wrap;padding:0;list-style:none;margin:.8rem 0 0}
+.tags li{font-size:.7rem;color:#526b5c}.tags li::before{content:"#"}
+code{font-size:.9em;background:#e9ece2;border-radius:.2rem;padding:.1em .35em}
+.about-section{background:#e4ead9;border-radius:2rem;padding:3rem;display:grid;grid-template-columns:1fr 2fr;gap:2rem}
+.about p{margin:0 0 1rem;color:#40574b}.about p:first-child{font-size:1.8rem;font-weight:700;line-height:1.4;letter-spacing:-.05em;color:#175d4e}.about p:last-child{margin-bottom:0}
+footer{border-top:1px solid #d3dcce;padding:2rem 0 3rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-size:.78rem;color:#526b5c}
+footer a{text-decoration:none;font-weight:750;font-size:1rem;letter-spacing:-.04em}
+.project-header{padding:3.5rem 0;margin:0 auto 2.5rem;max-width:52rem}
+.project-header h1{font-size:clamp(2rem,5vw,3.5rem);line-height:1.3;letter-spacing:-.06em;margin:1rem 0;color:#07564a}
+.project-header .tagline{color:#44685c;max-width:38rem;margin:1rem 0;font-size:1.1rem}
+.project-header .tools{margin-top:1.3rem}.project-header .tools li{font-size:.8rem}
+.back{margin:0 0 2rem;font-size:.85rem}.back a{text-decoration:none}
+.project-main{max-width:52rem;margin:auto}.project-main h2{padding-bottom:1.5rem;border-bottom:1px solid #cfdbce}
+.muted{color:#566d60}
+@media(max-width:700px){
+  .wrap{padding:0 1.15rem}.site-nav{padding:1.2rem 0;gap:.5rem}.brand{font-size:1.1rem}
+  .nav-links a{font-size:.74rem;padding:.35rem .6rem}.nav-links{padding:.25rem;gap:0}
+  .hero{padding:3.2rem 0 4rem}.hero .tagline{font-size:.93rem;max-width:20rem;margin-top:1.4rem}
+  .hero .spark:first-child{left:1%;top:5%;font-size:1.8rem}.hero .spark:nth-child(2){right:3%;top:6%;font-size:1.2rem}
+  .eyebrow{font-size:.6rem;margin-bottom:1rem}.hero-foot{margin-top:1.4rem;font-size:.72rem}
+  .cards{grid-template-columns:minmax(0,1fr);gap:1rem}.card{padding:1.5rem;border-radius:1.5rem;min-height:25rem}
+  .card h3{font-size:1.55rem}.card p{font-size:.85rem}.card-bottom{gap:.5rem}
+  .art{height:11rem;margin-top:1.4rem}.art .sheet{width:85%}
+  .section-head{gap:.6rem}h2{font-size:1.45rem}.section-head p{font-size:.72rem;max-width:12rem}
+  section,.journal{margin-bottom:4rem}.log{padding:1.7rem 0}.log h3{font-size:1.05rem}.log-body{font-size:.9rem}
+  .about-section{grid-template-columns:1fr;padding:1.7rem;gap:1.2rem;border-radius:1.5rem}.about p:first-child{font-size:1.45rem}
+  .project-header{padding:2rem 0 1.5rem;margin-bottom:1rem}.project-header .tagline{font-size:1rem}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 </style>
 </head>
 <body>
+<a class="skip" href="#main">본문으로 건너뛰기</a>
 <div class="wrap">
-<header>
-<h1>moonz.lab</h1>
-<p class="tagline">혼자 만들고, 혼자 굴립니다.</p>
+<nav class="site-nav" aria-label="주 메뉴">
+<a class="brand" href="index.html">moonz.lab</a>
+<div class="nav-links"><a href="index.html#work">만든 것</a><a href="index.html#log">작업 일지</a><a href="index.html#about">소개</a></div>
+</nav>
+<header class="hero">
+<span class="spark" aria-hidden="true">✦</span><span class="spark" aria-hidden="true">✦</span>
+<p class="eyebrow">A SMALL LAB FOR EVERYDAY IDEAS</p>
+<h1>작은 불편을,<span>쓸모 있는 도구로.</span></h1>
+<p class="tagline">혼자 만든 앱과 자동화를 모았습니다.<br>만들면서 달라진 것들도 조금씩 남깁니다.</p>
+<div class="hero-foot">21개의 프로젝트, 계속 만드는 중</div>
 </header>
-<main>
-<section><h2>만든 것</h2><div class="cards"><a class="card" href="project/threads-poster.html"><h3>쓰레드 자동 포스팅<span class="badge live">운영 중</span></h3><p>영상 소재 정리부터 글 작성·검수·발행 확인까지 이어주는 쓰레드 콘텐츠 도구.</p><ul class="tools"><li>Python</li><li>Apps Script</li><li>Claude API</li><li>텔레그램</li></ul><span class="count">일지 2</span></a><a class="card" href="project/blog-auto.html"><h3>블로그 자동 포스팅<span class="badge live">운영 중</span></h3><p>글감 조사·초안·이미지·검수를 채널별로 나눈 블로그 작업 도구.</p><ul class="tools"><li>Python</li><li>크롬 확장</li><li>Apps Script</li><li>텔레그램</li></ul><span class="count">일지 2</span></a><a class="card" href="project/one-line-diary.html"><h3>한 줄 육아<span class="badge live">운영 중</span></h3><p>일상의 짧은 기록을 함께 남기고 찾아보는 가족용 일기 앱.</p><ul class="tools"><li>Flutter</li><li>Firebase</li><li>Android</li></ul><span class="count">일지 2</span></a><a class="card" href="project/moonz-lab.html"><h3>작업 기록 사이트<span class="badge live">운영 중</span></h3><p>지금 보고 계신 이 사이트. 마크다운 파일을 올리면 알아서 페이지가 된다.</p><ul class="tools"><li>Python</li><li>GitHub Pages</li><li>GitHub Actions</li></ul><span class="count">일지 2</span></a><a class="card" href="project/pushdown.html"><h3>pushdown<span class="badge wip">만드는 중</span></h3><p>휴대폰 사용 시간을 운동과 연결해 조절하는 안드로이드 앱.</p><ul class="tools"><li>Kotlin</li><li>Jetpack Compose</li><li>Android</li></ul><span class="count">일지 1</span></a><a class="card" href="project/instatoon.html"><h3>인스타툰 공장<span class="badge wip">만드는 중</span></h3><p>짧은 기록을 장면으로 나눠 만화 제작 흐름으로 연결하는 도구.</p><ul class="tools"><li>Apps Script</li><li>Claude API</li><li>Gemini API</li><li>텔레그램</li></ul><span class="count">일지 2</span></a><article class="card empty"><span>빈 칸</span></article></div></section>
-<section id="log"><h2>작업 일지</h2><article class="log"><div class="log-head"><time datetime="2026-10-01">2026.10.01</time><h3>쓰레드 콘텐츠 작업을 단계별로 연결했습니다</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>기존에 만든 콘텐츠 파이프라인을 돌아보고 정리했습니다. 소재를 고르고, 글을 만들고, 게시 결과를 확인하는 일이 따로 흩어져 있었습니다.</p>
+<main id="main">
+<section id="work"><div class="section-head"><h2>만든 것</h2><p>일상에서 출발한 작은 프로젝트들</p></div><div class="cards"><a class="card" href="project/threads-poster.html"><div class="card-meta"><span class="card-label">PROJECT</span><span class="badge live">운영 중</span></div><h3>쓰레드 자동 포스팅</h3><p>영상 소재 정리부터 글 작성·검수·발행 확인까지 이어주는 쓰레드 콘텐츠 도구.</p><div class="art" aria-hidden="true"><div class="sheet"><div class="sheet-top"><i></i><i></i><i></i><span>A LITTLE LESS WORK</span></div><div class="flow"><b>＋</b><span>→</span><b>✦</b><span>→</span><b>✓</b></div></div><span class="art-chip">작은 자동화</span></div><div class="card-bottom"><ul class="tools"><li>Python</li><li>Apps Script</li><li>Claude API</li><li>텔레그램</li></ul><span class="count">일지 2</span></div></a><a class="card" href="project/blog-auto.html"><div class="card-meta"><span class="card-label">PROJECT</span><span class="badge live">운영 중</span></div><h3>블로그 자동 포스팅</h3><p>글감 조사·초안·이미지·검수를 채널별로 나눈 블로그 작업 도구.</p><div class="art" aria-hidden="true"><div class="sheet"><div class="sheet-top"><i></i><i></i><i></i><span>A LITTLE LESS WORK</span></div><div class="flow"><b>＋</b><span>→</span><b>✦</b><span>→</span><b>✓</b></div></div><span class="art-chip">작은 자동화</span></div><div class="card-bottom"><ul class="tools"><li>Python</li><li>크롬 확장</li><li>Apps Script</li><li>텔레그램</li></ul><span class="count">일지 2</span></div></a><a class="card" href="project/one-line-diary.html"><div class="card-meta"><span class="card-label">PROJECT</span><span class="badge live">운영 중</span></div><h3>한 줄 육아</h3><p>일상의 짧은 기록을 함께 남기고 찾아보는 가족용 일기 앱.</p><div class="art" aria-hidden="true"><div class="notebook"><b>✳</b><span>SMALL MOMENTS</span><i></i><i></i></div></div><div class="card-bottom"><ul class="tools"><li>Flutter</li><li>Firebase</li><li>Android</li></ul><span class="count">일지 2</span></div></a><a class="card" href="project/moonz-lab.html"><div class="card-meta"><span class="card-label">PROJECT</span><span class="badge live">운영 중</span></div><h3>작업 기록 사이트</h3><p>지금 보고 계신 이 사이트. 마크다운 파일을 올리면 알아서 페이지가 된다.</p><div class="art" aria-hidden="true"><div class="orbit"><b>✳</b></div></div><div class="card-bottom"><ul class="tools"><li>Python</li><li>GitHub Pages</li><li>GitHub Actions</li></ul><span class="count">일지 3</span></div></a><a class="card" href="project/pushdown.html"><div class="card-meta"><span class="card-label">PROJECT</span><span class="badge wip">만드는 중</span></div><h3>pushdown</h3><p>휴대폰 사용 시간을 운동과 연결해 조절하는 안드로이드 앱.</p><div class="art" aria-hidden="true"><div class="orbit"><b>✳</b></div></div><div class="card-bottom"><ul class="tools"><li>Kotlin</li><li>Jetpack Compose</li><li>Android</li></ul><span class="count">일지 1</span></div></a><a class="card" href="project/instatoon.html"><div class="card-meta"><span class="card-label">PROJECT</span><span class="badge wip">만드는 중</span></div><h3>인스타툰 공장</h3><p>짧은 기록을 장면으로 나눠 만화 제작 흐름으로 연결하는 도구.</p><div class="art" aria-hidden="true"><div class="comic"><span>✦</span><span>◡</span><span>◒</span><span>✧</span></div></div><div class="card-bottom"><ul class="tools"><li>Apps Script</li><li>Claude API</li><li>Gemini API</li><li>텔레그램</li></ul><span class="count">일지 2</span></div></a><a class="card" href="project/haru-crossword.html"><div class="card-meta"><span class="card-label">PROJECT</span><span class="badge wip">만드는 중</span></div><h3>오늘의 낱말</h3><p>큰 글씨와 편한 입력으로 가볍게 즐기는 우리말 십자말 앱.</p><div class="art art-word" aria-hidden="true"><div class="cross-board"><span>오</span><span>늘</span><span></span><span></span><span>의</span><span></span><span>낱</span><span>말</span><span></span></div></div><div class="card-bottom"><ul class="tools"><li>Flutter</li><li>Dart</li><li>앱인토스</li></ul><span class="count">일지 1</span></div></a><a class="card" href="project/haru-chinese-crossword.html"><div class="card-meta"><span class="card-label">PROJECT</span><span class="badge wip">만드는 중</span></div><h3>오늘의 중국어</h3><p>한국어 뜻으로 중국어 낱말을 풀고 병음으로 복습하는 십자말 앱.</p><div class="art art-word" aria-hidden="true"><div class="cross-board"><span>오</span><span>늘</span><span></span><span></span><span>의</span><span></span><span>낱</span><span>말</span><span></span></div></div><div class="card-bottom"><ul class="tools"><li>Flutter</li><li>Dart</li><li>Android</li></ul><span class="count">일지 1</span></div></a><a class="card" href="project/haru-japanese-crossword.html"><div class="card-meta"><span class="card-label">PROJECT</span><span class="badge wip">만드는 중</span></div><h3>오늘의 일본어</h3><p>히라가나로 답을 채우고 한자 표기까지 함께 보는 일본어 십자말 앱.</p><div class="art art-word" aria-hidden="true"><div class="cross-board"><span>오</span><span>늘</span><span></span><span></span><span>의</span><span></span><span>낱</span><span>말</span><span></span></div></div><div class="card-bottom"><ul class="tools"><li>Flutter</li><li>Dart</li><li>Android</li></ul><span class="count">일지 1</span></div></a><a class="card" href="project/taiwan-idiom.html"><div class="card-meta"><span class="card-label">PROJECT</span><span class="badge wip">만드는 중</span></div><h3>대만 성어 십자말</h3><p>번체자 성어를 퍼즐로 풀고 주음과 예문으로 복습하는 앱.</p><div class="art art-word" aria-hidden="true"><div class="cross-board"><span>오</span><span>늘</span><span></span><span></span><span>의</span><span></span><span>낱</span><span>말</span><span></span></div></div><div class="card-bottom"><ul class="tools"><li>Flutter</li><li>Dart</li><li>Android</li></ul><span class="count">일지 1</span></div></a><a class="card" href="project/sheet-content.html"><div class="card-meta"><span class="card-label">PROJECT</span><span class="badge wip">만드는 중</span></div><h3>시트 콘텐츠 제작 도구</h3><p>마크다운 원고를 카드 이미지와 짧은 영상으로 바꾸는 제작 도구.</p><div class="art" aria-hidden="true"><div class="sheet"><div class="sheet-top"><i></i><i></i><i></i><span>CREATIVE TOOLS</span></div><div class="screen-grid"><b>▶</b></div></div></div><div class="card-bottom"><ul class="tools"><li>Python</li><li>Playwright</li><li>FFmpeg</li></ul><span class="count">일지 1</span></div></a><a class="card" href="project/sheet-art.html"><div class="card-meta"><span class="card-label">PROJECT</span><span class="badge wip">만드는 중</span></div><h3>시트 도트 영상 도구</h3><p>영상 프레임을 픽셀로 바꾸고 시트 모티프 영상으로 구성하는 도구.</p><div class="art" aria-hidden="true"><div class="sheet"><div class="sheet-top"><i></i><i></i><i></i><span>CREATIVE TOOLS</span></div><div class="screen-grid"><b>▶</b></div></div></div><div class="card-bottom"><ul class="tools"><li>Python</li><li>FFmpeg</li><li>Apps Script</li></ul><span class="count">일지 1</span></div></a><a class="card" href="project/reading-diary.html"><div class="card-meta"><span class="card-label">PROJECT</span><span class="badge wip">만드는 중</span></div><h3>책새김</h3><p>사진과 짧은 글로 읽은 책과 남기고 싶은 문장을 기록하는 앱.</p><div class="art" aria-hidden="true"><div class="notebook"><b>✳</b><span>SMALL MOMENTS</span><i></i><i></i></div></div><div class="card-bottom"><ul class="tools"><li>Flutter</li><li>Firebase</li><li>Android</li></ul><span class="count">일지 1</span></div></a><a class="card" href="project/bookclub.html"><div class="card-meta"><span class="card-label">PROJECT</span><span class="badge wip">만드는 중</span></div><h3>독서클럽 사이트</h3><p>시트에 정리한 책 목록과 모임 기록을 웹에서 보여주는 도구.</p><div class="art" aria-hidden="true"><div class="notebook"><b>✳</b><span>SMALL MOMENTS</span><i></i><i></i></div></div><div class="card-bottom"><ul class="tools"><li>Apps Script</li><li>Google Sheets</li><li>HTML</li></ul><span class="count">일지 1</span></div></a><a class="card" href="project/restaurant-drafts.html"><div class="card-meta"><span class="card-label">PROJECT</span><span class="badge wip">만드는 중</span></div><h3>맛집 블로그 글 작성기</h3><p>방문 메모와 작성 조건을 모아 블로그 초안 작성을 돕는 도구.</p><div class="art" aria-hidden="true"><div class="sheet"><div class="sheet-top"><i></i><i></i><i></i><span>A LITTLE LESS WORK</span></div><div class="flow"><b>＋</b><span>→</span><b>✦</b><span>→</span><b>✓</b></div></div><span class="art-chip">작은 자동화</span></div><div class="card-bottom"><ul class="tools"><li>Python</li><li>데스크톱 UI</li></ul><span class="count">일지 1</span></div></a><a class="card" href="project/tesat-mate.html"><div class="card-meta"><span class="card-label">PROJECT</span><span class="badge wip">만드는 중</span></div><h3>테셋 메이트</h3><p>문제 풀이와 오답 복습, 학습 기록을 연결하는 개인용 웹 앱.</p><div class="art art-word" aria-hidden="true"><div class="cross-board"><span>오</span><span>늘</span><span></span><span></span><span>의</span><span></span><span>낱</span><span>말</span><span></span></div></div><div class="card-bottom"><ul class="tools"><li>TypeScript</li><li>Next.js</li><li>Python</li></ul><span class="count">일지 1</span></div></a><a class="card" href="project/word-field.html"><div class="card-meta"><span class="card-label">PROJECT</span><span class="badge wip">만드는 중</span></div><h3>낱말밭</h3><p>낱말 타일을 배치하며 퍼즐을 푸는 가벼운 웹 게임.</p><div class="art art-word" aria-hidden="true"><div class="cross-board"><span>오</span><span>늘</span><span></span><span></span><span>의</span><span></span><span>낱</span><span>말</span><span></span></div></div><div class="card-bottom"><ul class="tools"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul><span class="count">일지 1</span></div></a><a class="card" href="project/ripe.html"><div class="card-meta"><span class="card-label">PROJECT</span><span class="badge wip">만드는 중</span></div><h3>사흘</h3><p>갤러리 사진을 묶어 기록할 재료로 정리하는 안드로이드 앱.</p><div class="art" aria-hidden="true"><div class="sheet"><div class="sheet-top"><i></i><i></i><i></i><span>CREATIVE TOOLS</span></div><div class="screen-grid"><b>▶</b></div></div></div><div class="card-bottom"><ul class="tools"><li>Kotlin</li><li>Jetpack Compose</li><li>Room</li></ul><span class="count">일지 1</span></div></a><a class="card" href="project/airfare-watch.html"><div class="card-meta"><span class="card-label">PROJECT</span><span class="badge wip">만드는 중</span></div><h3>항공권 가격 알림</h3><p>항공권 가격 변화를 확인하고 알림으로 전달하는 개인용 도구.</p><div class="art" aria-hidden="true"><div class="sheet"><div class="sheet-top"><i></i><i></i><i></i><span>A LITTLE LESS WORK</span></div><div class="flow"><b>＋</b><span>→</span><b>✦</b><span>→</span><b>✓</b></div></div><span class="art-chip">작은 자동화</span></div><div class="card-bottom"><ul class="tools"><li>Python</li><li>텔레그램</li></ul><span class="count">일지 1</span></div></a><a class="card" href="project/youtube-pipeline.html"><div class="card-meta"><span class="card-label">PROJECT</span><span class="badge wip">만드는 중</span></div><h3>유튜브 영상 파이프라인</h3><p>자막과 영상 검사, 작업 목록 관리를 연결하는 제작 파이프라인.</p><div class="art" aria-hidden="true"><div class="sheet"><div class="sheet-top"><i></i><i></i><i></i><span>CREATIVE TOOLS</span></div><div class="screen-grid"><b>▶</b></div></div></div><div class="card-bottom"><ul class="tools"><li>Python</li><li>FFmpeg</li><li>Google Sheets</li></ul><span class="count">일지 1</span></div></a><a class="card" href="project/threads-radar.html"><div class="card-meta"><span class="card-label">PROJECT</span><span class="badge paused">멈춤</span></div><h3>육아템 알림</h3><p>소재와 게시 대기 작업을 관리하고 알림으로 연결하는 콘텐츠 도구.</p><div class="art" aria-hidden="true"><div class="sheet"><div class="sheet-top"><i></i><i></i><i></i><span>A LITTLE LESS WORK</span></div><div class="flow"><b>＋</b><span>→</span><b>✦</b><span>→</span><b>✓</b></div></div><span class="art-chip">작은 자동화</span></div><div class="card-bottom"><ul class="tools"><li>Python</li><li>Threads API</li><li>텔레그램</li></ul><span class="count">일지 1</span></div></a><article class="card empty"><span class="empty-mark" aria-hidden="true">＋</span><span>빈 칸</span><p>다음에 만들 것은 아직 비워둡니다.</p></article></div></section>
+<section id="log" class="journal"><div class="section-head"><h2>작업 일지</h2><p>만들고, 고치고, 기록합니다.</p></div><article class="log"><div class="log-head"><time datetime="2026-10-01">2026.10.01</time><h3>짧은 영상 제작에 필요한 기반 도구 만들기</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>기존에 만든 영상 제작 파이프라인의 기반 코드를 정리했습니다. 자막 생성, 출력 영상 검사, 시트의 대기 작업 읽기와 결과 알림 기능을 나누어 구현했습니다.</p>
+<p>반복 작업에 변화를 주는 구성도 포함했습니다. 현재 확인한 것은 개별 제작·검사 도구이며, 처음부터 게시까지 전 과정이 자동으로 완료되는 서비스로 소개하지 않습니다.</p></div><ul class="tags"><li>youtube-pipeline</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-10-01">2026.10.01</time><h3>낱말 퍼즐의 답이 하나인지 확인하는 과정</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>기존에 만든 낱말 퍼즐 웹 프로토타입을 정리했습니다. 타일 배치 화면과 퍼즐 생성 흐름을 만들고, 되짚기 탐색으로 해가 하나인지 확인하는 로직을 넣었습니다.</p>
+<p>진행 상태는 브라우저에 저장합니다. 단어 자료와 난이도를 다듬고 실제 사용자의 플레이를 확인하는 일은 남아 있습니다.</p></div><ul class="tags"><li>word-field</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-10-01">2026.10.01</time><h3>콘텐츠 대기 작업과 게시 확인을 분리했습니다</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>기존에 만든 콘텐츠 운영 도구를 정리했습니다. 준비한 소재와 게시할 작업을 대기 목록으로 관리하고, 게시·답글 처리와 알림을 나누었습니다.</p>
+<p>진행 기록에서 발행을 멈춘 상태를 확인해 현재 상태를 멈춤으로 표시했습니다. 계정 지표나 내부 운영 규칙 대신 구현한 작업 흐름만 공개합니다.</p></div><ul class="tags"><li>threads-radar</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-10-01">2026.10.01</time><h3>쓰레드 콘텐츠 작업을 단계별로 연결했습니다</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>기존에 만든 콘텐츠 파이프라인을 돌아보고 정리했습니다. 소재를 고르고, 글을 만들고, 게시 결과를 확인하는 일이 따로 흩어져 있었습니다.</p>
 <p>소재 수집·상품 연결·글 작성·검수·발행을 단계별로 나누고, 시트에서 작업 상태를 확인하도록 구성했습니다. 소재 후보를 찾는 경로와 다른 환경에서 시작할 때의 설정 안내도 보완했습니다.</p>
-<p>핵심은 글을 만들어 두는 것과 실제로 올라간 것을 구분하는 일입니다. 계정 정보와 내부 운영 기준은 공개 기록에서 제외했습니다.</p></div><ul class="tags"><li>threads-poster</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-10-01">2026.10.01</time><h3>화면 사용 시간을 운동으로 끊는 앱을 정리했습니다</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>기존에 개발한 pushdown의 구성을 정리했습니다. 휴대폰을 계속 사용하는 흐름을 작은 운동 행동으로 끊어보려는 안드로이드 앱입니다.</p>
+<p>핵심은 글을 만들어 두는 것과 실제로 올라간 것을 구분하는 일입니다. 계정 정보와 내부 운영 기준은 공개 기록에서 제외했습니다.</p></div><ul class="tags"><li>threads-poster</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-10-01">2026.10.01</time><h3>문제 풀이와 오답 복습을 한 화면 흐름으로</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>기존에 만든 개인 학습용 웹 앱을 정리했습니다. 문제 자료를 읽어 연습하고, 틀린 문제를 다시 풀며 기록을 이어가는 흐름을 구현했습니다.</p>
+<p>브라우저에 학습 기록을 보관하고 백업·복원으로 옮길 수 있게 구성했습니다. 공개하는 것은 앱의 구현 개요뿐이며 문제 원문, 자료 파일과 개인 학습 기록은 포함하지 않습니다.</p></div><ul class="tags"><li>tesat-mate</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-10-01">2026.10.01</time><h3>성어와 생활 예문을 퍼즐에 담았습니다</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>기존에 만든 번체자 성어 학습 앱을 정리했습니다. 성어를 맞히는 퍼즐에 주음과 생활 예문을 붙여, 답을 확인한 뒤에도 표현을 다시 볼 수 있게 구성했습니다.</p>
+<p>오프라인에서 사용할 체험판 형태로 개발하고 있습니다. 자체 편집한 학습 자료를 사용하며 공식 교육과정 인증이나 출시 완료로 소개하지 않습니다.</p></div><ul class="tags"><li>taiwan-idiom</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-10-01">2026.10.01</time><h3>원고 하나에서 카드 이미지와 영상까지</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>기존에 만든 콘텐츠 제작 도구를 정리했습니다. 원고를 고칠 때마다 이미지 편집을 반복하지 않도록 마크다운과 HTML 템플릿을 연결했습니다.</p>
+<p>카드 이미지를 렌더링하고 짧은 영상으로 묶는 작업까지 확장했습니다. 이미지·영상 산출물은 확인했으며, 파일을 만드는 단계와 외부 채널에 게시하는 단계는 구분합니다.</p></div><ul class="tags"><li>sheet-content</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-10-01">2026.10.01</time><h3>영상 프레임을 시트 모양으로 바꾸는 실험</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>기존에 만든 영상 처리 도구를 정리했습니다. 프레임의 색을 줄이고 픽셀 형태로 바꾸는 처리와, 이를 시트 모티프 화면으로 구성하는 흐름을 나눠 만들었습니다.</p>
+<p>명령 실행과 설정 화면이 구현된 개발 단계입니다. 결과물의 표현 품질과 사용 소재의 권리는 별도로 확인해야 하므로 공개 배포가 끝난 제품으로 소개하지 않습니다.</p></div><ul class="tags"><li>sheet-art</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-10-01">2026.10.01</time><h3>갤러리 사진을 기록할 묶음으로 정리하기</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>기존에 만든 사진 정리 앱을 정리했습니다. 사진을 찍고도 글로 남기지 못하는 일을 줄이려고, 촬영 시각과 위치를 참고해 사진을 묶는 기능을 만들었습니다.</p>
+<p>사진 스캔, 묶음 저장과 알림 관련 코드를 구현한 단계입니다. 개인 사진이나 위치 정보는 공개하지 않으며, 외부 서비스 연동과 실제 기기 동작을 모두 검증한 제품으로 소개하지 않습니다.</p></div><ul class="tags"><li>ripe</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-10-01">2026.10.01</time><h3>방문 메모를 초안으로 옮기는 수고를 줄이기</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>기존에 만든 글 작성 도구를 정리했습니다. 방문 메모와 글에 들어갈 조건이 흩어져 있어 초안을 쓸 때 다시 모아야 했습니다.</p>
+<p>장소·키워드·방문 메모를 입력하는 화면과 작성 조건을 읽어 초안에 반영하는 흐름을 만들었습니다. 실제 경험을 꾸며 넣지 않고, 초안 생성과 게시를 구분합니다. 방문 장소나 개별 의뢰 내용은 공개하지 않습니다.</p></div><ul class="tags"><li>restaurant-drafts</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-10-01">2026.10.01</time><h3>사진과 글을 함께 남기는 독서 기록</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>기존에 만든 독서 기록 앱을 정리했습니다. 책을 읽다 남긴 사진과 짧은 글을 한곳에서 다시 보고 싶어 시작한 앱입니다.</p>
+<p>기록 작성, 목록·달력 보기, 검색과 내보내기 기능을 구현했습니다. 앱의 기능만 소개하고 실제 독서 메모나 개인 계정 정보는 공개하지 않습니다. 배포와 실사용 검증은 구현 여부와 구분해 기록합니다.</p></div><ul class="tags"><li>reading-diary</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-10-01">2026.10.01</time><h3>화면 사용 시간을 운동으로 끊는 앱을 정리했습니다</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>기존에 개발한 pushdown의 구성을 정리했습니다. 휴대폰을 계속 사용하는 흐름을 작은 운동 행동으로 끊어보려는 안드로이드 앱입니다.</p>
 <p>사용 시간 추적, 중간 안내 화면, 일시정지와 기록 저장을 나누어 구현했습니다. Kotlin과 Jetpack Compose를 사용하고, 동작 판단 로직은 화면 코드와 분리되어 있습니다.</p>
 <p>현재 포트폴리오에서는 개발 중인 앱으로 소개합니다. 이 기록을 위해 새로 실기 테스트나 스토어 배포를 진행한 것은 아니므로, 출시 완료나 실사용 효과를 확인했다고 적지 않았습니다.</p>
-<p>초기 사이트 예시에 있던 센서 기반 운동 자동 인식 설명은 실제 구현 근거가 없어 제외했습니다. 현재 확인된 방식은 사용 시간을 측정하고 운동 완료를 기록하는 구조입니다.</p></div><ul class="tags"><li>pushdown</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-10-01">2026.10.01</time><h3>프로젝트 기록을 공개용으로 다시 정리했습니다</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>기존 사이트의 원본 저장소를 다시 연결하고, 현재 공개된 프로젝트 소개와 업데이트를 정리했습니다. 공부 메모는 옵시디언에 두고, 사이트에는 만든 프로젝트의 변화만 남기는 기준을 유지했습니다.</p>
+<p>초기 사이트 예시에 있던 센서 기반 운동 자동 인식 설명은 실제 구현 근거가 없어 제외했습니다. 현재 확인된 방식은 사용 시간을 측정하고 운동 완료를 기록하는 구조입니다.</p></div><ul class="tags"><li>pushdown</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-10-01">2026.10.01</time><h3>직접 만든 앱과 자동화를 한자리에 모았습니다</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>흩어져 있던 앱과 자동화 중 구현 근거를 확인한 작업을 모았습니다. 과거 작업은 오늘 정리한 회고라고 밝혔고, 개발 중인 것과 운영 중인 것을 구분했습니다.</p>
+<p>밝은 배경과 파스텔 카드로 화면을 다시 만들었습니다. 프로젝트 이름과 기존 주소, 프로젝트별 일지 연결은 유지했습니다.</p>
+<p>발행 로직 검사와 데스크톱·모바일 너비의 브라우저 검사를 통과했습니다. 모바일 검사는 화면 크기를 바꾼 브라우저에서 진행했으며 실제 휴대폰 검수와는 구분합니다.</p></div><ul class="tags"><li>moonz-lab</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-10-01">2026.10.01</time><h3>프로젝트 기록을 공개용으로 다시 정리했습니다</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>기존 사이트의 원본 저장소를 다시 연결하고, 현재 공개된 프로젝트 소개와 업데이트를 정리했습니다. 공부 메모는 옵시디언에 두고, 사이트에는 만든 프로젝트의 변화만 남기는 기준을 유지했습니다.</p>
 <p>설명은 문제·구현 방식·확인된 결과를 중심으로 짧게 쓰고, 개인정보·계정 정보·고객 자료·내부 운영값은 제외하도록 공개 기준을 문서화했습니다. 이전 작업을 돌아보고 쓴 글에는 과거 작업 정리라는 점도 밝혔습니다.</p>
 <p>디자인은 아직 바꾸지 않았습니다. 실제 사이트 화면으로 레퍼런스를 비교한 뒤 방향을 선택할 예정입니다.</p></div><ul class="tags"><li>moonz-lab</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-10-01">2026.10.01</time><h3>일기에서 만화 제작으로 이어지는 연결을 만들었습니다</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>이전에 진행한 인스타툰 제작 도구의 연결 작업을 정리했습니다. 같은 내용을 일기 앱과 만화 도구에 다시 입력하는 번거로움을 줄이는 것이 출발점이었습니다.</p>
 <p>일기에서 내용을 전달받는 흐름을 추가하고, 사용할 사람의 접근 권한을 확인하는 문제도 수정했습니다. 짧은 기록을 장면으로 나누는 제작 흐름과 이어지도록 구성했습니다.</p>
-<p>그림체와 캐릭터 시안 확정은 남은 과제입니다. 안정적으로 완성된 제작 서비스로 소개하지 않고 만드는 중인 도구로 남겨두었습니다. 실제 가족 기록과 캐릭터의 개인 식별 정보는 제외했습니다.</p></div><ul class="tags"><li>instatoon</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-10-01">2026.10.01</time><h3>짧은 일기를 쓰고 다시 찾는 흐름을 정리했습니다</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>기존 육아일기 앱의 작업 내용을 정리했습니다. 기록을 오래 쓰려면 작성 화면뿐 아니라 다시 찾고 보관하는 흐름도 필요했습니다.</p>
+<p>그림체와 캐릭터 시안 확정은 남은 과제입니다. 안정적으로 완성된 제작 서비스로 소개하지 않고 만드는 중인 도구로 남겨두었습니다. 실제 가족 기록과 캐릭터의 개인 식별 정보는 제외했습니다.</p></div><ul class="tags"><li>instatoon</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-10-01">2026.10.01</time><h3>히라가나 입력과 정답 복습을 연결했습니다</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>기존에 만든 일본어 십자말 앱을 정리했습니다. 한국어 단서로 낱말을 떠올리고 히라가나로 입력하는 흐름을 만들었습니다.</p>
+<p>문제를 푼 뒤 한자나 가타카나 표기도 함께 볼 수 있습니다. 문제와 글꼴을 앱에 포함해 오프라인 사용을 고려했으며, 공개 출시는 아직 별도로 확인할 단계입니다.</p></div><ul class="tags"><li>haru-japanese-crossword</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-10-01">2026.10.01</time><h3>십자말을 더 편하게 읽고 입력하도록</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>기존에 만든 십자말 앱을 정리했습니다. 작은 화면에서도 단서와 글자를 읽기 쉽도록 큰 글씨와 설명 확대, 입력 흐름을 다뤘습니다.</p>
+<p>문제 데이터와 진행 상태를 기기에 보관하고, 안드로이드 앱과 웹 실행 환경을 함께 다루고 있습니다. 웹에서의 동작 확인과 실제 휴대폰에서의 확인은 구분하며, 정식 출시를 마친 앱은 아닙니다.</p></div><ul class="tags"><li>haru-crossword</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-10-01">2026.10.01</time><h3>중국어 단어를 십자말로 익히는 앱</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>기존에 만든 중국어 십자말 앱을 정리했습니다. 한국어 설명을 읽고 간체자 타일을 골라 답을 채우는 방식입니다.</p>
+<p>정답을 확인한 뒤 병음을 함께 보며 복습하고, 문제와 진행 상태는 기기 안에 보관하도록 만들었습니다. 난이도는 자체 편집 기준이며 공식 시험 인증이나 스토어 출시를 뜻하지 않습니다.</p></div><ul class="tags"><li>haru-chinese-crossword</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-10-01">2026.10.01</time><h3>짧은 일기를 쓰고 다시 찾는 흐름을 정리했습니다</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>기존 육아일기 앱의 작업 내용을 정리했습니다. 기록을 오래 쓰려면 작성 화면뿐 아니라 다시 찾고 보관하는 흐름도 필요했습니다.</p>
 <p>Flutter와 Firebase로 만든 일기 앱에 검색·백업·알림 관련 개선을 진행했고, 일기를 만화 제작 도구로 넘기는 연결 작업도 추가했습니다.</p>
-<p>가족의 실제 일기, 사진, 이름과 접근 정보는 공개하지 않습니다. 포트폴리오에는 기록을 남기는 흐름과 도구 사이의 연결 방식만 남겼습니다.</p></div><ul class="tags"><li>one-line-diary</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-10-01">2026.10.01</time><h3>블로그마다 다른 작성·검수 흐름을 정리했습니다</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>그동안 진행한 블로그 작업을 정리했습니다. 같은 글쓰기 도구라도 플랫폼마다 편집기와 저장 방식이 달라 하나의 흐름으로 묶기 어려웠습니다.</p>
+<p>가족의 실제 일기, 사진, 이름과 접근 정보는 공개하지 않습니다. 포트폴리오에는 기록을 남기는 흐름과 도구 사이의 연결 방식만 남겼습니다.</p></div><ul class="tags"><li>one-line-diary</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-10-01">2026.10.01</time><h3>시트의 모임 기록을 웹 화면으로</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>기존에 만든 독서클럽용 웹 도구를 정리했습니다. 책 목록과 모임 기록을 시트에 보관하고 웹 화면에서 읽는 구조로 만들었습니다.</p>
+<p>Apps Script 코드와 화면 구현을 바탕으로 소개합니다. 실제 모임 이름과 구성원 정보는 제외했고, 정적 사이트로 옮기는 구상은 이전 완료로 적지 않았습니다.</p></div><ul class="tags"><li>bookclub</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-10-01">2026.10.01</time><h3>블로그마다 다른 작성·검수 흐름을 정리했습니다</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>그동안 진행한 블로그 작업을 정리했습니다. 같은 글쓰기 도구라도 플랫폼마다 편집기와 저장 방식이 달라 하나의 흐름으로 묶기 어려웠습니다.</p>
 <p>네이버·티스토리·워드프레스 작업을 채널별로 나누고, 근거 조사·본문 작성·이미지 준비·최종 검수를 분리했습니다. 워드프레스에서는 공식 자료와 본문을 대조한 뒤 공개 화면과 모바일 화면까지 확인한 작업 기록이 남아 있습니다.</p>
-<p>네이버 자동 입력은 본문 순서와 실행 중인 확장 버전을 다시 확인하는 단계입니다. 모든 채널이 안정적인 완전 자동 발행 상태라고 표현하지 않고, 확인된 결과와 남은 문제를 구분해두었습니다.</p></div><ul class="tags"><li>blog-auto</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-08-06">2026.08.06</time><h3>이 사이트를 만들었다</h3><span class="badge shaping">다듬는 중</span></div><div class="log-body"><p>마크다운 파일만 쓰면 되는 구조로 만들었다. 파일 하나 추가하고 발행하면 끝.</p>
+<p>네이버 자동 입력은 본문 순서와 실행 중인 확장 버전을 다시 확인하는 단계입니다. 모든 채널이 안정적인 완전 자동 발행 상태라고 표현하지 않고, 확인된 결과와 남은 문제를 구분해두었습니다.</p></div><ul class="tags"><li>blog-auto</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-10-01">2026.10.01</time><h3>항공권 가격을 반복해서 확인하는 일 줄이기</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>기존에 만든 가격 확인 도구를 정리했습니다. 조회 결과를 보관하고 이전 결과와 비교한 뒤 필요한 변화를 알림으로 전달하는 구조입니다.</p>
+<p>조회·기록·비교·알림 코드를 나누어 구현했습니다. 예약이나 결제를 대신하지 않으며, 실제 여행 일정·동행자·예산과 알림 계정 정보는 공개하지 않습니다.</p></div><ul class="tags"><li>airfare-watch</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-08-06">2026.08.06</time><h3>이 사이트를 만들었다</h3><span class="badge shaping">다듬는 중</span></div><div class="log-body"><p>마크다운 파일만 쓰면 되는 구조로 만들었다. 파일 하나 추가하고 발행하면 끝.</p>
 <p>프로젝트 목록 맨 끝에는 빈 칸을 하나 두기로 했다. 채워야 할 자리가 하나쯤 보이는 게 나을 것 같아서.</p>
-<p>카드를 누르면 그 프로젝트 일지만 모아서 보여준다. 이름을 한글로 바꿨더니 예전 태그로 쓴 일지가 떨어져 나가서, 옛 이름도 같이 알아보게 고쳤다.</p></div><ul class="tags"><li>작업 기록 사이트</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-08-04">2026.08.04</time><h3>발행 주기를 30분으로 줄였다</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>한 시간에 한 번은 너무 뜸했다. 30분으로 바꾸고 이틀 지켜봤는데 밀리는 구간은 없다.</p></div><ul class="tags"><li>threads-poster</li><li>운영</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-08-01">2026.08.01</time><h3>밤 10시에 열 편씩 미리 써두게 했다</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>아침에 앉아서 글감부터 고르는 게 제일 오래 걸렸다. 밤에 미리 돌려두니 아침엔 검수만 하면 된다.</p></div><ul class="tags"><li>blog_auto</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-07-18">2026.07.18</time><h3>알림이 두 번 오던 거 잡음</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>한 명이 쓰면 양쪽 폰에 다 울렸다. 쓴 사람은 빼고 보내게 고쳤다.</p></div><ul class="tags"><li>한 줄 육아일기</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-07-17">2026.07.17</time><h3>캐릭터 시안에서 멈춰 있다</h3><span class="badge rough">러프</span></div><div class="log-body"><p>그림체가 컷마다 미묘하게 달라진다. 시안을 먼저 확정해야 다음으로 넘어갈 수 있을 것 같다.</p></div><ul class="tags"><li>instatoon_family</li></ul></article></section>
-<section><h2>소개</h2><div class="about"><p>혼자 만들고, 혼자 굴립니다.</p>
+<p>카드를 누르면 그 프로젝트 일지만 모아서 보여준다. 이름을 한글로 바꿨더니 예전 태그로 쓴 일지가 떨어져 나가서, 옛 이름도 같이 알아보게 고쳤다.</p></div><ul class="tags"><li>작업 기록 사이트</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-08-04">2026.08.04</time><h3>발행 간격을 조정했다</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>발행 간격을 조정했습니다. 세부 운영 주기와 물량은 공개 기록에서 제외합니다.</p></div><ul class="tags"><li>threads-poster</li><li>운영</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-08-01">2026.08.01</time><h3>초안을 미리 준비하는 흐름으로 바꿨다</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>아침에 앉아서 글감부터 고르는 게 제일 오래 걸렸다. 밤에 미리 돌려두니 아침엔 검수만 하면 된다.</p></div><ul class="tags"><li>blog_auto</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-07-18">2026.07.18</time><h3>알림이 두 번 오던 거 잡음</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>한 명이 쓰면 양쪽 폰에 다 울렸다. 쓴 사람은 빼고 보내게 고쳤다.</p></div><ul class="tags"><li>한 줄 육아일기</li></ul></article><article class="log"><div class="log-head"><time datetime="2026-07-17">2026.07.17</time><h3>캐릭터 시안에서 멈춰 있다</h3><span class="badge rough">러프</span></div><div class="log-body"><p>그림체가 컷마다 미묘하게 달라진다. 시안을 먼저 확정해야 다음으로 넘어갈 수 있을 것 같다.</p></div><ul class="tags"><li>instatoon_family</li></ul></article></section>
+<section id="about" class="about-section"><h2>소개</h2><div class="about"><p>혼자 만들고, 혼자 굴립니다.</p>
 <p>손이 가는 일을 자동화하고, 만든 것과 만드는 중인 것을 여기 적어둡니다. 대단한 걸 만들려던 건 아니고, 매번 같은 일을 두 번 하기 싫어서 시작했습니다.</p>
 <p>기록은 다듬어지기 전에 올립니다. 러프한 채로 남겨두는 편이 나중에 도움이 됐습니다.</p></div></section>
 </main>
-<footer><a href="index.html">moonz.lab</a></footer>
+<footer><a href="index.html">moonz.lab</a><span>혼자 만들고, 조금씩 고칩니다.</span></footer>
 </div>
 </body>
 </html>
