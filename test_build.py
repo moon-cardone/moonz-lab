@@ -267,6 +267,42 @@ def test_project_cards_are_text_only():
     shutil.rmtree(tmp)
 
 
+def test_featured_work_is_validated_and_shown_first():
+    tmp = with_content({
+        "projects/normal.md": "---\nname: 일반 작업\norder: 1\n---\n",
+        "projects/pick.md": "---\nname: 대표 작업 앱\nfeatured: true\nproblem: 불편한 일\napproach: <script>방식</script>\nresult: 현재 상태\norder: 9\n---\n",
+    })
+    projects, errors = build.load_projects()
+    assert not errors
+    output = build.render([], projects, "")
+    assert output.index("대표 작업 앱") < output.index("일반 작업") < output.index("빈 칸")
+    assert output.count('class="card featured"') == 1
+    assert "<script>방식</script>" not in output and "&lt;script&gt;" in output
+    assert "불편한 일" in build.render_project(projects[1], [])
+    (tmp / "projects/pick.md").write_text("---\nname: 대표 작업 앱\nfeatured: true\n---\n", encoding="utf-8")
+    _, errors = build.load_projects()
+    assert errors and "pick.md" in errors[0] and "problem" in errors[0]
+    (tmp / "projects/pick.md").write_text("---\nname: 대표 작업 앱\nfeatured: maybe\n---\n", encoding="utf-8")
+    _, errors = build.load_projects()
+    assert errors and "featured" in errors[0]
+    shutil.rmtree(tmp)
+
+
+def test_home_log_is_short_and_links_to_full_record():
+    tmp = with_content({
+        "projects/app.md": "---\nname: app\n---\n",
+        "log/entry.md": "---\ndate: 2026-10-01\ntitle: 고친 내용\ntags: app\n---\n첫 문단\n\n자세한 기록",
+    })
+    projects, _ = build.load_projects()
+    logs, _ = build.load_logs()
+    home = build.render(logs, projects, "")
+    detail = build.render_project(projects[0], logs)
+    assert '<a href="project/app.html">고친 내용</a>' in home
+    assert "첫 문단" in home and "자세한 기록" not in home
+    assert "첫 문단" in detail and "자세한 기록" in detail
+    shutil.rmtree(tmp)
+
+
 def test_section_order():
     out = build.render([], [], "<p>소개</p>")
     assert out.index("만든 것") < out.index("작업 일지") < out.index("소개"), "구역 순서"

@@ -28,6 +28,7 @@ a:focus-visible{outline:3px solid #175d4e;outline-offset:4px}
 .skip{position:absolute;left:1rem;top:-6rem;background:#fff;padding:.5rem 1rem;z-index:10}
 .skip:focus{top:1rem}
 .hero{padding:2rem 0 2.5rem}
+.eyebrow{margin:0 0 .7rem;font-size:.76rem;color:#526b5c;letter-spacing:.04em}
 .hero h1{font-size:clamp(1.6rem,3.5vw,2.2rem);line-height:1.4;letter-spacing:-.055em;margin:0;font-weight:750;color:#07564a}
 .hero h1 span{margin-left:.25em}
 .hero .tagline{margin:.65rem 0 0;color:#44685c;font-size:.9rem}
@@ -37,13 +38,21 @@ section{margin-bottom:3rem}
 h2{font-size:1.2rem;letter-spacing:-.035em;font-weight:700;margin:0}
 .section-head p{font-size:.75rem;color:#5a7166;margin:0;text-align:right}
 .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.75rem}
+.collection-label{grid-column:1/-1;display:flex;justify-content:space-between;gap:1rem;margin:0;font-size:.85rem;font-weight:650}
+.collection-label span{font-weight:400;font-size:.75rem;color:#526b5c}
+.collection-label.secondary{margin-top:1rem;padding-top:1rem;border-top:1px solid #d3dcce}
+.card.featured{border-top:3px solid #175d4e;padding-top:.9rem}
+.case{margin:.8rem 0 0;display:grid;gap:.6rem;font-size:.82rem;line-height:1.65}
+.case div{display:grid;grid-template-columns:3.3rem minmax(0,1fr);gap:.45rem}
+.case dt{color:#35584d;font-size:.7rem;padding-top:.1rem;font-weight:600}
+.case dd{margin:0;color:#183e35}
 .card{--card-color:#b2ddd1;background:var(--card-color);border-radius:.85rem;padding:1rem;
   display:flex;flex-direction:column;text-decoration:none;color:#183e35;transition:box-shadow .15s}
-.card:nth-child(6n+2){--card-color:#d6c1eb}
-.card:nth-child(6n+3){--card-color:#f3d6b9}
-.card:nth-child(6n+4){--card-color:#c8daed}
-.card:nth-child(6n+5){--card-color:#e5dfa9}
-.card:nth-child(6n){--card-color:#e8c8cf}
+.card:nth-of-type(6n+2){--card-color:#d6c1eb}
+.card:nth-of-type(6n+3){--card-color:#f3d6b9}
+.card:nth-of-type(6n+4){--card-color:#c8daed}
+.card:nth-of-type(6n+5){--card-color:#e5dfa9}
+.card:nth-of-type(6n){--card-color:#e8c8cf}
 a.card:hover{box-shadow:inset 0 0 0 1px #35584d60}
 .card-meta{display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem}
 .card h3{margin:0;min-width:0;font-size:1.05rem;letter-spacing:-.035em;line-height:1.5;font-weight:700}
@@ -68,6 +77,7 @@ a.card:hover{box-shadow:inset 0 0 0 1px #35584d60}
 .log-head{display:flex;align-items:center;gap:.4rem .6rem;flex-wrap:wrap}
 .log-date{color:#566d60;font-size:.75rem;font-variant-numeric:tabular-nums;flex-basis:100%}
 .log h3{font-size:1rem;line-height:1.5;letter-spacing:-.02em;margin:0;font-weight:650}
+.log h3 a{text-decoration:none}.log h3 a:hover{text-decoration:underline}
 .log-body{margin-top:.6rem;color:#40574b;font-size:.9rem;line-height:1.8}
 .log-body p{margin:.6rem 0 0}.log-body p:first-child{margin-top:0}
 .log-body ul{padding-left:1.2rem}.log-body li{margin:.25rem 0}
@@ -82,6 +92,7 @@ footer a{text-decoration:none;font-weight:700;font-size:.9rem}
 .project-header h1{font-size:clamp(1.5rem,4vw,2rem);line-height:1.4;letter-spacing:-.045em;margin:.7rem 0;color:#07564a}
 .project-header .tagline{color:#44685c;margin:.7rem 0;font-size:.95rem}
 .project-header .tools{margin-top:.8rem}.project-header .tools li{font-size:.75rem}
+.project-header .case{padding:1rem;background:#e4ead9;border-radius:.65rem;margin-top:1.3rem;font-size:.9rem}
 .back{margin:0 0 1rem;font-size:.8rem}.back a{text-decoration:none}
 .project-main{max-width:49rem;margin:auto}.project-main h2{padding-bottom:.8rem;border-bottom:1px solid #cfdbce}
 .muted{color:#566d60}
@@ -109,8 +120,8 @@ footer a{text-decoration:none;font-weight:700;font-size:.9rem}
 <span class="badge wip">만드는 중</span><h1>책새김</h1>
 <p class="tagline">사진과 짧은 글로 읽은 책과 남기고 싶은 문장을 기록하는 앱.</p><ul class="tools"><li>Flutter</li><li>Firebase</li><li>Android</li></ul>
 </header>
-<main id="main" class="project-main"><section><h2>작업 일지</h2><article class="log"><div class="log-head"><span class="log-date">2026년 · 작업 정리</span><h3>사진과 글을 함께 남기는 독서 기록</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>기존에 만든 독서 기록 앱을 정리했습니다. 책을 읽다 남긴 사진과 짧은 글을 한곳에서 다시 보고 싶어 시작한 앱입니다.</p>
-<p>기록 작성, 목록·달력 보기, 검색과 내보내기 기능을 구현했습니다. 앱의 기능만 소개하고 실제 독서 메모나 개인 계정 정보는 공개하지 않습니다. 배포와 실사용 검증은 구현 여부와 구분해 기록합니다.</p></div></article></section></main>
+<main id="main" class="project-main"><section><h2>작업 일지</h2><article class="log"><div class="log-head"><span class="log-date">2026년 · 작업 정리</span><h3>남긴 문장을 다시 찾는 독서 기록</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>책새김을 만들 때는 사진과 짧은 글을 한곳에 모으는 데서 시작했습니다. 기록이 쌓인 뒤에도 읽을 수 있도록 목록과 달력, 검색을 연결했습니다.</p>
+<p>기록 작성과 내보내기까지 구현했습니다. 실제로 오래 쓰면서 작성과 다시 찾기 흐름을 다듬는 일은 남아 있습니다.</p></div></article></section></main>
 <footer><a href="../index.html">moonz.lab</a><span>혼자 만들고, 조금씩 고칩니다.</span></footer>
 </div>
 </body>

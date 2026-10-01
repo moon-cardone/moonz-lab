@@ -150,12 +150,23 @@ def load_projects():
                 raise ContentError(f"{path.name}: 이름(name)이 없습니다")
             first_line = body.strip().splitlines()[0] if body.strip() else ""
             summary = meta.get("summary") or meta.get("설명") or first_line
+            featured = meta.get("featured", "false")
+            if featured not in ("true", "false"):
+                raise ContentError(f"{path.name}: featured는 true 또는 false여야 합니다")
+            if featured == "true":
+                for field in ("problem", "approach", "result"):
+                    if not meta.get(field):
+                        raise ContentError(f"{path.name}: 대표 작업의 {field} 항목이 없습니다")
             cards.append(
                 {
                     "name": name,
                     "slug": meta.get("slug") or slugify(name),
                     "aliases": split_tags(meta.get("aliases") or meta.get("옛이름")),
                     "summary": summary,
+                    "featured": featured == "true",
+                    "problem": meta.get("problem", ""),
+                    "approach": meta.get("approach", ""),
+                    "result": meta.get("result", ""),
                     "state": check_state(meta, path, PROJ_STATES),
                     "tools": split_tags(meta.get("tools") or meta.get("도구")),
                     "order": meta.get("order") or meta.get("순서") or "999",
@@ -258,6 +269,7 @@ a:focus-visible{outline:3px solid #175d4e;outline-offset:4px}
 .skip{position:absolute;left:1rem;top:-6rem;background:#fff;padding:.5rem 1rem;z-index:10}
 .skip:focus{top:1rem}
 .hero{padding:2rem 0 2.5rem}
+.eyebrow{margin:0 0 .7rem;font-size:.76rem;color:#526b5c;letter-spacing:.04em}
 .hero h1{font-size:clamp(1.6rem,3.5vw,2.2rem);line-height:1.4;letter-spacing:-.055em;margin:0;font-weight:750;color:#07564a}
 .hero h1 span{margin-left:.25em}
 .hero .tagline{margin:.65rem 0 0;color:#44685c;font-size:.9rem}
@@ -267,13 +279,21 @@ section{margin-bottom:3rem}
 h2{font-size:1.2rem;letter-spacing:-.035em;font-weight:700;margin:0}
 .section-head p{font-size:.75rem;color:#5a7166;margin:0;text-align:right}
 .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.75rem}
+.collection-label{grid-column:1/-1;display:flex;justify-content:space-between;gap:1rem;margin:0;font-size:.85rem;font-weight:650}
+.collection-label span{font-weight:400;font-size:.75rem;color:#526b5c}
+.collection-label.secondary{margin-top:1rem;padding-top:1rem;border-top:1px solid #d3dcce}
+.card.featured{border-top:3px solid #175d4e;padding-top:.9rem}
+.case{margin:.8rem 0 0;display:grid;gap:.6rem;font-size:.82rem;line-height:1.65}
+.case div{display:grid;grid-template-columns:3.3rem minmax(0,1fr);gap:.45rem}
+.case dt{color:#35584d;font-size:.7rem;padding-top:.1rem;font-weight:600}
+.case dd{margin:0;color:#183e35}
 .card{--card-color:#b2ddd1;background:var(--card-color);border-radius:.85rem;padding:1rem;
   display:flex;flex-direction:column;text-decoration:none;color:#183e35;transition:box-shadow .15s}
-.card:nth-child(6n+2){--card-color:#d6c1eb}
-.card:nth-child(6n+3){--card-color:#f3d6b9}
-.card:nth-child(6n+4){--card-color:#c8daed}
-.card:nth-child(6n+5){--card-color:#e5dfa9}
-.card:nth-child(6n){--card-color:#e8c8cf}
+.card:nth-of-type(6n+2){--card-color:#d6c1eb}
+.card:nth-of-type(6n+3){--card-color:#f3d6b9}
+.card:nth-of-type(6n+4){--card-color:#c8daed}
+.card:nth-of-type(6n+5){--card-color:#e5dfa9}
+.card:nth-of-type(6n){--card-color:#e8c8cf}
 a.card:hover{box-shadow:inset 0 0 0 1px #35584d60}
 .card-meta{display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem}
 .card h3{margin:0;min-width:0;font-size:1.05rem;letter-spacing:-.035em;line-height:1.5;font-weight:700}
@@ -298,6 +318,7 @@ a.card:hover{box-shadow:inset 0 0 0 1px #35584d60}
 .log-head{display:flex;align-items:center;gap:.4rem .6rem;flex-wrap:wrap}
 .log-date{color:#566d60;font-size:.75rem;font-variant-numeric:tabular-nums;flex-basis:100%}
 .log h3{font-size:1rem;line-height:1.5;letter-spacing:-.02em;margin:0;font-weight:650}
+.log h3 a{text-decoration:none}.log h3 a:hover{text-decoration:underline}
 .log-body{margin-top:.6rem;color:#40574b;font-size:.9rem;line-height:1.8}
 .log-body p{margin:.6rem 0 0}.log-body p:first-child{margin-top:0}
 .log-body ul{padding-left:1.2rem}.log-body li{margin:.25rem 0}
@@ -312,6 +333,7 @@ footer a{text-decoration:none;font-weight:700;font-size:.9rem}
 .project-header h1{font-size:clamp(1.5rem,4vw,2rem);line-height:1.4;letter-spacing:-.045em;margin:.7rem 0;color:#07564a}
 .project-header .tagline{color:#44685c;margin:.7rem 0;font-size:.95rem}
 .project-header .tools{margin-top:.8rem}.project-header .tools li{font-size:.75rem}
+.project-header .case{padding:1rem;background:#e4ead9;border-radius:.65rem;margin-top:1.3rem;font-size:.9rem}
 .back{margin:0 0 1rem;font-size:.8rem}.back a{text-decoration:none}
 .project-main{max-width:49rem;margin:auto}.project-main h2{padding-bottom:.8rem;border-bottom:1px solid #cfdbce}
 .muted{color:#566d60}
@@ -326,6 +348,15 @@ footer a{text-decoration:none;font-weight:700;font-size:.9rem}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 """
+
+
+def case_html(project):
+    if not project.get("featured"):
+        return ""
+    return '<dl class="case">' + "".join(
+        f'<div><dt>{label}</dt><dd>{html.escape(project[field])}</dd></div>'
+        for field, label in (("problem", "출발점"), ("approach", "만든 방식"), ("result", "지금은"))
+    ) + "</dl>"
 
 
 def card_html(c, base=""):
@@ -343,16 +374,18 @@ def card_html(c, base=""):
     )
     summary = f"<p>{md_inline(c['summary'])}</p>" if c["summary"] else ""
     count = (
-        f'<span class="count">일지 {c["log_count"]}</span>' if c.get("log_count") else '<span class="count">프로젝트 보기</span>'
+        '<span class="count">작업 기록</span>' if c.get("log_count") else '<span class="count">프로젝트 보기</span>'
     )
+    detail = case_html(c) if c.get("featured") else summary
+    card_class = "card featured" if c.get("featured") else "card"
     return (
-        f'<a class="card" href="{base}project/{c["slug"]}.html">'
-        f'<div class="card-meta"><h3>{html.escape(c["name"])}</h3>{badge}</div>{summary}'
+        f'<a class="{card_class}" href="{base}project/{c["slug"]}.html">'
+        f'<div class="card-meta"><h3>{html.escape(c["name"])}</h3>{badge}</div>{detail}'
         f'<div class="card-bottom">{tools}{count}</div></a>'
     )
 
 
-def log_html(e, show_tags=True):
+def log_html(e, show_tags=True, href="", compact=False):
     badge = (
         f'<span class="badge {state_class(e["state"])}">{html.escape(e["state"])}</span>'
         if e["state"]
@@ -365,7 +398,11 @@ def log_html(e, show_tags=True):
         if e["tags"] and show_tags
         else ""
     )
-    body = f'<div class="log-body">{e["body"]}</div>' if e["body"] else ""
+    content = e["body"].split("\n", 1)[0] if compact else e["body"]
+    body = f'<div class="log-body">{content}</div>' if content else ""
+    title = html.escape(e["title"])
+    if href:
+        title = f'<a href="{html.escape(href, quote=True)}">{title}</a>'
     date_label = (
         f'<span class="log-date">{e["date"].year}년 · 작업 정리</span>'
         if e.get("date_display") == "year"
@@ -374,7 +411,7 @@ def log_html(e, show_tags=True):
     return (
         f'<article class="log"><div class="log-head">'
         f'{date_label}'
-        f'<h3>{html.escape(e["title"])}</h3>{badge}</div>{body}{tags}</article>'
+        f'<h3>{title}</h3>{badge}</div>{body}{tags}</article>'
     )
 
 
@@ -409,17 +446,28 @@ def page(title, body, desc=TAGLINE, base=""):
 
 
 def render(logs, projects, about):
-    cards = "".join(card_html(c) for c in projects)
+    featured = [project for project in projects if project.get("featured")]
+    others = [project for project in projects if not project.get("featured")]
+    cards = '<p class="collection-label">대표 작업<span>자동화 · 생활 앱 · 사용성 개선</span></p>' if featured else ""
+    cards += "".join(card_html(project) for project in featured)
+    if featured and others:
+        cards += '<p class="collection-label secondary">그 밖에 만든 것<span>작게 시작해 다듬는 도구들</span></p>'
+    cards += "".join(card_html(project) for project in others)
     cards += '<article class="card empty"><span class="empty-mark" aria-hidden="true">＋</span><span>빈 칸</span><p>다음에 만들 것은 아직 비워둡니다.</p></article>'
-    entries = "".join(log_html(e) for e in logs) or "<p>아직 없습니다.</p>"
+    links = {}
+    for project in projects:
+        for entry in logs_for(project, logs):
+            links.setdefault(entry["file"], f'project/{project["slug"]}.html')
+    entries = "".join(log_html(entry, href=links.get(entry["file"], ""), compact=True) for entry in logs) or "<p>아직 없습니다.</p>"
     body = f"""<header class="hero">
-<h1>작은 불편을,<span>쓸모 있는 도구로.</span></h1>
-<p class="tagline">혼자 만든 앱과 자동화를 모았습니다.<br>만들면서 달라진 것들도 조금씩 남깁니다.</p>
-<div class="hero-foot">{len(projects)}개의 프로젝트, 계속 만드는 중</div>
+<p class="eyebrow">카르돈의 작은 작업실</p>
+<h1>반복되는 일은 덜고,<span>남기고 싶은 순간은 담습니다.</span></h1>
+<p class="tagline">직접 쓰려고 만든 자동화와 생활 앱입니다.<br>무엇을 만들었는지보다, 어떤 불편을 어떻게 풀었는지 남깁니다.</p>
+<div class="hero-foot">기획부터 구현·운영까지 직접 · Python / Flutter / Apps Script</div>
 </header>
 <main id="main">
-<section id="work"><div class="section-head"><h2>만든 것</h2><p>일상에서 출발한 작은 프로젝트들</p></div><div class="cards">{cards}</div></section>
-<section id="log" class="journal"><div class="section-head"><h2>작업 일지</h2><p>만들고, 고치고, 기록합니다.</p></div>{entries}</section>
+<section id="work"><div class="section-head"><h2>만든 것</h2><p>{len(projects)}개의 앱과 자동화 · 카드에서 작업 기록으로</p></div><div class="cards">{cards}</div></section>
+<section id="log" class="journal"><div class="section-head"><h2>작업 일지</h2><p>제목을 누르면 프로젝트별 전체 기록을 볼 수 있습니다.</p></div>{entries}</section>
 <section id="about" class="about-section"><h2>소개</h2><div class="about">{about}</div></section>
 </main>"""
     return page(SITE_NAME, body)
@@ -448,7 +496,7 @@ def render_project(project, entries):
     body = f"""<header class="project-header">
 <p class="back"><a href="../index.html#log">← 전체 일지</a></p>
 {badge}<h1>{html.escape(project["name"])}</h1>
-{summary}{tools}
+{summary}{tools}{case_html(project)}
 </header>
 <main id="main" class="project-main"><section><h2>작업 일지</h2>{logs_html}</section></main>"""
     return page(
