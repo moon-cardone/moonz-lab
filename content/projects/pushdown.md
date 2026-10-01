@@ -1,6 +1,6 @@
 ---
 name: pushdown
-summary: 폰을 30분 쓸 때마다 화면을 잠그고 푸쉬업 20번을 시키는 스크린타임 앱.
+summary: 휴대폰 사용 시간을 운동과 연결해 조절하는 안드로이드 앱.
 status: 만드는 중
 tools: Kotlin, Jetpack Compose, Android
 order: 6
