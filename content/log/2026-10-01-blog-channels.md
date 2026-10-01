@@ -1,5 +1,6 @@
 ---
 date: 2026-10-01
+date_display: year
 title: 블로그마다 다른 작성·검수 흐름을 정리했습니다
 tags: blog-auto
 status: 정리됨

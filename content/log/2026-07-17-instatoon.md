@@ -1,5 +1,6 @@
 ---
 date: 2026-07-17
+date_display: year
 title: 캐릭터 시안에서 멈춰 있다
 tags: instatoon_family
 status: 러프

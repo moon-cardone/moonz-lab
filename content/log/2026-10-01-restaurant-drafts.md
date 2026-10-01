@@ -1,5 +1,6 @@
 ---
 date: 2026-10-01
+date_display: year
 title: 방문 메모를 초안으로 옮기는 수고를 줄이기
 tags: restaurant-drafts
 status: 정리됨

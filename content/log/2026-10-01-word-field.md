@@ -1,5 +1,6 @@
 ---
 date: 2026-10-01
+date_display: year
 title: 낱말 퍼즐의 답이 하나인지 확인하는 과정
 tags: word-field
 status: 정리됨

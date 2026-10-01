@@ -1,5 +1,6 @@
 ---
 date: 2026-10-01
+date_display: year
 title: 쓰레드 콘텐츠 작업을 단계별로 연결했습니다
 tags: threads-poster
 status: 정리됨

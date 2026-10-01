@@ -119,9 +119,13 @@ def load_logs():
                 raise ContentError(f"{path.name}: 날짜(date)가 없습니다")
             if not title:
                 raise ContentError(f"{path.name}: 제목(title)이 없습니다")
+            date_display = meta.get("date_display", "full")
+            if date_display not in ("full", "year"):
+                raise ContentError(f"{path.name}: date_display는 full 또는 year여야 합니다")
             entries.append(
                 {
                     "date": parse_date(raw_date, path),
+                    "date_display": date_display,
                     "title": title,
                     "tags": split_tags(meta.get("tags") or meta.get("태그")),
                     "state": check_state(meta, path, LOG_STATES),
@@ -132,7 +136,7 @@ def load_logs():
             )
         except ContentError as e:
             errors.append(str(e))
-    entries.sort(key=lambda e: (e["date"], e["file"]), reverse=True)
+    entries.sort(key=lambda e: (e["date_display"] == "full", e["date"], e["file"]), reverse=True)
     return entries, errors
 
 
@@ -146,12 +150,23 @@ def load_projects():
                 raise ContentError(f"{path.name}: 이름(name)이 없습니다")
             first_line = body.strip().splitlines()[0] if body.strip() else ""
             summary = meta.get("summary") or meta.get("설명") or first_line
+            image_name = meta.get("image", "")
+            image_alt = meta.get("image_alt", "")
+            if image_name:
+                if not re.fullmatch(r"[a-z0-9-]+\.(png|jpg|webp)", image_name):
+                    raise ContentError(f"{path.name}: image에는 assets/projects/ 안의 이미지 파일명만 적어주세요")
+                if not (ROOT / "assets" / "projects" / image_name).is_file():
+                    raise ContentError(f"{path.name}: 이미지 파일 '{image_name}'이 없습니다")
+                if not image_alt:
+                    raise ContentError(f"{path.name}: 이미지 설명(image_alt)이 없습니다")
             cards.append(
                 {
                     "name": name,
                     "slug": meta.get("slug") or slugify(name),
                     "aliases": split_tags(meta.get("aliases") or meta.get("옛이름")),
                     "summary": summary,
+                    "image": image_name,
+                    "image_alt": image_alt,
                     "state": check_state(meta, path, PROJ_STATES),
                     "tools": split_tags(meta.get("tools") or meta.get("도구")),
                     "order": meta.get("order") or meta.get("순서") or "999",
@@ -270,7 +285,7 @@ h2{font-size:1.7rem;letter-spacing:-.055em;font-weight:750;margin:0}
 .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.4rem}
 .card{--card-color:#b2ddd1;background:var(--card-color);border-radius:2rem;padding:2rem 2rem 1.5rem;
   display:flex;flex-direction:column;text-decoration:none;color:#183e35;position:relative;overflow:hidden;
-  min-height:26rem;transition:transform .22s,box-shadow .22s}
+  min-height:16rem;transition:transform .22s,box-shadow .22s}
 .card:nth-child(6n+2){--card-color:#d6c1eb}
 .card:nth-child(6n+3){--card-color:#f3d6b9}
 .card:nth-child(6n+4){--card-color:#c8daed}
@@ -281,7 +296,7 @@ a.card:hover{transform:translateY(-5px);box-shadow:0 15px 30px -20px #254a4355}
 .card-label{font-size:.65rem;letter-spacing:.16em;font-weight:650}
 .card h3{margin:0;font-size:1.75rem;letter-spacing:-.055em;line-height:1.35;font-weight:750}
 .card p{margin:.65rem 0 0;max-width:27rem;font-size:.9rem;line-height:1.65;color:#36594e}
-.card-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-top:auto;padding-top:.8rem}
+.card-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-top:auto;padding-top:1.8rem}
 .tools{display:flex;flex-wrap:wrap;gap:.3rem .65rem;list-style:none;padding:0;margin:0}
 .tools li{font-size:.67rem;line-height:1.6;color:#35584d}
 .count{font-size:.73rem;white-space:nowrap;flex-shrink:0}
@@ -291,30 +306,7 @@ a.card:hover{transform:translateY(-5px);box-shadow:0 15px 30px -20px #254a4355}
 .badge.wip,.badge.shaping{background:#fff2d2;color:#6d4e19}
 .badge.paused{background:#e6e8e2;color:#4e594e}
 .badge.rough{background:#e5dcf0;color:#57436b}
-.art{height:12rem;margin:1.7rem 0 .5rem;display:flex;justify-content:center;align-items:center;position:relative;flex-shrink:0}
-.art .sheet{width:76%;height:10.3rem;background:#fffffff0;border-radius:.85rem;padding:1.2rem;box-shadow:0 12px 22px -12px #244b4c40;transform:rotate(-4deg);position:relative}
-.sheet-top{display:flex;align-items:center;gap:.25rem;border-bottom:1px solid #dae3dc;padding-bottom:.7rem;margin-bottom:.8rem}
-.sheet-top i{width:5px;height:5px;border-radius:50%;background:#cedbd4}
-.sheet-top span{font-size:.6rem;margin-left:auto;letter-spacing:.1em;color:#496157}
-.flow{display:flex;align-items:center;justify-content:space-around;gap:.5rem;height:5rem}
-.flow b{display:grid;place-items:center;width:3.1rem;aspect-ratio:1;border-radius:.8rem;background:#e7eee5;font-size:1.5rem;font-weight:450}
-.flow b:nth-of-type(2){background:var(--card-color)}
-.flow span{color:#7b9389}
-.art-chip{position:absolute;right:2%;bottom:12%;padding:.45rem .8rem;border-radius:99px;background:#175d4e;color:#fff;font-size:.65rem;box-shadow:0 6px 15px #173f3520;transform:rotate(5deg)}
-.cross-board{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;width:9rem;height:9rem;transform:rotate(-6deg);padding:.6rem;background:#fffffff0;border-radius:1rem;box-shadow:0 12px 25px -10px #244b4c35}
-.cross-board span{display:grid;place-items:center;background:#e5eacb;border-radius:.25rem;font-size:1.3rem;font-weight:700;color:#365c43}
-.cross-board span:empty{background:#f6f4ed}
-.art-word::after{content:"✦";position:absolute;right:20%;top:5%;font-size:2rem;color:#fff}
-.notebook{width:9.5rem;height:10.5rem;border-radius:.25rem .9rem .9rem .25rem;background:#fcf8ec;border-left:10px solid #688670;transform:rotate(-9deg);box-shadow:8px 9px 0 #ffffff60,0 15px 25px -15px #38534560;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem}
-.notebook b{font-size:2.3rem;font-weight:450;color:#55846e}.notebook span{font-size:.65rem;letter-spacing:.2em}.notebook i{width:55%;height:3px;background:#d7decb}
-.comic{width:12rem;display:grid;grid-template-columns:repeat(2,1fr);gap:.55rem;transform:rotate(-5deg)}
-.comic span{display:grid;place-items:center;height:4.4rem;border-radius:.7rem;background:#fff9;font-size:2rem;color:#3c6858}.comic span:nth-child(2){background:#f4dfae}.comic span:nth-child(3){background:#bbdcd2}
-.screen-grid{height:5.8rem;background:repeating-linear-gradient(0deg,transparent,transparent 15px,#dde4db 15px,#dde4db 16px),repeating-linear-gradient(90deg,transparent,transparent 17px,#dde4db 17px,#dde4db 18px);display:grid;place-items:center}
-.screen-grid b{width:3rem;height:3rem;display:grid;place-items:center;border-radius:50%;background:#175d4e;color:#fff;font-size:1rem;padding-left:3px}
-.orbit{width:9rem;height:9rem;border:1px solid #ffffffb0;border-radius:50%;display:grid;place-items:center;position:relative}
-.orbit::before,.orbit::after{content:"";position:absolute;background:#fff9;width:2rem;height:2rem;border-radius:50%;left:-.5rem;top:1.3rem}
-.orbit::after{width:1rem;height:1rem;left:auto;right:.3rem;top:auto;bottom:1rem;background:#175d4e}
-.orbit b{font-size:5rem;line-height:1;font-weight:450;color:#175d4e}
+.project-image{display:block;width:100%;height:23rem;object-fit:contain;margin:1.5rem 0 0;border-radius:.8rem;background:#ffffff50}
 .card.empty{background:transparent;border:1.5px dashed #b6c7b6;align-items:center;justify-content:center;text-align:center;gap:.8rem;min-height:20rem}
 .empty-mark{font-size:4rem;font-weight:250;line-height:1;color:#8ca391}
 .card.empty span:last-of-type{font-size:1.2rem;font-weight:650}
@@ -323,7 +315,7 @@ a.card:hover{transform:translateY(-5px);box-shadow:0 15px 30px -20px #254a4355}
 .journal .section-head{padding-bottom:1.5rem;border-bottom:1px solid #cfdbce;margin-bottom:0}
 .log{padding:2rem 0;border-bottom:1px solid #dce3d7}
 .log-head{display:flex;align-items:center;gap:.65rem;flex-wrap:wrap}
-time{color:#566d60;font-size:.76rem;font-variant-numeric:tabular-nums;flex-basis:100%;letter-spacing:.04em}
+.log-date{color:#566d60;font-size:.76rem;font-variant-numeric:tabular-nums;flex-basis:100%;letter-spacing:.04em}
 .log h3{font-size:1.15rem;line-height:1.5;letter-spacing:-.025em;margin:0;font-weight:650}
 .log-body{margin-top:.9rem;color:#40574b;font-size:.94rem;line-height:1.9}
 .log-body p{margin:.7rem 0 0}.log-body p:first-child{margin-top:0}
@@ -348,9 +340,9 @@ footer a{text-decoration:none;font-weight:750;font-size:1rem;letter-spacing:-.04
   .hero{padding:3.2rem 0 4rem}.hero .tagline{font-size:.93rem;max-width:20rem;margin-top:1.4rem}
   .hero .spark:first-child{left:1%;top:5%;font-size:1.8rem}.hero .spark:nth-child(2){right:3%;top:6%;font-size:1.2rem}
   .eyebrow{font-size:.6rem;margin-bottom:1rem}.hero-foot{margin-top:1.4rem;font-size:.72rem}
-  .cards{grid-template-columns:minmax(0,1fr);gap:1rem}.card{padding:1.5rem;border-radius:1.5rem;min-height:25rem}
+  .cards{grid-template-columns:minmax(0,1fr);gap:1rem}.card{padding:1.5rem;border-radius:1.5rem;min-height:15rem}
   .card h3{font-size:1.55rem}.card p{font-size:.85rem}.card-bottom{gap:.5rem}
-  .art{height:11rem;margin-top:1.4rem}.art .sheet{width:85%}
+  .project-image{height:20rem}
   .section-head{gap:.6rem}h2{font-size:1.45rem}.section-head p{font-size:.72rem;max-width:12rem}
   section,.journal{margin-bottom:4rem}.log{padding:1.7rem 0}.log h3{font-size:1.05rem}.log-body{font-size:.9rem}
   .about-section{grid-template-columns:1fr;padding:1.7rem;gap:1.2rem;border-radius:1.5rem}.about p:first-child{font-size:1.45rem}
@@ -358,23 +350,6 @@ footer a{text-decoration:none;font-weight:750;font-size:1rem;letter-spacing:-.04
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 """
-
-
-def project_art(project):
-    slug = project["slug"]
-    if "crossword" in slug or slug in {"taiwan-idiom", "word-field", "tesat-mate"}:
-        letters = "오늘  의 낱말 "
-        cells = "".join(f"<span>{letter.strip()}</span>" for letter in letters)
-        return f'<div class="art art-word" aria-hidden="true"><div class="cross-board">{cells}</div></div>'
-    if "diary" in slug or slug == "bookclub":
-        return '<div class="art" aria-hidden="true"><div class="notebook"><b>✳</b><span>SMALL MOMENTS</span><i></i><i></i></div></div>'
-    if slug == "instatoon":
-        return '<div class="art" aria-hidden="true"><div class="comic"><span>✦</span><span>◡</span><span>◒</span><span>✧</span></div></div>'
-    if slug in {"sheet-content", "sheet-art", "youtube-pipeline", "ripe"}:
-        return '<div class="art" aria-hidden="true"><div class="sheet"><div class="sheet-top"><i></i><i></i><i></i><span>CREATIVE TOOLS</span></div><div class="screen-grid"><b>▶</b></div></div></div>'
-    if slug in {"pushdown", "moonz-lab"}:
-        return '<div class="art" aria-hidden="true"><div class="orbit"><b>✳</b></div></div>'
-    return '<div class="art" aria-hidden="true"><div class="sheet"><div class="sheet-top"><i></i><i></i><i></i><span>A LITTLE LESS WORK</span></div><div class="flow"><b>＋</b><span>→</span><b>✦</b><span>→</span><b>✓</b></div></div><span class="art-chip">작은 자동화</span></div>'
 
 
 def card_html(c, base=""):
@@ -394,10 +369,15 @@ def card_html(c, base=""):
     count = (
         f'<span class="count">일지 {c["log_count"]}</span>' if c.get("log_count") else '<span class="count">프로젝트 보기</span>'
     )
+    preview = (
+        f'<img class="project-image" src="{base}assets/projects/{html.escape(c["image"], quote=True)}" '
+        f'alt="{html.escape(c["image_alt"], quote=True)}" loading="lazy" decoding="async">'
+        if c.get("image") else ""
+    )
     return (
         f'<a class="card" href="{base}project/{c["slug"]}.html">'
         f'<div class="card-meta"><span class="card-label">PROJECT</span>{badge}</div>'
-        f'<h3>{html.escape(c["name"])}</h3>{summary}{project_art(c)}'
+        f'<h3>{html.escape(c["name"])}</h3>{summary}{preview}'
         f'<div class="card-bottom">{tools}{count}</div></a>'
     )
 
@@ -416,9 +396,14 @@ def log_html(e, show_tags=True):
         else ""
     )
     body = f'<div class="log-body">{e["body"]}</div>' if e["body"] else ""
+    date_label = (
+        f'<span class="log-date">{e["date"].year}년 · 작업 정리</span>'
+        if e.get("date_display") == "year"
+        else f'<time class="log-date" datetime="{e["date"].isoformat()}">{fmt_date(e["date"])}</time>'
+    )
     return (
         f'<article class="log"><div class="log-head">'
-        f'<time datetime="{e["date"].isoformat()}">{fmt_date(e["date"])}</time>'
+        f'{date_label}'
         f'<h3>{html.escape(e["title"])}</h3>{badge}</div>{body}{tags}</article>'
     )
 

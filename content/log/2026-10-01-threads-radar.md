@@ -1,5 +1,6 @@
 ---
 date: 2026-10-01
+date_display: year
 title: 콘텐츠 대기 작업과 게시 확인을 분리했습니다
 tags: threads-radar
 status: 정리됨

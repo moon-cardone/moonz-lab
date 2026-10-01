@@ -1,5 +1,6 @@
 ---
 date: 2026-10-01
+date_display: year
 title: 중국어 단어를 십자말로 익히는 앱
 tags: haru-chinese-crossword
 status: 정리됨

@@ -1,5 +1,6 @@
 ---
 date: 2026-10-01
+date_display: year
 title: 성어와 생활 예문을 퍼즐에 담았습니다
 tags: taiwan-idiom
 status: 정리됨

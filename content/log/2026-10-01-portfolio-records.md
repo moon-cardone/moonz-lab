@@ -1,5 +1,6 @@
 ---
 date: 2026-10-01
+date_display: year
 title: 프로젝트 기록을 공개용으로 다시 정리했습니다
 tags: moonz-lab
 status: 정리됨

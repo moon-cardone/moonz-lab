@@ -1,5 +1,6 @@
 ---
 date: 2026-10-01
+date_display: year
 title: 문제 풀이와 오답 복습을 한 화면 흐름으로
 tags: tesat-mate
 status: 정리됨

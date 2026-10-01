@@ -217,15 +217,75 @@ def test_korean_name_slug():
     assert build.slugify("blog_auto") == "blog_auto"
 
 
-def test_project_art_and_navigation():
-    for slug in ["haru-crossword", "reading-diary", "instatoon", "sheet-art", "pushdown", "threads-poster"]:
-        art = build.project_art({"slug": slug})
-        assert 'aria-hidden="true"' in art, slug
-        assert "<script" not in art, slug
+def test_navigation():
     out = build.render([], [], "")
     for target in ["main", "work", "log", "about"]:
         assert f'id="{target}"' in out
     assert 'class="skip"' in out
+
+
+def test_year_only_history_and_new_dated_updates():
+    tmp = with_content({
+        "log/z-history.md": "---\ndate: 2026-10-01\ndate_display: year\ntitle: 과거 정리\ntags: app\n---\n한 줄",
+        "log/a-daily.md": "---\ndate: 2026-10-01\ntitle: 새 작업\ntags: app\n---\n한 줄",
+        "projects/app.md": "---\nname: app\n---\n",
+    })
+    logs, errors = build.load_logs()
+    projects, project_errors = build.load_projects()
+    assert not errors and not project_errors
+    assert [entry["title"] for entry in logs] == ["새 작업", "과거 정리"]
+    for output in [build.render(logs, projects, ""), build.render_project(projects[0], logs)]:
+        assert output.count('datetime="2026-10-01"') == 1
+        assert '2026년 · 작업 정리' in output
+    assert logs[1]["date"] == date(2026, 10, 1)
+    (tmp / "log/a-daily.md").write_text("---\ndate_display: year\ntitle: 날짜 누락\n---\n", encoding="utf-8")
+    _, errors = build.load_logs()
+    assert any("a-daily.md" in error and "날짜" in error for error in errors)
+    original_root = build.ROOT
+    build.ROOT = tmp
+    (tmp / "index.html").write_text("keep existing output", encoding="utf-8")
+    try:
+        assert build.main() == 1
+        assert (tmp / "index.html").read_text(encoding="utf-8") == "keep existing output"
+    finally:
+        build.ROOT = original_root
+    (tmp / "log/a-daily.md").write_text("---\ndate: 2026-10-01\ndate_display: invalid\ntitle: 잘못된 표시\n---\n", encoding="utf-8")
+    _, errors = build.load_logs()
+    assert any("a-daily.md" in error and "date_display" in error for error in errors)
+    shutil.rmtree(tmp)
+
+
+def test_project_images_are_local_optional_and_described():
+    tmp = with_content({"projects/app.md": "---\nname: app\n---\n"})
+    original_root = build.ROOT
+    build.ROOT = tmp
+    try:
+        projects, errors = build.load_projects()
+        assert not errors and '<img' not in build.card_html(projects[0])
+        assert 'class="art' not in build.card_html(projects[0])
+        (tmp / "assets/projects").mkdir(parents=True)
+        (tmp / "assets/projects/screen.png").write_bytes(b"image fixture")
+        for image_name, description, valid in [
+            ("../screen.png", "설명", False),
+            ("https://example.com/screen.png", "설명", False),
+            ("missing.png", "설명", False),
+            ("screen.png", "", False),
+            ("screen.png", '화면 "설명"', True),
+        ]:
+            (tmp / "projects/app.md").write_text(
+                f"---\nname: app\nimage: {image_name}\nimage_alt: {description}입니다\n---\n"
+                if description else f"---\nname: app\nimage: {image_name}\n---\n", encoding="utf-8")
+            projects, errors = build.load_projects()
+            assert bool(errors) != valid, (image_name, errors)
+            if valid:
+                output = build.card_html(projects[0], base="../")
+                assert 'src="../assets/projects/screen.png"' in output
+                assert '&quot;설명&quot;' in output and 'loading="lazy"' in output
+            else:
+                assert "app.md" in errors[0]
+    finally:
+        build.ROOT = original_root
+        shutil.rmtree(tmp)
 
 
 def test_section_order():

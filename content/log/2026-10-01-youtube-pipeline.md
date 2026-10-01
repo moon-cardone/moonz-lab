@@ -1,5 +1,6 @@
 ---
 date: 2026-10-01
+date_display: year
 title: 짧은 영상 제작에 필요한 기반 도구 만들기
 tags: youtube-pipeline
 status: 정리됨

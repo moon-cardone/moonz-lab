@@ -1,5 +1,6 @@
 ---
 date: 2026-10-01
+date_display: year
 title: 원고 하나에서 카드 이미지와 영상까지
 tags: sheet-content
 status: 정리됨

@@ -1,5 +1,6 @@
 ---
 date: 2026-10-01
+date_display: year
 title: 화면 사용 시간을 운동으로 끊는 앱을 정리했습니다
 tags: pushdown
 status: 정리됨

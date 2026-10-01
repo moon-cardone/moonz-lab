@@ -1,5 +1,6 @@
 ---
 date: 2026-10-01
+date_display: year
 title: 직접 만든 앱과 자동화를 한자리에 모았습니다
 tags: moonz-lab
 status: 정리됨

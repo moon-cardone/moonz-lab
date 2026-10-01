@@ -1,5 +1,6 @@
 ---
 date: 2026-10-01
+date_display: year
 title: 항공권 가격을 반복해서 확인하는 일 줄이기
 tags: airfare-watch
 status: 정리됨

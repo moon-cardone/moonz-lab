@@ -1,5 +1,6 @@
 ---
 date: 2026-10-01
+date_display: year
 title: 히라가나 입력과 정답 복습을 연결했습니다
 tags: haru-japanese-crossword
 status: 정리됨

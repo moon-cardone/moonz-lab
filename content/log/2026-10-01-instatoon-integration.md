@@ -1,5 +1,6 @@
 ---
 date: 2026-10-01
+date_display: year
 title: 일기에서 만화 제작으로 이어지는 연결을 만들었습니다
 tags: instatoon
 status: 정리됨

@@ -1,5 +1,6 @@
 ---
 date: 2026-10-01
+date_display: year
 title: 십자말을 더 편하게 읽고 입력하도록
 tags: haru-crossword
 status: 정리됨

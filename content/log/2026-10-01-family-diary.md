@@ -1,5 +1,6 @@
 ---
 date: 2026-10-01
+date_display: year
 title: 짧은 일기를 쓰고 다시 찾는 흐름을 정리했습니다
 tags: one-line-diary
 status: 정리됨

@@ -1,5 +1,6 @@
 ---
 date: 2026-10-01
+date_display: year
 title: 사진과 글을 함께 남기는 독서 기록
 tags: reading-diary
 status: 정리됨
