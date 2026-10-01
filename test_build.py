@@ -255,37 +255,16 @@ def test_year_only_history_and_new_dated_updates():
     shutil.rmtree(tmp)
 
 
-def test_project_images_are_local_optional_and_described():
-    tmp = with_content({"projects/app.md": "---\nname: app\n---\n"})
-    original_root = build.ROOT
-    build.ROOT = tmp
-    try:
-        projects, errors = build.load_projects()
-        assert not errors and '<img' not in build.card_html(projects[0])
-        assert 'class="art' not in build.card_html(projects[0])
-        (tmp / "assets/projects").mkdir(parents=True)
-        (tmp / "assets/projects/screen.png").write_bytes(b"image fixture")
-        for image_name, description, valid in [
-            ("../screen.png", "설명", False),
-            ("https://example.com/screen.png", "설명", False),
-            ("missing.png", "설명", False),
-            ("screen.png", "", False),
-            ("screen.png", '화면 "설명"', True),
-        ]:
-            (tmp / "projects/app.md").write_text(
-                f"---\nname: app\nimage: {image_name}\nimage_alt: {description}입니다\n---\n"
-                if description else f"---\nname: app\nimage: {image_name}\n---\n", encoding="utf-8")
-            projects, errors = build.load_projects()
-            assert bool(errors) != valid, (image_name, errors)
-            if valid:
-                output = build.card_html(projects[0], base="../")
-                assert 'src="../assets/projects/screen.png"' in output
-                assert '&quot;설명&quot;' in output and 'loading="lazy"' in output
-            else:
-                assert "app.md" in errors[0]
-    finally:
-        build.ROOT = original_root
-        shutil.rmtree(tmp)
+def test_project_cards_are_text_only():
+    tmp = with_content({
+        "projects/app.md": "---\nname: app\nimage: old-screen.png\nimage_alt: old image\n---\n",
+    })
+    projects, errors = build.load_projects()
+    assert not errors
+    output = build.card_html(projects[0])
+    assert "<img" not in output and 'class="art' not in output
+    assert 'href="project/app.html"' in output
+    shutil.rmtree(tmp)
 
 
 def test_section_order():
