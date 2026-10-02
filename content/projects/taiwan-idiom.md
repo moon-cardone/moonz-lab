@@ -1,4 +1,5 @@
 ---
+category: 앱·게임
 name: 대만 성어 십자말
 slug: taiwan-idiom
 summary: 번체자 성어를 퍼즐로 복습

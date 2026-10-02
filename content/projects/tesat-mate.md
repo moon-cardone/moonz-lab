@@ -1,4 +1,5 @@
 ---
+category: 앱·게임
 name: 테셋 메이트
 slug: tesat-mate
 summary: 문제 풀이와 오답 복습을 한곳에

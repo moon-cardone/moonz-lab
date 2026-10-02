@@ -46,18 +46,19 @@ h2{font-size:1.2rem;letter-spacing:-.035em;font-weight:700;margin:0}
 .case div{display:grid;grid-template-columns:3.3rem minmax(0,1fr);gap:.45rem}
 .case dt{color:#35584d;font-size:.7rem;padding-top:.1rem;font-weight:600}
 .case dd{margin:0;color:#183e35}
-.card{--card-color:#b2ddd1;background:var(--card-color);border-radius:.85rem;padding:1rem;
+.card{--card-color:#e4ead9;background:var(--card-color);border-radius:.85rem;padding:1rem;
   display:flex;flex-direction:column;text-decoration:none;color:#183e35;transition:box-shadow .15s}
-.card:nth-of-type(6n+2){--card-color:#d6c1eb}
-.card:nth-of-type(6n+3){--card-color:#f3d6b9}
-.card:nth-of-type(6n+4){--card-color:#c8daed}
-.card:nth-of-type(6n+5){--card-color:#e5dfa9}
-.card:nth-of-type(6n){--card-color:#e8c8cf}
+.category-automation{--card-color:#b2ddd1}
+.category-app{--card-color:#d6c1eb}
+.category-website{--card-color:#f3d6b9}
+.category-key{display:flex;flex-wrap:wrap;gap:.4rem 1rem;margin:0 0 1rem;font-size:.75rem;color:#40574b}
+.category-key span{display:flex;align-items:center;gap:.35rem}
+.category-key span::before{content:"";width:.7rem;height:.7rem;border-radius:50%;background:var(--card-color);border:1px solid #183e3530}
 a.card:hover{box-shadow:inset 0 0 0 1px #35584d60}
 .card-meta{display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem}
 .card h3{margin:0;min-width:0;font-size:1.05rem;letter-spacing:-.035em;line-height:1.5;font-weight:700}
 .card p{margin:.55rem 0 0;font-size:.85rem;line-height:1.65;color:#36594e}
-.project-list{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem .75rem}
+.project-list{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.5rem .75rem}
 .card.compact{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:0 .75rem;padding:.65rem .85rem;border-radius:.4rem}
 .compact h3{font-size:.9rem}.compact p{margin:.1rem 0 0;font-size:.8rem}
 .compact .arrow{grid-column:2;grid-row:1/3;font-size:.9rem}
@@ -100,7 +101,7 @@ footer a{text-decoration:none;font-weight:700;font-size:.9rem}
 .back{margin:0 0 1rem;font-size:.8rem}.back a{text-decoration:none}
 .project-main{max-width:49rem;margin:auto}.project-main h2{padding-bottom:.8rem;border-bottom:1px solid #cfdbce}
 .muted{color:#566d60}
-@media(max-width:1000px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:1000px){.cards,.project-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){
   .wrap{padding:0 1rem}.site-nav{padding:1rem 0;gap:.4rem}.brand{font-size:1.05rem}
   .nav-links a{font-size:.75rem;padding:.35rem .45rem}

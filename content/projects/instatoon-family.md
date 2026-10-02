@@ -1,4 +1,5 @@
 ---
+category: 자동화 도구
 name: 인스타툰 공장
 slug: instatoon
 aliases: instatoon_family, 네 칸 공장, 인스타툰

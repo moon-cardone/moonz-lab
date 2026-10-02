@@ -292,6 +292,25 @@ def test_featured_work_is_validated_and_shown_first():
     shutil.rmtree(tmp)
 
 
+def test_category_colors_follow_metadata_not_order():
+    tmp = with_content({
+        "projects/tool.md": "---\nname: 도구\ncategory: 자동화 도구\n---\n",
+        "projects/app.md": "---\nname: 앱\ncategory: 앱·게임\n---\n",
+        "projects/web.md": "---\nname: 웹\ncategory: 웹사이트\n---\n",
+    })
+    projects, errors = build.load_projects()
+    assert not errors
+    for project in reversed(projects):
+        output = build.card_html(project)
+        assert f'category-{build.PROJECT_CATEGORIES[project["category"]]}' in output
+        assert project["category"] in output
+    assert "nth-of-type" not in build.CSS
+    (tmp / "projects/app.md").write_text("---\nname: 앱\ncategory: unknown\n---\n", encoding="utf-8")
+    _, errors = build.load_projects()
+    assert errors and "app.md" in errors[0] and "category" in errors[0]
+    shutil.rmtree(tmp)
+
+
 def test_home_log_is_short_and_links_to_full_record():
     tmp = with_content({
         "projects/app.md": "---\nname: app\n---\n",

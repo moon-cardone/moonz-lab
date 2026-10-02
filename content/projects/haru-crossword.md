@@ -1,4 +1,5 @@
 ---
+category: 앱·게임
 name: 오늘의 낱말
 slug: haru-crossword
 summary: 글자와 단서는 크게, 입력은 덜 헷갈리게 만든 십자말 앱입니다.

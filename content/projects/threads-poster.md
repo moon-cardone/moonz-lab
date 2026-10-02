@@ -1,4 +1,5 @@
 ---
+category: 자동화 도구
 name: 쓰레드 자동 포스팅
 slug: threads-poster
 aliases: threads-poster, 밤새 도는 손, 스레드 자동 포스팅

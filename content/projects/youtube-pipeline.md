@@ -1,4 +1,5 @@
 ---
+category: 자동화 도구
 name: 유튜브 영상 파이프라인
 slug: youtube-pipeline
 summary: 자막 생성과 영상 검사를 돕는 도구

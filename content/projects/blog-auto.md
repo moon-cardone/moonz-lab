@@ -1,4 +1,5 @@
 ---
+category: 자동화 도구
 name: 블로그 자동 포스팅
 slug: blog-auto
 aliases: blog_auto, 새벽 연장

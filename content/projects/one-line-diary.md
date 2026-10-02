@@ -1,4 +1,5 @@
 ---
+category: 앱·게임
 name: 한 줄 육아
 slug: one-line-diary
 aliases: one_line_diary, 하루 한 줄, 한 줄 육아일기

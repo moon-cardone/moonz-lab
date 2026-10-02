@@ -1,4 +1,5 @@
 ---
+category: 웹사이트
 name: 작업 기록 사이트
 slug: moonz-lab
 aliases: moonz.lab, 기록, 정적사이트

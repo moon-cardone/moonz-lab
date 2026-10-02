@@ -1,4 +1,5 @@
 ---
+category: 웹사이트
 name: 독서클럽 사이트
 slug: bookclub
 summary: 책 목록과 모임 기록을 한곳에

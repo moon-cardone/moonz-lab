@@ -25,6 +25,7 @@ TAGLINE = "혼자 만들고, 혼자 굴립니다."
 
 LOG_STATES = ("러프", "다듬는 중", "정리됨")
 PROJ_STATES = ("운영 중", "만드는 중", "멈춤")
+PROJECT_CATEGORIES = {"자동화 도구": "automation", "앱·게임": "app", "웹사이트": "website"}
 
 
 class ContentError(Exception):
@@ -150,6 +151,9 @@ def load_projects():
                 raise ContentError(f"{path.name}: 이름(name)이 없습니다")
             first_line = body.strip().splitlines()[0] if body.strip() else ""
             summary = meta.get("summary") or meta.get("설명") or first_line
+            category = meta.get("category", "")
+            if category and category not in PROJECT_CATEGORIES:
+                raise ContentError(f"{path.name}: category는 {' / '.join(PROJECT_CATEGORIES)} 중 하나여야 합니다")
             featured = meta.get("featured", "false")
             if featured not in ("true", "false"):
                 raise ContentError(f"{path.name}: featured는 true 또는 false여야 합니다")
@@ -163,6 +167,7 @@ def load_projects():
                     "slug": meta.get("slug") or slugify(name),
                     "aliases": split_tags(meta.get("aliases") or meta.get("옛이름")),
                     "summary": summary,
+                    "category": category,
                     "featured": featured == "true",
                     "problem": meta.get("problem", ""),
                     "approach": meta.get("approach", ""),
@@ -287,18 +292,19 @@ h2{font-size:1.2rem;letter-spacing:-.035em;font-weight:700;margin:0}
 .case div{display:grid;grid-template-columns:3.3rem minmax(0,1fr);gap:.45rem}
 .case dt{color:#35584d;font-size:.7rem;padding-top:.1rem;font-weight:600}
 .case dd{margin:0;color:#183e35}
-.card{--card-color:#b2ddd1;background:var(--card-color);border-radius:.85rem;padding:1rem;
+.card{--card-color:#e4ead9;background:var(--card-color);border-radius:.85rem;padding:1rem;
   display:flex;flex-direction:column;text-decoration:none;color:#183e35;transition:box-shadow .15s}
-.card:nth-of-type(6n+2){--card-color:#d6c1eb}
-.card:nth-of-type(6n+3){--card-color:#f3d6b9}
-.card:nth-of-type(6n+4){--card-color:#c8daed}
-.card:nth-of-type(6n+5){--card-color:#e5dfa9}
-.card:nth-of-type(6n){--card-color:#e8c8cf}
+.category-automation{--card-color:#b2ddd1}
+.category-app{--card-color:#d6c1eb}
+.category-website{--card-color:#f3d6b9}
+.category-key{display:flex;flex-wrap:wrap;gap:.4rem 1rem;margin:0 0 1rem;font-size:.75rem;color:#40574b}
+.category-key span{display:flex;align-items:center;gap:.35rem}
+.category-key span::before{content:"";width:.7rem;height:.7rem;border-radius:50%;background:var(--card-color);border:1px solid #183e3530}
 a.card:hover{box-shadow:inset 0 0 0 1px #35584d60}
 .card-meta{display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem}
 .card h3{margin:0;min-width:0;font-size:1.05rem;letter-spacing:-.035em;line-height:1.5;font-weight:700}
 .card p{margin:.55rem 0 0;font-size:.85rem;line-height:1.65;color:#36594e}
-.project-list{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem .75rem}
+.project-list{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.5rem .75rem}
 .card.compact{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:0 .75rem;padding:.65rem .85rem;border-radius:.4rem}
 .compact h3{font-size:.9rem}.compact p{margin:.1rem 0 0;font-size:.8rem}
 .compact .arrow{grid-column:2;grid-row:1/3;font-size:.9rem}
@@ -341,7 +347,7 @@ footer a{text-decoration:none;font-weight:700;font-size:.9rem}
 .back{margin:0 0 1rem;font-size:.8rem}.back a{text-decoration:none}
 .project-main{max-width:49rem;margin:auto}.project-main h2{padding-bottom:.8rem;border-bottom:1px solid #cfdbce}
 .muted{color:#566d60}
-@media(max-width:1000px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:1000px){.cards,.project-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){
   .wrap{padding:0 1rem}.site-nav{padding:1rem 0;gap:.4rem}.brand{font-size:1.05rem}
   .nav-links a{font-size:.75rem;padding:.35rem .45rem}
@@ -365,9 +371,12 @@ def case_html(project):
 
 
 def card_html(c, base=""):
+    category = c.get("category", "")
+    category_class = f" category-{PROJECT_CATEGORIES[category]}" if category else ""
+    category_label = f' aria-label="{html.escape(c["name"] + ": " + c["summary"] + " · " + category, quote=True)}"' if category else ""
     if not c.get("featured"):
         return (
-            f'<a class="card compact" href="{base}project/{c["slug"]}.html">'
+            f'<a class="card compact{category_class}" href="{base}project/{c["slug"]}.html"{category_label}>'
             f'<h3>{html.escape(c["name"])}</h3><p>{html.escape(c["summary"])}</p>'
             '<span class="arrow" aria-hidden="true">↗</span></a>'
         )
@@ -387,7 +396,7 @@ def card_html(c, base=""):
         '<span class="count">작업 기록</span>' if c.get("log_count") else '<span class="count">프로젝트 보기</span>'
     )
     return (
-        f'<a class="card featured" href="{base}project/{c["slug"]}.html">'
+        f'<a class="card featured{category_class}" href="{base}project/{c["slug"]}.html"{category_label}>'
         f'<div class="card-meta"><h3>{html.escape(c["name"])}</h3>{badge}</div>{case_html(c)}'
         f'<div class="card-bottom">{tools}{count}</div></a>'
     )
@@ -454,6 +463,9 @@ def page(title, body, desc=TAGLINE, base=""):
 
 
 def render(logs, projects, about):
+    category_key = '<p class="category-key" aria-label="프로젝트 분류">' + "".join(
+        f'<span class="category-{value}">{label}</span>' for label, value in PROJECT_CATEGORIES.items()
+    ) + '</p>'
     featured = [project for project in projects if project.get("featured")]
     others = [project for project in projects if not project.get("featured")]
     cards = '<p class="collection-label">대표 작업<span>자동화 · 생활 앱 · 사용성 개선</span></p>' if featured else ""
@@ -475,7 +487,7 @@ def render(logs, projects, about):
 <div class="hero-foot">기획부터 구현·운영까지 직접 · Python / Flutter / Apps Script</div>
 </header>
 <main id="main">
-<section id="work"><div class="section-head"><h2>만든 것</h2><p>{len(projects)}개의 앱과 자동화 · 카드에서 작업 기록으로</p></div><div class="cards">{cards}</div></section>
+<section id="work"><div class="section-head"><h2>만든 것</h2><p>{len(projects)}개의 앱과 자동화 · 카드에서 작업 기록으로</p></div>{category_key}<div class="cards">{cards}</div></section>
 <section id="log" class="journal"><div class="section-head"><h2>작업 일지</h2><p>제목을 누르면 프로젝트별 전체 기록을 볼 수 있습니다.</p></div>{entries}</section>
 <section id="about" class="about-section"><h2>소개</h2><div class="about">{about}</div></section>
 </main>"""
