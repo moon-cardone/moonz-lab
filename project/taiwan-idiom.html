@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>대만 성어 십자말 — moonz.lab</title>
-<meta name="description" content="번체자 성어를 퍼즐로 풀고 주음과 예문으로 복습하는 앱.">
+<meta name="description" content="번체자 성어를 퍼즐로 복습">
 <meta property="og:title" content="대만 성어 십자말 — moonz.lab">
-<meta property="og:description" content="번체자 성어를 퍼즐로 풀고 주음과 예문으로 복습하는 앱.">
+<meta property="og:description" content="번체자 성어를 퍼즐로 복습">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:,">
 <style>
@@ -57,6 +57,10 @@ a.card:hover{box-shadow:inset 0 0 0 1px #35584d60}
 .card-meta{display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem}
 .card h3{margin:0;min-width:0;font-size:1.05rem;letter-spacing:-.035em;line-height:1.5;font-weight:700}
 .card p{margin:.55rem 0 0;font-size:.85rem;line-height:1.65;color:#36594e}
+.project-list{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem .75rem}
+.card.compact{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:0 .75rem;padding:.65rem .85rem;border-radius:.4rem}
+.compact h3{font-size:.9rem}.compact p{margin:.1rem 0 0;font-size:.8rem}
+.compact .arrow{grid-column:2;grid-row:1/3;font-size:.9rem}
 .card-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:.6rem;margin-top:auto;padding-top:.85rem}
 .tools{display:flex;flex-wrap:wrap;gap:.15rem .5rem;list-style:none;padding:0;margin:0}
 .tools li{font-size:.72rem;line-height:1.6;color:#35584d}
@@ -67,7 +71,7 @@ a.card:hover{box-shadow:inset 0 0 0 1px #35584d60}
 .badge.wip,.badge.shaping{background:#fff2d2;color:#6d4e19}
 .badge.paused{background:#e6e8e2;color:#4e594e}
 .badge.rough{background:#e5dcf0;color:#57436b}
-.card.empty{background:transparent;border:1px dashed #b6c7b6;align-items:center;justify-content:center;text-align:center;gap:.2rem}
+.card.empty{grid-column:1/-1;background:transparent;border:1px dashed #b6c7b6;flex-direction:row;align-items:center;justify-content:center;text-align:center;gap:.6rem;padding:.65rem}
 .empty-mark{font-size:1.5rem;line-height:1;color:#8ca391}
 .card.empty span:last-of-type{font-size:.95rem;font-weight:600}
 .card.empty p{color:#5a7166;font-size:.8rem;margin:.25rem 0 0}
@@ -102,6 +106,7 @@ footer a{text-decoration:none;font-weight:700;font-size:.9rem}
   .nav-links a{font-size:.75rem;padding:.35rem .45rem}
   .hero{padding:1.5rem 0 2rem}.hero h1 span{display:block;margin-left:0}
   .cards{grid-template-columns:minmax(0,1fr);gap:.6rem}
+  .project-list{grid-template-columns:minmax(0,1fr)}
   .section-head p{max-width:11rem}
   .about-section{grid-template-columns:1fr;padding:1.15rem;gap:.8rem}
 }
@@ -118,7 +123,7 @@ footer a{text-decoration:none;font-weight:700;font-size:.9rem}
 <header class="project-header">
 <p class="back"><a href="../index.html#log">← 전체 일지</a></p>
 <span class="badge wip">만드는 중</span><h1>대만 성어 십자말</h1>
-<p class="tagline">번체자 성어를 퍼즐로 풀고 주음과 예문으로 복습하는 앱.</p><ul class="tools"><li>Flutter</li><li>Dart</li><li>Android</li></ul>
+<p class="tagline">번체자 성어를 퍼즐로 복습</p><ul class="tools"><li>Flutter</li><li>Dart</li><li>Android</li></ul>
 </header>
 <main id="main" class="project-main"><section><h2>작업 일지</h2><article class="log"><div class="log-head"><span class="log-date">2026년 · 작업 정리</span><h3>성어를 맞힌 다음, 쓰임까지 보도록</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>번체자 성어 앱을 만들 때는 정답을 맞히고 끝나는 화면에서 한 걸음 더 가려 했습니다. 퍼즐에 주음과 생활 예문을 붙여, 표현을 어떻게 읽고 쓰는지 다시 볼 수 있게 했습니다.</p>
 <p>오프라인 체험판으로 개발하고 있습니다. 학습 자료는 자체 편집 기준으로 구성했으며 정식 출시는 아직입니다.</p></div></article></section></main>

@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>오늘의 중국어 — moonz.lab</title>
-<meta name="description" content="한국어 뜻으로 중국어 낱말을 풀고 병음으로 복습하는 십자말 앱.">
+<meta name="description" content="중국어 낱말을 익히는 십자말">
 <meta property="og:title" content="오늘의 중국어 — moonz.lab">
-<meta property="og:description" content="한국어 뜻으로 중국어 낱말을 풀고 병음으로 복습하는 십자말 앱.">
+<meta property="og:description" content="중국어 낱말을 익히는 십자말">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:,">
 <style>
@@ -57,6 +57,10 @@ a.card:hover{box-shadow:inset 0 0 0 1px #35584d60}
 .card-meta{display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem}
 .card h3{margin:0;min-width:0;font-size:1.05rem;letter-spacing:-.035em;line-height:1.5;font-weight:700}
 .card p{margin:.55rem 0 0;font-size:.85rem;line-height:1.65;color:#36594e}
+.project-list{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem .75rem}
+.card.compact{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:0 .75rem;padding:.65rem .85rem;border-radius:.4rem}
+.compact h3{font-size:.9rem}.compact p{margin:.1rem 0 0;font-size:.8rem}
+.compact .arrow{grid-column:2;grid-row:1/3;font-size:.9rem}
 .card-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:.6rem;margin-top:auto;padding-top:.85rem}
 .tools{display:flex;flex-wrap:wrap;gap:.15rem .5rem;list-style:none;padding:0;margin:0}
 .tools li{font-size:.72rem;line-height:1.6;color:#35584d}
@@ -67,7 +71,7 @@ a.card:hover{box-shadow:inset 0 0 0 1px #35584d60}
 .badge.wip,.badge.shaping{background:#fff2d2;color:#6d4e19}
 .badge.paused{background:#e6e8e2;color:#4e594e}
 .badge.rough{background:#e5dcf0;color:#57436b}
-.card.empty{background:transparent;border:1px dashed #b6c7b6;align-items:center;justify-content:center;text-align:center;gap:.2rem}
+.card.empty{grid-column:1/-1;background:transparent;border:1px dashed #b6c7b6;flex-direction:row;align-items:center;justify-content:center;text-align:center;gap:.6rem;padding:.65rem}
 .empty-mark{font-size:1.5rem;line-height:1;color:#8ca391}
 .card.empty span:last-of-type{font-size:.95rem;font-weight:600}
 .card.empty p{color:#5a7166;font-size:.8rem;margin:.25rem 0 0}
@@ -102,6 +106,7 @@ footer a{text-decoration:none;font-weight:700;font-size:.9rem}
   .nav-links a{font-size:.75rem;padding:.35rem .45rem}
   .hero{padding:1.5rem 0 2rem}.hero h1 span{display:block;margin-left:0}
   .cards{grid-template-columns:minmax(0,1fr);gap:.6rem}
+  .project-list{grid-template-columns:minmax(0,1fr)}
   .section-head p{max-width:11rem}
   .about-section{grid-template-columns:1fr;padding:1.15rem;gap:.8rem}
 }
@@ -118,7 +123,7 @@ footer a{text-decoration:none;font-weight:700;font-size:.9rem}
 <header class="project-header">
 <p class="back"><a href="../index.html#log">← 전체 일지</a></p>
 <span class="badge wip">만드는 중</span><h1>오늘의 중국어</h1>
-<p class="tagline">한국어 뜻으로 중국어 낱말을 풀고 병음으로 복습하는 십자말 앱.</p><ul class="tools"><li>Flutter</li><li>Dart</li><li>Android</li></ul>
+<p class="tagline">중국어 낱말을 익히는 십자말</p><ul class="tools"><li>Flutter</li><li>Dart</li><li>Android</li></ul>
 </header>
 <main id="main" class="project-main"><section><h2>작업 일지</h2><article class="log"><div class="log-head"><span class="log-date">2026년 · 작업 정리</span><h3>정답을 맞힌 뒤에도 읽어볼 수 있게</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>중국어 십자말을 만들며 입력과 복습을 따로 생각했습니다. 한국어 단서로 뜻을 떠올리고 간체자 타일로 답을 채우게 했습니다.</p>
 <p>정답 뒤에는 병음을 함께 보여줍니다. 문제와 진행 상태는 기기에 보관하고, 난이도는 자체 편집 기준으로 나눴습니다. 아직 정식 출시 전입니다.</p></div></article></section></main>

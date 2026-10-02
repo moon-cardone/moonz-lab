@@ -257,13 +257,17 @@ def test_year_only_history_and_new_dated_updates():
 
 def test_project_cards_are_text_only():
     tmp = with_content({
-        "projects/app.md": "---\nname: app\nimage: old-screen.png\nimage_alt: old image\n---\n",
+        "projects/app.md": "---\nname: app\nsummary: 짧은 설명\nstatus: 만드는 중\ntools: Python\nimage: old-screen.png\nimage_alt: old image\n---\n",
     })
     projects, errors = build.load_projects()
     assert not errors
     output = build.card_html(projects[0])
     assert "<img" not in output and 'class="art' not in output
     assert 'href="project/app.html"' in output
+    assert 'class="card compact"' in output and "짧은 설명" in output
+    assert 'class="badge' not in output and 'class="tools"' not in output
+    detail = build.render_project(projects[0], [])
+    assert "만드는 중" in detail and "Python" in detail
     shutil.rmtree(tmp)
 
 

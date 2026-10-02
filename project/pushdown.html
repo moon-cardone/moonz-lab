@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>pushdown — moonz.lab</title>
-<meta name="description" content="휴대폰 사용 시간을 운동과 연결해 조절하는 안드로이드 앱.">
+<meta name="description" content="휴대폰 사용 사이에 운동 한 번">
 <meta property="og:title" content="pushdown — moonz.lab">
-<meta property="og:description" content="휴대폰 사용 시간을 운동과 연결해 조절하는 안드로이드 앱.">
+<meta property="og:description" content="휴대폰 사용 사이에 운동 한 번">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:,">
 <style>
@@ -57,6 +57,10 @@ a.card:hover{box-shadow:inset 0 0 0 1px #35584d60}
 .card-meta{display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem}
 .card h3{margin:0;min-width:0;font-size:1.05rem;letter-spacing:-.035em;line-height:1.5;font-weight:700}
 .card p{margin:.55rem 0 0;font-size:.85rem;line-height:1.65;color:#36594e}
+.project-list{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem .75rem}
+.card.compact{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:0 .75rem;padding:.65rem .85rem;border-radius:.4rem}
+.compact h3{font-size:.9rem}.compact p{margin:.1rem 0 0;font-size:.8rem}
+.compact .arrow{grid-column:2;grid-row:1/3;font-size:.9rem}
 .card-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:.6rem;margin-top:auto;padding-top:.85rem}
 .tools{display:flex;flex-wrap:wrap;gap:.15rem .5rem;list-style:none;padding:0;margin:0}
 .tools li{font-size:.72rem;line-height:1.6;color:#35584d}
@@ -67,7 +71,7 @@ a.card:hover{box-shadow:inset 0 0 0 1px #35584d60}
 .badge.wip,.badge.shaping{background:#fff2d2;color:#6d4e19}
 .badge.paused{background:#e6e8e2;color:#4e594e}
 .badge.rough{background:#e5dcf0;color:#57436b}
-.card.empty{background:transparent;border:1px dashed #b6c7b6;align-items:center;justify-content:center;text-align:center;gap:.2rem}
+.card.empty{grid-column:1/-1;background:transparent;border:1px dashed #b6c7b6;flex-direction:row;align-items:center;justify-content:center;text-align:center;gap:.6rem;padding:.65rem}
 .empty-mark{font-size:1.5rem;line-height:1;color:#8ca391}
 .card.empty span:last-of-type{font-size:.95rem;font-weight:600}
 .card.empty p{color:#5a7166;font-size:.8rem;margin:.25rem 0 0}
@@ -102,6 +106,7 @@ footer a{text-decoration:none;font-weight:700;font-size:.9rem}
   .nav-links a{font-size:.75rem;padding:.35rem .45rem}
   .hero{padding:1.5rem 0 2rem}.hero h1 span{display:block;margin-left:0}
   .cards{grid-template-columns:minmax(0,1fr);gap:.6rem}
+  .project-list{grid-template-columns:minmax(0,1fr)}
   .section-head p{max-width:11rem}
   .about-section{grid-template-columns:1fr;padding:1.15rem;gap:.8rem}
 }
@@ -118,7 +123,7 @@ footer a{text-decoration:none;font-weight:700;font-size:.9rem}
 <header class="project-header">
 <p class="back"><a href="../index.html#log">← 전체 일지</a></p>
 <span class="badge wip">만드는 중</span><h1>pushdown</h1>
-<p class="tagline">휴대폰 사용 시간을 운동과 연결해 조절하는 안드로이드 앱.</p><ul class="tools"><li>Kotlin</li><li>Jetpack Compose</li><li>Android</li></ul>
+<p class="tagline">휴대폰 사용 사이에 운동 한 번</p><ul class="tools"><li>Kotlin</li><li>Jetpack Compose</li><li>Android</li></ul>
 </header>
 <main id="main" class="project-main"><section><h2>작업 일지</h2><article class="log"><div class="log-head"><span class="log-date">2026년 · 작업 정리</span><h3>사용 시간을 재는 일과 운동 기록을 나눴습니다</h3><span class="badge done">정리됨</span></div><div class="log-body"><p>pushdown은 휴대폰을 계속 보는 흐름에 작은 운동 행동을 끼워 넣어 보려던 앱입니다. 그때 만든 사용 시간 추적, 중간 안내, 일시정지와 기록 저장 구조를 돌아봤습니다.</p>
 <p>Kotlin과 Jetpack Compose로 화면을 만들고, 언제 안내할지 판단하는 로직은 화면 밖으로 분리했습니다. 운동 완료는 직접 기록하는 방식입니다. 센서로 운동을 자동 인식하는 앱은 아니며, 실제 사용 효과는 더 확인해야 합니다.</p></div></article></section></main>

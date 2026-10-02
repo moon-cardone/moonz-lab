@@ -298,6 +298,10 @@ a.card:hover{box-shadow:inset 0 0 0 1px #35584d60}
 .card-meta{display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem}
 .card h3{margin:0;min-width:0;font-size:1.05rem;letter-spacing:-.035em;line-height:1.5;font-weight:700}
 .card p{margin:.55rem 0 0;font-size:.85rem;line-height:1.65;color:#36594e}
+.project-list{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem .75rem}
+.card.compact{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:0 .75rem;padding:.65rem .85rem;border-radius:.4rem}
+.compact h3{font-size:.9rem}.compact p{margin:.1rem 0 0;font-size:.8rem}
+.compact .arrow{grid-column:2;grid-row:1/3;font-size:.9rem}
 .card-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:.6rem;margin-top:auto;padding-top:.85rem}
 .tools{display:flex;flex-wrap:wrap;gap:.15rem .5rem;list-style:none;padding:0;margin:0}
 .tools li{font-size:.72rem;line-height:1.6;color:#35584d}
@@ -308,7 +312,7 @@ a.card:hover{box-shadow:inset 0 0 0 1px #35584d60}
 .badge.wip,.badge.shaping{background:#fff2d2;color:#6d4e19}
 .badge.paused{background:#e6e8e2;color:#4e594e}
 .badge.rough{background:#e5dcf0;color:#57436b}
-.card.empty{background:transparent;border:1px dashed #b6c7b6;align-items:center;justify-content:center;text-align:center;gap:.2rem}
+.card.empty{grid-column:1/-1;background:transparent;border:1px dashed #b6c7b6;flex-direction:row;align-items:center;justify-content:center;text-align:center;gap:.6rem;padding:.65rem}
 .empty-mark{font-size:1.5rem;line-height:1;color:#8ca391}
 .card.empty span:last-of-type{font-size:.95rem;font-weight:600}
 .card.empty p{color:#5a7166;font-size:.8rem;margin:.25rem 0 0}
@@ -343,6 +347,7 @@ footer a{text-decoration:none;font-weight:700;font-size:.9rem}
   .nav-links a{font-size:.75rem;padding:.35rem .45rem}
   .hero{padding:1.5rem 0 2rem}.hero h1 span{display:block;margin-left:0}
   .cards{grid-template-columns:minmax(0,1fr);gap:.6rem}
+  .project-list{grid-template-columns:minmax(0,1fr)}
   .section-head p{max-width:11rem}
   .about-section{grid-template-columns:1fr;padding:1.15rem;gap:.8rem}
 }
@@ -360,6 +365,12 @@ def case_html(project):
 
 
 def card_html(c, base=""):
+    if not c.get("featured"):
+        return (
+            f'<a class="card compact" href="{base}project/{c["slug"]}.html">'
+            f'<h3>{html.escape(c["name"])}</h3><p>{html.escape(c["summary"])}</p>'
+            '<span class="arrow" aria-hidden="true">↗</span></a>'
+        )
     badge = (
         f'<span class="badge {state_class(c["state"])}">{html.escape(c["state"])}</span>'
         if c["state"]
@@ -372,15 +383,12 @@ def card_html(c, base=""):
         if c["tools"]
         else ""
     )
-    summary = f"<p>{md_inline(c['summary'])}</p>" if c["summary"] else ""
     count = (
         '<span class="count">작업 기록</span>' if c.get("log_count") else '<span class="count">프로젝트 보기</span>'
     )
-    detail = case_html(c) if c.get("featured") else summary
-    card_class = "card featured" if c.get("featured") else "card"
     return (
-        f'<a class="{card_class}" href="{base}project/{c["slug"]}.html">'
-        f'<div class="card-meta"><h3>{html.escape(c["name"])}</h3>{badge}</div>{detail}'
+        f'<a class="card featured" href="{base}project/{c["slug"]}.html">'
+        f'<div class="card-meta"><h3>{html.escape(c["name"])}</h3>{badge}</div>{case_html(c)}'
         f'<div class="card-bottom">{tools}{count}</div></a>'
     )
 
@@ -452,7 +460,8 @@ def render(logs, projects, about):
     cards += "".join(card_html(project) for project in featured)
     if featured and others:
         cards += '<p class="collection-label secondary">그 밖에 만든 것<span>작게 시작해 다듬는 도구들</span></p>'
-    cards += "".join(card_html(project) for project in others)
+    if others:
+        cards += '<div class="project-list">' + "".join(card_html(project) for project in others) + '</div>'
     cards += '<article class="card empty"><span class="empty-mark" aria-hidden="true">＋</span><span>빈 칸</span><p>다음에 만들 것은 아직 비워둡니다.</p></article>'
     links = {}
     for project in projects:

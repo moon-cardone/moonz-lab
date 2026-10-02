@@ -1,7 +1,7 @@
 ---
 name: 책새김
 slug: reading-diary
-summary: 사진과 짧은 글로 읽은 책과 남기고 싶은 문장을 기록하는 앱.
+summary: 사진과 문장으로 남기는 독서 기록
 status: 만드는 중
 tools: Flutter, Firebase, Android
 order: 16
