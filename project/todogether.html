@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>투두게더 — moonz.lab</title>
-<meta name="description" content="홈화면에서 챙기는 할 일 · 로컬 버전">
+<meta name="description" content="함께 챙기는 할 일과 홈화면 위젯">
 <meta property="og:title" content="투두게더 — moonz.lab">
-<meta property="og:description" content="홈화면에서 챙기는 할 일 · 로컬 버전">
+<meta property="og:description" content="함께 챙기는 할 일과 홈화면 위젯">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:,">
 <style>
@@ -124,9 +124,12 @@ footer a{text-decoration:none;font-weight:700;font-size:.9rem}
 <header class="project-header">
 <p class="back"><a href="../index.html#log">← 전체 일지</a></p>
 <span class="badge wip">만드는 중</span><h1>투두게더</h1>
-<p class="tagline">홈화면에서 챙기는 할 일 · 로컬 버전</p><ul class="tools"><li>Kotlin</li><li>Jetpack Compose</li><li>Glance</li><li>Room</li></ul>
+<p class="tagline">함께 챙기는 할 일과 홈화면 위젯</p><ul class="tools"><li>Kotlin</li><li>Jetpack Compose</li><li>Glance</li><li>Room</li></ul>
 </header>
-<main id="main" class="project-main"><section><h2>작업 일지</h2><article class="log"><div class="log-head"><time class="log-date" datetime="2026-10-03">2026.10.03</time><h3>위젯 갱신과 잠금화면 표시를 따로 확인했습니다</h3><span class="badge shaping">다듬는 중</span></div><div class="log-body"><p>투두게더 위젯이 사라지는 문제를 실제 휴대폰에서 살펴봤습니다. 앱이 새 화면을 시스템에 전달하는 것과 잠금화면에 실제로 보이는 것은 별개의 확인이 필요했습니다.</p>
+<main id="main" class="project-main"><section><h2>작업 일지</h2><article class="log"><div class="log-head"><time class="log-date" datetime="2026-10-04">2026.10.04</time><h3>시험 서버를 넘어 실제 공유 서버를 연결했습니다</h3><span class="badge shaping">다듬는 중</span></div><div class="log-body"><p>투두게더의 공유 서버를 배포했습니다. 서로 초대해 ‘우리 할 일’을 함께 바꾸되, ‘나의 할 일’은 상대방에게 보내지 않는 흐름을 운영 서버의 시험 계정으로 확인했습니다.</p>
+<p>초대·추가·완료·보관·복구와 권한 거부를 포함한 검사 69개를 통과했습니다. 앱과 위젯의 간격도 줄이고, 잠금화면의 실제 표시 크기에 맞춰 두 목록이 잘리지 않게 배치를 보완했습니다. 수정본을 실제 휴대폰에 업데이트한 뒤 기존 기록 보존과 화면 변화를 확인했습니다.</p>
+<p>더 많은 항목을 한눈에 보려는 선택으로 행 높이를 줄였지만, 누르는 영역도 작아졌습니다. 화면이 촘촘해진 것과 접근성이 좋아진 것을 같은 결과로 보지는 않습니다. 큰 글씨와 완료·복구 검사는 했고, 실제 사용에서의 누르기 편한 정도는 더 살펴봐야 합니다.</p>
+<p>서버 배포와 두 실제 휴대폰 사이의 사용 검증은 구분합니다. 실제 기기 간 푸시 전달, 절전 상태와 장시간 잠금화면 유지, 화면 읽기 기능 확인은 남아 있습니다.</p></div></article><article class="log"><div class="log-head"><time class="log-date" datetime="2026-10-03">2026.10.03</time><h3>위젯 갱신과 잠금화면 표시를 따로 확인했습니다</h3><span class="badge shaping">다듬는 중</span></div><div class="log-body"><p>투두게더 위젯이 사라지는 문제를 실제 휴대폰에서 살펴봤습니다. 앱이 새 화면을 시스템에 전달하는 것과 잠금화면에 실제로 보이는 것은 별개의 확인이 필요했습니다.</p>
 <p>잠금화면의 위젯 배치를 다시 등록한 뒤 표시가 돌아왔습니다. 앱을 열어 갱신하고 화면을 껐다 켜도 두 목록이 남는 것을 확인했지만, 재등록과 크기 변경이 함께 이뤄져 원인을 하나로 단정하지 않았습니다. 장시간 사용 후 재발 여부도 남아 있습니다.</p>
 <p>개인 목록 이름은 ‘나의 할 일’로 바꾸고, 구역 제목 아래 각 항목 옆에 완료 동그라미를 배치했습니다. 위젯을 늘리면 더 많은 항목이 보이도록 했습니다. 앱에서는 두 목록을 한 번에 스크롤하고, 작은 화면에서 키보드가 저장·취소를 가리지 않도록 손봤습니다. 빌드와 기본 검사를 거쳐 실제 기기에 수정본을 업데이트했습니다.</p>
 <p>별도로 공유 연결 코드를 만들고 시험 서버와 에뮬레이터에서 초대·완료·복구, 개인 목록 분리를 확인했습니다. 실제 공유 서버는 배포하지 않았으며, 현재 설치한 시험판으로 두 휴대폰을 공유하는 단계는 아닙니다.</p></div></article><article class="log"><div class="log-head"><time class="log-date" datetime="2026-10-02">2026.10.02</time><h3>작은 위젯에서도 두 목록과 완료 버튼이 남도록</h3><span class="badge shaping">다듬는 중</span></div><div class="log-body"><p>투두게더에서 ‘우리 할 일’과 ‘내 할 일’을 번갈아 보던 화면을 두 목록이 함께 보이도록 바꿨습니다. 위젯을 작게 줄였을 때 완료 버튼까지 사라지던 문제도 고쳤습니다.</p>

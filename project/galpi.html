@@ -126,7 +126,9 @@ footer a{text-decoration:none;font-weight:700;font-size:.9rem}
 <span class="badge wip">만드는 중</span><h1>갈피</h1>
 <p class="tagline">나중에 볼 링크에 기한을 붙이는 보관함</p><ul class="tools"><li>Kotlin</li><li>Jetpack Compose</li><li>SQLite</li></ul>
 </header>
-<main id="main" class="project-main"><section><h2>작업 일지</h2><article class="log"><div class="log-head"><time class="log-date" datetime="2026-10-03">2026.10.03</time><h3>나중에 볼 링크가 쌓이기만 하지 않도록</h3><span class="badge shaping">다듬는 중</span></div><div class="log-body"><p>기사와 영상을 저장만 하고 잊는 일이 많아, 링크에 볼 기한을 붙이는 ‘갈피’를 만들었습니다. 기한이 지나면 삭제하지 않고 보관함으로 옮겨, 지금 볼 목록과 나중에 다시 꺼낼 목록을 나눴습니다.</p>
+<main id="main" class="project-main"><section><h2>작업 일지</h2><article class="log"><div class="log-head"><time class="log-date" datetime="2026-10-04">2026.10.04</time><h3>링크 제목에 앱 이름 대신 내용을 담도록</h3><span class="badge shaping">다듬는 중</span></div><div class="log-body"><p>갈피에 링크를 담았는데 제목이 앱 이름으로만 보이면 나중에 구별하기 어려웠습니다. 공유된 설명을 먼저 쓰고, 설명이 없으면 공개 웹페이지의 제목을 가져오도록 바꿨습니다.</p>
+<p>직접 고친 제목은 자동 조회 결과로 덮어쓰지 않습니다. 조회가 실패해도 직접 제목을 적어 저장할 수 있고, 설정에서 자동 조회를 끌 수 있습니다. 원문 사이트에 요청하는 기능이므로 네트워크 사용 안내도 함께 고쳤습니다. 담기·수정 화면의 분류는 한 번 눌러 선택하게 줄였습니다.</p>
+<p>개발 중 공개 웹페이지 조회와 저장, 실패 후 수동 저장, 기존 백업·분류·화면 검사를 확인했습니다. 수정본을 실제 휴대폰에 업데이트하고 실행했습니다. 다만 실제 인스타그램 앱에서의 공유는 아직 검증하지 않았고, 비공개·로그인·접근 차단 페이지의 제목은 가져오지 못할 수 있습니다.</p></div></article><article class="log"><div class="log-head"><time class="log-date" datetime="2026-10-03">2026.10.03</time><h3>나중에 볼 링크가 쌓이기만 하지 않도록</h3><span class="badge shaping">다듬는 중</span></div><div class="log-body"><p>기사와 영상을 저장만 하고 잊는 일이 많아, 링크에 볼 기한을 붙이는 ‘갈피’를 만들었습니다. 기한이 지나면 삭제하지 않고 보관함으로 옮겨, 지금 볼 목록과 나중에 다시 꺼낼 목록을 나눴습니다.</p>
 <p>다른 앱의 공유 메뉴에서 주소를 받고, 제목·메모·기한을 기기에 저장합니다. 분류와 읽음 표시, 여러 링크 정리, 백업·복원도 붙였습니다. 분류를 지워도 링크는 남기고, 같은 주소를 다시 담을 때는 기존 기록을 덮어쓰지 않게 했습니다. 알림은 원하는 사람만 켜도록 했습니다.</p>
 <p>화면은 둥근 목록과 따뜻한 색으로 다듬었습니다. 큰 글씨에서 탭 제목이 끊기는 문제를 고치고, 작은 화면에서도 담기 버튼에 닿을 수 있게 조정했습니다.</p>
 <p>개발 과정에서 빌드와 에뮬레이터의 저장·백업·공유 입력·알림·화면 검사를 통과했습니다. 실제 휴대폰에는 기존 앱을 지우지 않고 업데이트해 설치와 실행을 확인했습니다. 실제 앱끼리의 공유, 장시간 절전 상태의 알림, 화면 읽기 기능 검증과 스토어 출시는 남아 있습니다.</p></div></article></section></main>
