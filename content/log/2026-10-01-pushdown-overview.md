@@ -1,7 +1,7 @@
 ---
 date: 2026-10-01
 date_display: year
-title: 사용 시간을 재는 일과 운동 기록을 나눴습니다
+title: 사용 시간 추적·운동 기록 구현
 tags: pushdown
 status: 정리됨
 ---

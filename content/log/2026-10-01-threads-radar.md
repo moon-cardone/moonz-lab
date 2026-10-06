@@ -1,7 +1,7 @@
 ---
 date: 2026-10-01
 date_display: year
-title: 준비한 글과 게시한 글을 따로 관리했습니다
+title: 게시 대기 목록 분리
 tags: threads-radar
 status: 정리됨
 ---

@@ -1,6 +1,6 @@
 ---
 date: 2026-10-03
-title: 할인 계산 뒤에 왜 그런지 읽는 퀴즈
+title: 할인 비교 퀴즈 시제품
 project: cart-detective
 tags: cart-detective, 퀴즈, 웹앱
 status: 다듬는 중

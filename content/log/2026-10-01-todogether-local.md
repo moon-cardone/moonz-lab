@@ -1,6 +1,6 @@
 ---
 date: 2026-10-01
-title: 홈화면에서 완료한 일이 앱에도 바로 보이도록
+title: 앱·위젯 완료 기록 연결
 project: todogether
 tags: todogether, Android, 위젯
 status: 다듬는 중

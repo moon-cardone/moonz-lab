@@ -1,6 +1,6 @@
 ---
 date: 2026-10-03
-title: 대화와 자료를 나눠 증거를 고르게 했습니다
+title: 증거 목록 분리·가독성 개선
 project: chatroom-detective
 tags: chatroom-detective, 추리, 앱인토스
 status: 다듬는 중

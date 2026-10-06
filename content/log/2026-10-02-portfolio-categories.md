@@ -1,6 +1,6 @@
 ---
 date: 2026-10-02
-title: 나머지 작업은 짧게, 색상은 만드는 형태별로
+title: 카드 3열·분류별 색상 적용
 project: moonz-lab
 tags: moonz-lab, 포트폴리오, 반응형
 status: 정리됨

@@ -1,6 +1,6 @@
 ---
 date: 2026-10-04
-title: 일기 날짜를 골랐으면 그날 사진부터
+title: 날짜별 사진 선택 추가
 project: one-line-diary
 tags: one-line-diary, Flutter, 사진선택
 status: 다듬는 중

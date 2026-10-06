@@ -83,6 +83,7 @@ a.card:hover{box-shadow:inset 0 0 0 1px #35584d60}
 .log-date{color:#566d60;font-size:.75rem;font-variant-numeric:tabular-nums;flex-basis:100%}
 .log h3{font-size:1rem;line-height:1.5;letter-spacing:-.02em;margin:0;font-weight:650}
 .log h3 a{text-decoration:none}.log h3 a:hover{text-decoration:underline}
+.log-project{display:inline-block;max-width:100%;margin-right:.45rem;font-size:.75rem;font-weight:500;color:#566d60}
 .log-body{margin-top:.6rem;color:#40574b;font-size:.9rem;line-height:1.8}
 .log-body p{margin:.6rem 0 0}.log-body p:first-child{margin-top:0}
 .log-body ul{padding-left:1.2rem}.log-body li{margin:.25rem 0}
@@ -126,10 +127,10 @@ footer a{text-decoration:none;font-weight:700;font-size:.9rem}
 <span class="badge wip">만드는 중</span><h1>추억섬</h1>
 <p class="tagline">사진을 정리하며 작은 섬과 방을 꾸미기</p><ul class="tools"><li>Kotlin</li><li>Jetpack Compose</li><li>Android Canvas</li></ul>
 </header>
-<main id="main" class="project-main"><section><h2>작업 일지</h2><article class="log"><div class="log-head"><time class="log-date" datetime="2026-10-05">2026.10.05</time><h3>사진 정리는 안내를 쉽게, 방 꾸미기는 넓게</h3><span class="badge shaping">다듬는 중</span></div><div class="log-body"><p>추억섬에서 처음 무엇을 해야 할지 알기 어렵던 부분을 고쳤습니다. 고양이의 초대 편지와 버튼 가까이 붙는 화살표로 시작을 안내하고, 첫 의뢰의 ‘휴지통 최대 10장’을 눈에 띄게 표시했습니다. 정리 목표와 휴지통 한도를 구분하고, 보관한 사진도 목표에 포함된다고 설명합니다.</p>
+<main id="main" class="project-main"><section><h2>작업 일지</h2><article class="log"><div class="log-head"><time class="log-date" datetime="2026-10-05">2026.10.05</time><h3>정리 안내·방 꾸미기 개선</h3><span class="badge shaping">다듬는 중</span></div><div class="log-body"><p>추억섬에서 처음 무엇을 해야 할지 알기 어렵던 부분을 고쳤습니다. 고양이의 초대 편지와 버튼 가까이 붙는 화살표로 시작을 안내하고, 첫 의뢰의 ‘휴지통 최대 10장’을 눈에 띄게 표시했습니다. 정리 목표와 휴지통 한도를 구분하고, 보관한 사진도 목표에 포함된다고 설명합니다.</p>
 <p>사진에는 날짜와 폴더 정보를 붙이고 두 손가락으로 확대할 수 있게 했습니다. ‘7일 뒤’ 버튼은 ‘보류’로 바꿔 지금 사진을 처리하지 않는다는 뜻을 분명히 했습니다. 보류한 원본은 그대로 남으며, 취소·처리 실패에는 보상을 주지 않는 기존 원칙도 유지합니다.</p>
 <p>내 방은 화면을 넓게 쓰고, 가구 목록은 필요할 때만 펼칩니다. 가구를 고르면 바로 잡고 끌어 옮길 수 있습니다. 함께 지낼 고양이 선택과 산책·쓰다듬기, 시간대에 따라 달라지는 창밖, 짝 맞추기·물주기·낚시도 추가했습니다. 이 놀이들은 사진 정리 보상과 별개로 동작합니다.</p>
-<p>에뮬레이터의 샘플 사진으로 승인·취소, 중복 보상 방지, 확대와 안내를 검사했습니다. 마지막 0.18.0 수정의 Android 관련 검사 11개와 APK 빌드를 통과했고, 실제 갤럭시에 업데이트하며 기존 저장 기록 보존을 확인했습니다. 설치 후 휴대폰이 잠겨 전면 화면은 확인하지 못했습니다. 실제 사진을 사용하는 전체 흐름과 장시간 성능·배터리 확인, 정식 출시는 남아 있습니다.</p></div></article><article class="log"><div class="log-head"><time class="log-date" datetime="2026-10-04">2026.10.04</time><h3>사진을 지우는 양보다 살펴보는 과정에 보상을</h3><span class="badge shaping">다듬는 중</span></div><div class="log-body"><p>사진 정리에 작은 놀이를 붙인 ‘추억섬’을 만들었습니다. 사진을 살펴보고 정리하면 방에 가구를 놓을 수 있습니다. 많이 지우도록 유도하지 않기 위해 보관과 휴지통 처리에 같은 보상을 주고, 취소하거나 처리가 확인되지 않은 사진에는 보상을 주지 않게 했습니다.</p>
+<p>에뮬레이터의 샘플 사진으로 승인·취소, 중복 보상 방지, 확대와 안내를 검사했습니다. 마지막 0.18.0 수정의 Android 관련 검사 11개와 APK 빌드를 통과했고, 실제 갤럭시에 업데이트하며 기존 저장 기록 보존을 확인했습니다. 설치 후 휴대폰이 잠겨 전면 화면은 확인하지 못했습니다. 실제 사진을 사용하는 전체 흐름과 장시간 성능·배터리 확인, 정식 출시는 남아 있습니다.</p></div></article><article class="log"><div class="log-head"><time class="log-date" datetime="2026-10-04">2026.10.04</time><h3>사진 정리·방 꾸미기 구현</h3><span class="badge shaping">다듬는 중</span></div><div class="log-body"><p>사진 정리에 작은 놀이를 붙인 ‘추억섬’을 만들었습니다. 사진을 살펴보고 정리하면 방에 가구를 놓을 수 있습니다. 많이 지우도록 유도하지 않기 위해 보관과 휴지통 처리에 같은 보상을 주고, 취소하거나 처리가 확인되지 않은 사진에는 보상을 주지 않게 했습니다.</p>
 <p>지도 위를 끌어 섬을 걷고, 손을 떼면 멈춥니다. 사진 정리는 의뢰 수락·검토·반영·완료 순서로 나누고, 가구는 끌어서 배치한 위치를 다음 실행에도 유지합니다. 사진 권한을 주지 않아도 섬을 돌아볼 수 있습니다.</p>
 <p>사진 처리·저장·보상과 이동·꾸미기 흐름을 구현했습니다. 도트 그래픽에는 Kenney의 Tiny 시리즈 에셋을 사용했고, 원본 그래픽과 앱에서 만든 동작을 구분했습니다.</p>
 <p>개발 당시 도메인 검사와 Android 에뮬레이터 검사 153개, APK 빌드를 통과했습니다. 사진 처리 시험에는 샘플 이미지를 사용했습니다. 실제 갤럭시의 사진 처리와 성능·배터리 확인, 정식 배포는 아직 남아 있습니다.</p></div></article></section></main>

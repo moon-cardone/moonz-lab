@@ -1,6 +1,6 @@
 ---
 date: 2026-10-04
-title: 링크 제목에 앱 이름 대신 내용을 담도록
+title: 링크 제목 자동 채우기
 project: galpi
 tags: galpi, Android, 링크보관
 status: 다듬는 중

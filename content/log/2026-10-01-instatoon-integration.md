@@ -1,7 +1,7 @@
 ---
 date: 2026-10-01
 date_display: year
-title: 같은 일기를 두 번 입력하지 않도록
+title: 일기 데이터 연결
 tags: instatoon
 status: 정리됨
 ---

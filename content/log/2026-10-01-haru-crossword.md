@@ -1,7 +1,7 @@
 ---
 date: 2026-10-01
 date_display: year
-title: 작은 칸을 키우는 것만으로는 부족했습니다
+title: 퍼즐 입력·설명 확대 개선
 tags: haru-crossword
 status: 정리됨
 ---

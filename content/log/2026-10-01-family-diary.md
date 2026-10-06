@@ -1,7 +1,7 @@
 ---
 date: 2026-10-01
 date_display: year
-title: 일기는 쓰는 화면 다음도 필요했습니다
+title: 검색·내보내기·알림 추가
 tags: one-line-diary
 status: 정리됨
 ---

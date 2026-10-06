@@ -1,7 +1,7 @@
 ---
 date: 2026-10-01
 date_display: year
-title: 가격 확인은 도구에, 예약 결정은 사람에게
+title: 가격 비교·알림 구현
 tags: airfare-watch
 status: 정리됨
 ---

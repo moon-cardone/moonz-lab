@@ -1,6 +1,6 @@
 ---
 date: 2026-10-03
-title: 검토용 번들과 앱 소개를 함께 정리했습니다
+title: 검토용 번들·소개 자료 등록
 project: haru-crossword
 tags: haru-crossword, 앱인토스, 출시 준비
 status: 다듬는 중

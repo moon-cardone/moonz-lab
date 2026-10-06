@@ -1,6 +1,6 @@
 ---
 date: 2026-10-02
-title: 작은 위젯에서도 두 목록과 완료 버튼이 남도록
+title: 작은 위젯 배치 개선
 project: todogether
 tags: todogether, Android, 위젯
 status: 다듬는 중

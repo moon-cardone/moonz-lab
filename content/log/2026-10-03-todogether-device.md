@@ -1,6 +1,6 @@
 ---
 date: 2026-10-03
-title: 위젯 갱신과 잠금화면 표시를 따로 확인했습니다
+title: 잠금화면 위젯 표시 복구
 project: todogether
 tags: todogether, Android, 위젯
 status: 다듬는 중

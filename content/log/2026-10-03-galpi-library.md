@@ -1,6 +1,6 @@
 ---
 date: 2026-10-03
-title: 나중에 볼 링크가 쌓이기만 하지 않도록
+title: 기한 있는 링크 보관함 구현
 project: galpi
 tags: galpi, Android, 링크보관
 status: 다듬는 중

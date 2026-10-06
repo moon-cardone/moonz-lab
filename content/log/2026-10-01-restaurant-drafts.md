@@ -1,7 +1,7 @@
 ---
 date: 2026-10-01
 date_display: year
-title: 초안을 쓰기 전에 재료부터 모았습니다
+title: 방문 메모 기반 초안 생성
 tags: restaurant-drafts
 status: 정리됨
 ---

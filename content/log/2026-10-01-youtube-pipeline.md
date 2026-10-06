@@ -1,7 +1,7 @@
 ---
 date: 2026-10-01
 date_display: year
-title: 자동 게시보다 제작·검사 도구부터
+title: 자막 생성·영상 검사 구현
 tags: youtube-pipeline
 status: 정리됨
 ---

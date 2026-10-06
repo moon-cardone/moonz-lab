@@ -1,7 +1,7 @@
 ---
 date: 2026-10-01
 date_display: year
-title: 글을 만든 것과 발행한 것을 구분했습니다
+title: 초안·승인·발행 상태 분리
 tags: threads-poster
 status: 정리됨
 ---

@@ -1,6 +1,6 @@
 ---
 date: 2026-10-05
-title: 사진 정리는 안내를 쉽게, 방 꾸미기는 넓게
+title: 정리 안내·방 꾸미기 개선
 project: memory-island
 tags: memory-island, Android, 사진정리
 status: 다듬는 중

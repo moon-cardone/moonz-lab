@@ -1,7 +1,7 @@
 ---
 date: 2026-10-01
 date_display: year
-title: 프로젝트가 많아져도 먼저 볼 것은 적게
+title: 대표 작업 3개 우선 배치
 tags: moonz-lab
 status: 정리됨
 ---

@@ -1,7 +1,7 @@
 ---
 date: 2026-10-01
 date_display: year
-title: 성어를 맞힌 다음, 쓰임까지 보도록
+title: 성어 발음·예문 추가
 tags: taiwan-idiom
 status: 정리됨
 ---

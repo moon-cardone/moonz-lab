@@ -1,6 +1,6 @@
 ---
 date: 2026-10-04
-title: 시험 서버를 넘어 실제 공유 서버를 연결했습니다
+title: 공유 서버 배포·화면 간격 축소
 project: todogether
 tags: todogether, Android, 공유
 status: 다듬는 중

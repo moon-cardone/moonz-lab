@@ -1,6 +1,6 @@
 ---
 date: 2026-10-05
-title: 사건의 분위기는 그림으로, 정답의 근거는 글로
+title: 사건별 배경 그림 추가
 project: chatroom-detective
 tags: chatroom-detective, 앱인토스, 화면개선
 status: 다듬는 중

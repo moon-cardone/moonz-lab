@@ -1,7 +1,7 @@
 ---
 date: 2026-10-01
 date_display: year
-title: 퍼즐이 생긴 것과 풀 수 있는 것은 달랐습니다
+title: 퍼즐 정답 유일성 검사
 tags: word-field
 status: 정리됨
 ---

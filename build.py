@@ -329,6 +329,7 @@ a.card:hover{box-shadow:inset 0 0 0 1px #35584d60}
 .log-date{color:#566d60;font-size:.75rem;font-variant-numeric:tabular-nums;flex-basis:100%}
 .log h3{font-size:1rem;line-height:1.5;letter-spacing:-.02em;margin:0;font-weight:650}
 .log h3 a{text-decoration:none}.log h3 a:hover{text-decoration:underline}
+.log-project{display:inline-block;max-width:100%;margin-right:.45rem;font-size:.75rem;font-weight:500;color:#566d60}
 .log-body{margin-top:.6rem;color:#40574b;font-size:.9rem;line-height:1.8}
 .log-body p{margin:.6rem 0 0}.log-body p:first-child{margin-top:0}
 .log-body ul{padding-left:1.2rem}.log-body li{margin:.25rem 0}
@@ -402,7 +403,7 @@ def card_html(c, base=""):
     )
 
 
-def log_html(e, show_tags=True, href="", compact=False):
+def log_html(e, show_tags=True, href="", compact=False, project_name=""):
     badge = (
         f'<span class="badge {state_class(e["state"])}">{html.escape(e["state"])}</span>'
         if e["state"]
@@ -418,6 +419,8 @@ def log_html(e, show_tags=True, href="", compact=False):
     content = e["body"].split("\n", 1)[0] if compact else e["body"]
     body = f'<div class="log-body">{content}</div>' if content else ""
     title = html.escape(e["title"])
+    if project_name:
+        title = f'<span class="log-project">{html.escape(project_name)} <span aria-hidden="true">·</span></span>{title}'
     if href:
         title = f'<a href="{html.escape(href, quote=True)}">{title}</a>'
     date_label = (
@@ -478,8 +481,8 @@ def render(logs, projects, about):
     links = {}
     for project in projects:
         for entry in logs_for(project, logs):
-            links.setdefault(entry["file"], f'project/{project["slug"]}.html')
-    entries = "".join(log_html(entry, href=links.get(entry["file"], ""), compact=True) for entry in logs) or "<p>아직 없습니다.</p>"
+            links.setdefault(entry["file"], {"href": f'project/{project["slug"]}.html', "project_name": project["name"]})
+    entries = "".join(log_html(entry, compact=True, **links.get(entry["file"], {})) for entry in logs) or "<p>아직 없습니다.</p>"
     body = f"""<header class="hero">
 <p class="eyebrow">카르돈의 작은 작업실</p>
 <h1>반복되는 일은 덜고,<span>남기고 싶은 순간은 담습니다.</span></h1>

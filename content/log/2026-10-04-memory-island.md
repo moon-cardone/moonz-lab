@@ -1,6 +1,6 @@
 ---
 date: 2026-10-04
-title: 사진을 지우는 양보다 살펴보는 과정에 보상을
+title: 사진 정리·방 꾸미기 구현
 project: memory-island
 tags: memory-island, Android, 사진정리
 status: 다듬는 중

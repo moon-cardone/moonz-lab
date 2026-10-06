@@ -1,6 +1,6 @@
 ---
 date: 2026-10-02
-title: 학습 화면을 서버 없이 여는 HTML로 묶었습니다
+title: 오프라인 학습 HTML 제작
 project: tesat-mate
 tags: tesat-mate, 오프라인, HTML
 status: 정리됨

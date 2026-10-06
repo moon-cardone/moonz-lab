@@ -1,7 +1,7 @@
 ---
 date: 2026-10-01
 date_display: year
-title: 글쓰기는 같아도, 편집기는 달랐습니다
+title: 채널별 편집 흐름 분리
 tags: blog-auto
 status: 정리됨
 ---

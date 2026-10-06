@@ -1,7 +1,7 @@
 ---
 date: 2026-10-01
 date_display: year
-title: 남긴 문장을 다시 찾는 독서 기록
+title: 독서 기록 검색·내보내기 구현
 tags: reading-diary
 status: 정리됨
 ---

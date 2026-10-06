@@ -1,7 +1,7 @@
 ---
 date: 2026-10-01
 date_display: year
-title: 문제 풀이 뒤에 오답 복습을 붙였습니다
+title: 오답 복습·백업 구현
 tags: tesat-mate
 status: 정리됨
 ---

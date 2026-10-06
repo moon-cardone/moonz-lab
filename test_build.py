@@ -320,9 +320,29 @@ def test_home_log_is_short_and_links_to_full_record():
     logs, _ = build.load_logs()
     home = build.render(logs, projects, "")
     detail = build.render_project(projects[0], logs)
-    assert '<a href="project/app.html">고친 내용</a>' in home
+    assert '<a href="project/app.html"><span class="log-project">app <span aria-hidden="true">·</span></span>고친 내용</a>' in home
     assert "첫 문단" in home and "자세한 기록" not in home
     assert "첫 문단" in detail and "자세한 기록" in detail
+    assert '<span class="log-project">' not in detail
+    shutil.rmtree(tmp)
+
+
+def test_home_log_project_label_uses_current_name_and_matching():
+    tmp = with_content({
+        "projects/tool.md": "---\nname: 쓰레드 & <도구>\nslug: tool\naliases: 옛 이름\n---\n",
+        "log/direct.md": "---\ndate: 2026-10-05\ntitle: 직접 연결\nproject: tool\n---\n한 줄",
+        "log/alias.md": "---\ndate: 2026-10-04\ntitle: 예전 태그\ntags: 옛 이름\n---\n한 줄",
+        "log/orphan.md": "---\ndate: 2026-10-03\ntitle: 연결 없음\n---\n한 줄",
+    })
+    projects, _ = build.load_projects()
+    logs, _ = build.load_logs()
+    home = build.render(logs, projects, "")
+    label = '<span class="log-project">쓰레드 &amp; &lt;도구&gt; <span aria-hidden="true">·</span></span>'
+    assert home.count(label) == 2
+    assert f'<a href="project/tool.html">{label}직접 연결</a>' in home
+    assert f'<a href="project/tool.html">{label}예전 태그</a>' in home
+    assert '<h3>연결 없음</h3>' in home
+    assert '<span class="log-project">' not in build.render_project(projects[0], build.logs_for(projects[0], logs))
     shutil.rmtree(tmp)
 
 

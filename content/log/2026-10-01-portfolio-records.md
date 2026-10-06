@@ -1,7 +1,7 @@
 ---
 date: 2026-10-01
 date_display: year
-title: 공부 메모와 프로젝트 기록을 나눴습니다
+title: 프로젝트 기록 중심으로 정리
 tags: moonz-lab
 status: 정리됨
 ---

@@ -1,7 +1,7 @@
 ---
 date: 2026-10-01
 date_display: year
-title: 원고를 고치면 카드와 영상도 다시 나오도록
+title: 원고로 카드·영상 생성
 tags: sheet-content
 status: 정리됨
 ---

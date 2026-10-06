@@ -1,7 +1,7 @@
 ---
 date: 2026-10-01
 date_display: year
-title: 입력할 글자와 배울 표기를 나눴습니다
+title: 일본어 입력·복습 표기 분리
 tags: haru-japanese-crossword
 status: 정리됨
 ---

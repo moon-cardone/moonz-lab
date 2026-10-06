@@ -1,7 +1,7 @@
 ---
 date: 2026-10-01
 date_display: year
-title: 정답을 맞힌 뒤에도 읽어볼 수 있게
+title: 정답 뒤 병음 표시
 tags: haru-chinese-crossword
 status: 정리됨
 ---
