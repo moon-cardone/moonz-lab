@@ -127,7 +127,9 @@ footer a{text-decoration:none;font-weight:700;font-size:.9rem}
 <span class="badge wip">만드는 중</span><h1>플레이리스트 제작기</h1>
 <p class="tagline">음원과 배경을 합쳐 만드는 음악 영상</p><ul class="tools"><li>Python</li><li>FFmpeg</li></ul>
 </header>
-<main id="main" class="project-main"><section><h2>작업 일지</h2><article class="log"><div class="log-head"><time class="log-date" datetime="2026-10-20">2026.10.20</time><h3>음원 수집과 영상 합성</h3><span class="badge shaping">다듬는 중</span></div><div class="log-body"><p>음원을 찾아 저장하고 곡 순서와 출처를 옮기는 일을 줄이려고, 수집부터 영상 합성까지 잇는 도구를 만들었습니다. 배경 이미지와 음악으로 영상을 만들고, 곡별 시작 시각과 출처를 담은 설명문도 함께 저장합니다.</p>
+<main id="main" class="project-main"><section><h2>작업 일지</h2><article class="log"><div class="log-head"><time class="log-date" datetime="2026-10-22">2026.10.22</time><h3>곡별 챕터 추가</h3><span class="badge shaping">다듬는 중</span></div><div class="log-body"><p>곡을 찾기 쉽게 이번 플레이리스트의 영상 파일에 곡별 챕터를 넣었습니다. 곡을 겹쳐 연결한 뒤의 시작 시각을 기준으로 설명문의 시간표도 함께 만듭니다.</p>
+<p>이번 예제용 재제작 스크립트는 원본 음원의 체크섬을 확인하고, 변환한 음원의 길이로 시간표를 계산합니다. 합성 후 영상·음성 트랙, 전체 길이와 챕터 수를 검사한 뒤 최종 파일로 저장하도록 했습니다.</p>
+<p>Linux에서 재즈 다섯 곡으로 약 19분 35초짜리 1080p 파일을 만들고, 챕터 다섯 개와 음량 검사 결과를 확인했습니다. 음악은 Kevin MacLeod의 기존 곡이며 작곡가·출처·이용 조건은 설명문에 남겼습니다. Windows 실행, 플레이어별 챕터 이동, 전체 구간 청취와 유튜브 업로드는 확인하지 않았습니다.</p></div></article><article class="log"><div class="log-head"><time class="log-date" datetime="2026-10-20">2026.10.20</time><h3>음원 수집과 영상 합성</h3><span class="badge shaping">다듬는 중</span></div><div class="log-body"><p>음원을 찾아 저장하고 곡 순서와 출처를 옮기는 일을 줄이려고, 수집부터 영상 합성까지 잇는 도구를 만들었습니다. 배경 이미지와 음악으로 영상을 만들고, 곡별 시작 시각과 출처를 담은 설명문도 함께 저장합니다.</p>
 <p>Wikimedia Commons의 공개 목록에서 곡을 고르고 배포 정보와 파일 크기·체크섬을 대조합니다. 이미 받은 음원은 다시 내려받지 않으며, 동봉 음원으로는 인터넷 연결 없이 프로젝트를 만들 수 있습니다. 곡별 음량 조정과 곡 사이 크로스페이드는 FFmpeg로 처리합니다.</p>
 <p>Linux에서 재즈 세 곡으로 약 13분 15초짜리 1080p 영상을 출력했습니다. 다운로드 실패 시 기존 파일 보존 등 단위 검사 네 개와 네트워크를 막은 프로젝트 생성 검사도 통과했습니다. Windows 실행과 전체 구간 청취는 아직 확인하지 않았습니다.</p>
 <p>예제 음악은 Kevin MacLeod의 기존 곡입니다. 직접 만든 부분은 음원 수집·파일 검증·영상 합성 도구이며, 음악을 작곡한 것은 아닙니다. 작곡가와 배포처·이용 조건을 설명문에 남기고, 실제 게시 전에는 곡별 조건을 다시 확인하도록 했습니다. 유튜브 업로드는 자동화하지 않았습니다.</p></div></article></section></main>
